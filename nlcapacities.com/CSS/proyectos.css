@@ -1,0 +1,1446 @@
+/*
+PALETA:
+Azul oscuro: #0069c0
+Azul medio: #137fd9
+Azul claro: #2196f3
+Azul NUESTRO: #4fa1ca
+Naranja oscuro: #e9791a
+Naranja claro: #ff9a3e
+
+*/
+
+*{
+  padding: 0;
+  margin: 0;
+}
+body{
+  min-height: 100vh;/*100vh*/
+  max-height: 3000px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+
+.enlaceprin{
+  /*Azul clarito
+  background-color: #4fa1ca;*/
+  font-family: 'Roboto Slab', serif;
+  color: black;
+  font-size: 25px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /*transition: 0.5s ease;*/
+}
+.enlaceprin span{
+  margin-left: 10px;
+}
+
+.enlaces{
+  font-family: 'Roboto Slab', serif;
+  color: white;
+  font-size: 25px;
+  width: 100%;
+  height: 100%;
+  transition: 0.5s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.enlaces:hover{
+  /*background-color: #026bb6;*/
+  color: black;
+  transform: scale(1.05);
+}
+.enlaces span{
+  margin-left: 10px;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+a:hover{
+  color: white;
+}
+
+.titulo span{
+  text-align: center;
+  font-size: 40px;
+  font-style: italic;
+  font-family: 'Lobster', cursive;
+  color: white;
+}
+
+nav{
+  box-shadow: 5px 5px 5px 5px #888888;
+}
+
+.nav-link{
+  color:white;
+  font-size: 25px;
+  margin: 0px 20px 0px 20px;
+
+}
+.nav-link:hover{
+  color: black;
+}
+.navbar-toggler{
+  border-color: #4fa1ca;
+}
+.navbar-toggler-icon{
+  background-image: url("../img/icons/icons8-menu.svg");
+}
+/*CUERPO*/
+
+.cuerpo_page{
+  /*border:2px solid red;*/
+  margin-top: 150px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.containerPro{
+  /*border: 2px solid blue;*/
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  flex-direction: column;
+}
+
+.seccionProyectos{
+  /*border: 2px solid blue;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 90%;
+  height: 100%;
+}
+
+.tarjetaProVit{
+  background-image: url("../img/ordena.jpg");
+  background-position: center;
+  height: 300px;
+  transition: all 200ms linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 50px;
+  font-family: 'Lobster', cursive;
+  font-style: oblique;
+  width: 35%;
+  border-radius: 10px;
+}
+
+.tarjetaProNLCAST{
+  background-image: url("../img/pod.jpg");
+  background-position: center;
+  height: 300px;
+  transition: all 200ms linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 50px;
+  font-family: 'Lobster', cursive;
+  font-style: oblique;
+  width: 35%;
+  border-radius: 10px;
+}
+
+.tarjetaProVit:hover{
+  background-image: url("../img/ordena_desen.jpg");
+}
+.tarjetaProNLCAST:hover{
+  background-image: url("../img/pod_desen.jpg");
+}
+.textos_Proyectos{
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  background-color: #293133;
+  width: 100%;
+
+}
+.fotos_VIT{
+  /*border:2px solid green;*/
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.cont-NLCast{
+  display: flex;
+  flex-direction: column;
+  /*border:2px solid green;*/
+  width: 100%;
+  justify-content: center;
+
+}
+
+.cont-img-NLCast{
+  /*border:2px solid yellow;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 0px 10px 0px;
+}
+.img-NLCast{
+  width: 20%;
+  border-radius: 15px;
+
+}
+
+.columna{
+  /*border:2px solid red;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 40%;
+  align-items: center;
+
+}
+.columna img{
+  width: 70%;
+  height: 100%;
+  transition: all 1s ease;
+  box-shadow: 3px 2px 3px 3px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  margin-top: 25px;
+
+}
+
+.cont-img-sistema{
+  /*border: 2px solid green;*/
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #293133;
+}
+
+.img-sistema{
+  width: 50%;
+  height: 90%;
+  border-radius: 15px;
+  box-shadow: 3px 2px 3px 3px rgba(0, 0, 0, 0.5);
+}
+.card-texto-VIT{
+  /*border: 2px solid green;*/
+  padding: 5px 10px 5px 10px;
+  width: 60%;
+}
+
+.card-texto-NLCast{
+  /*border: 2px solid green;*/
+  padding: 5px 10px 5px 10px;
+  width: 100%;
+}
+.imgs-episodios{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /*border: 2px solid green;*/
+  padding: 20px 20px 20px 20px;
+}
+
+.img-ep{
+  width: 49%;
+  border-radius: 15px;
+}
+.cont-enlaces{
+  display: flex;
+  flex-direction: row;
+  padding: 20px 20px 20px 20px;
+  justify-content: space-between;
+}
+.enlace-i{
+  width: 49%;
+  height: 400px;
+  border-radius: 15px;
+}
+
+h1{
+  font-family: 'Lobster', cursive;
+  font-size: 100px;
+  color: #293133;
+  text-decoration: underline;
+  margin:100px 0px 100px 0px;
+}
+p{
+  font-size: 28px;
+  padding: 0px 10px 0px 10px;
+  text-align: justify;
+  color: white;
+  font-family: 'Roboto Slab', serif;
+}
+.negrita{
+  font-family: 'Roboto Slab', serif;
+  font-weight: bold;
+  color: white;
+  text-decoration: underline;
+
+}
+
+/* FOOTER */
+
+.footing{
+  background-color: white;
+  width: 100%;
+  bottom:0;
+  box-shadow: 5px 10px 8px 15px #888888;
+
+}
+.footing-row{
+  display: flex;
+  flex-wrap: wrap;
+}
+.footing-container{
+  width: 100%;
+  margin: auto;
+}
+
+.footing-col{
+display: flex;
+justify-content: center;
+align-items: center;
+width: 50%;
+}
+.footing-col img{
+  border-radius: 10px;
+}
+.footing-col-links{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+.footing-col-links h4{
+  font-size: 18px;
+  color: #0069c0;
+  text-transform: capitalize;
+  margin: 10px 0 30px 0;
+  font-weight: 500;
+  position: relative;
+  font-family: 'Lobster', cursive;
+}
+/*Linea de debajo del follow us*/
+.footing-col-links h4::before{
+  content: '';
+  position:absolute;
+  left: 0;
+  bottom: -10px;
+  background-color: #0069c0;
+  height: 2px;
+  box-sizing: border-box;
+  width: 50px;
+}
+
+.footing-col-links .enlaces_redes a{
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  background-color: #4fa1ca;
+  margin:0  15px 15px 0;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  color: white;
+  transition: all 0.5s ease;
+}
+
+.footing-col-links .enlaces_redes a:hover{
+  transform: scale(1.5);
+  color: #293133;
+}
+
+
+/* MEDIA QUERYS MEDIA IPHONE X*/
+@media (min-width: 375px) and (max-width: 390px) {
+  .seccionProyectos{
+    /*border: 2px solid blue;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 90%;
+
+  }
+  .tarjetaProVit{
+    background-image: url("../img/ordena.jpg");
+    background-position: center;
+    height: 250px;
+    transition: all 200ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    font-family: 'Lobster', cursive;
+    font-style: oblique;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  h1{
+    font-family: 'Lobster', cursive;
+    font-size: 50px;
+    color: #293133;
+    text-decoration: underline;
+    margin:100px 0px 100px 0px;
+  }
+
+  .tarjetaProNLCAST{
+    background-image: url("../img/pod.jpg");
+    background-position: center;
+    height: 250px;
+    transition: all 200ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    font-family: 'Lobster', cursive;
+    font-style: oblique;
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 15px;
+  }
+  .textos_Proyectos{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #293133;
+    width: 100%;
+
+  }
+  .fotos_VIT{
+    /*border:2px solid green;*/
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .columna{
+    /*border:2px solid red;*/
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+
+  }
+  .columna img{
+    width: 90%;
+  }
+  .card-texto-VIT{
+    width: 100%;
+  }
+  p{
+    text-align: center;
+    font-size: 20px;
+  }
+  p b{
+    font-style: italic;
+  }
+
+  .img-sistema{
+    width: 90%;
+  }
+  .img-NLCast{
+    width: 90%;
+  }
+  .imgs-episodios{
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .img-ep{
+    width: 90%;
+    height: 49%;
+  }
+
+  .cont-enlaces{
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .enlace-i{
+    width: 90%;
+    height: 300px;
+    border-radius: 15px;
+  }
+
+  .footing{
+    background-color: white;
+    width: 100%;
+    bottom:0;
+    box-shadow: 5px 10px 8px 15px #888888;
+
+  }
+  .footing-row{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .footing-container{
+    width: 100%;
+    margin: auto;
+  }
+
+  .footing-col{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  }
+  .footing-col img{
+    border-radius: 10px;
+  }
+  .footing-col-links{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  }
+  .footing-col-links h4{
+    font-size: 18px;
+    color: #0069c0;
+    text-transform: capitalize;
+    margin: 10px 0 30px 0;
+    font-weight: 500;
+    position: relative;
+    font-family: 'Lobster', cursive;
+  }
+  /*Linea de debajo del follow us*/
+  .footing-col-links h4::before{
+    content: '';
+    position:absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #0069c0;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+  }
+
+  .footing-col-links .enlaces_redes a{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: #4fa1ca;
+    margin:0  15px 15px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: white;
+    transition: all 0.5s ease;
+  }
+
+  .footing-col-links .enlaces_redes a:hover{
+    transform: scale(1.5);
+    color: #293133;
+  }
+
+}
+
+/*MEDIA QUERYS PARA IPHONE 12 PRO*/
+@media (min-width: 390px) and (max-width: 414px) {
+
+  .seccionProyectos{
+    /*border: 2px solid blue;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 90%;
+  }
+  .tarjetaProVit{
+    background-image: url("../img/ordena.jpg");
+    background-position: center;
+    height: 250px;
+    transition: all 200ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    font-family: 'Lobster', cursive;
+    font-style: oblique;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  h1{
+    font-family: 'Lobster', cursive;
+    font-size: 50px;
+    color: #293133;
+    text-decoration: underline;
+    margin:100px 0px 100px 0px;
+  }
+
+  .tarjetaProNLCAST{
+    background-image: url("../img/pod.jpg");
+    background-position: center;
+    height: 250px;
+    transition: all 200ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    font-family: 'Lobster', cursive;
+    font-style: oblique;
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 15px;
+  }
+  .textos_Proyectos{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #293133;
+    width: 100%;
+
+  }
+  .fotos_VIT{
+    /*border:2px solid green;*/
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .columna{
+    /*border:2px solid red;*/
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+
+  }
+  .columna img{
+    width: 90%;
+  }
+  .card-texto-VIT{
+    width: 100%;
+  }
+  p{
+    text-align: center;
+    font-size: 20px;
+  }
+  p b{
+    font-style: italic;
+  }
+
+  .img-sistema{
+    width: 90%;
+  }
+  .img-NLCast{
+    width: 90%;
+  }
+  .imgs-episodios{
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .img-ep{
+    width: 90%;
+    height: 49%;
+  }
+
+  .cont-enlaces{
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .enlace-i{
+    width: 90%;
+    height: 300px;
+    border-radius: 15px;
+  }
+
+  .footing{
+    background-color: white;
+    width: 100%;
+    bottom:0;
+    box-shadow: 5px 10px 8px 15px #888888;
+
+  }
+  .footing-row{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .footing-container{
+    width: 100%;
+    margin: auto;
+  }
+
+  .footing-col{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  }
+  .footing-col img{
+    border-radius: 10px;
+  }
+  .footing-col-links{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  }
+  .footing-col-links h4{
+    font-size: 18px;
+    color: #0069c0;
+    text-transform: capitalize;
+    margin: 10px 0 30px 0;
+    font-weight: 500;
+    position: relative;
+    font-family: 'Lobster', cursive;
+  }
+  /*Linea de debajo del follow us*/
+  .footing-col-links h4::before{
+    content: '';
+    position:absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #0069c0;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+  }
+
+  .footing-col-links .enlaces_redes a{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: #4fa1ca;
+    margin:0  15px 15px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: white;
+    transition: all 0.5s ease;
+  }
+
+  .footing-col-links .enlaces_redes a:hover{
+    transform: scale(1.5);
+    color: #293133;
+  }
+}
+
+/*MEDIA QUERYS PARA IPHONE 6, 7, 8 plus*/
+@media (min-width: 414px) and (max-width: 768px) {
+
+  .seccionProyectos{
+    /*border: 2px solid blue;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 90%;
+  }
+  .tarjetaProVit{
+    background-image: url("../img/ordena.jpg");
+    background-position: center;
+    height: 250px;
+    transition: all 200ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    font-family: 'Lobster', cursive;
+    font-style: oblique;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  h1{
+    font-family: 'Lobster', cursive;
+    font-size: 50px;
+    color: #293133;
+    text-decoration: underline;
+    margin:100px 0px 100px 0px;
+  }
+
+  .tarjetaProNLCAST{
+    background-image: url("../img/pod.jpg");
+    background-position: center;
+    height: 250px;
+    transition: all 200ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    font-family: 'Lobster', cursive;
+    font-style: oblique;
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 15px;
+  }
+  .textos_Proyectos{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #293133;
+    width: 100%;
+
+  }
+  .fotos_VIT{
+    /*border:2px solid green;*/
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .columna{
+    /*border:2px solid red;*/
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+
+  }
+  .columna img{
+    width: 90%;
+  }
+  .card-texto-VIT{
+    width: 100%;
+  }
+  p{
+    text-align: center;
+    font-size: 20px;
+  }
+  p b{
+    font-style: italic;
+  }
+
+  .img-sistema{
+    width: 90%;
+  }
+  .img-NLCast{
+    width: 90%;
+  }
+  .imgs-episodios{
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .img-ep{
+    width: 90%;
+    height: 49%;
+  }
+
+  .cont-enlaces{
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .enlace-i{
+    width: 90%;
+    height: 300px;
+    border-radius: 15px;
+  }
+
+  .footing{
+    background-color: white;
+    width: 100%;
+    bottom:0;
+    box-shadow: 5px 10px 8px 15px #888888;
+
+  }
+  .footing-row{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .footing-container{
+    width: 100%;
+    margin: auto;
+  }
+
+  .footing-col{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  }
+  .footing-col img{
+    border-radius: 10px;
+  }
+  .footing-col-links{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  }
+  .footing-col-links h4{
+    font-size: 18px;
+    color: #0069c0;
+    text-transform: capitalize;
+    margin: 10px 0 30px 0;
+    font-weight: 500;
+    position: relative;
+    font-family: 'Lobster', cursive;
+  }
+  /*Linea de debajo del follow us*/
+  .footing-col-links h4::before{
+    content: '';
+    position:absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #0069c0;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+  }
+
+  .footing-col-links .enlaces_redes a{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: #4fa1ca;
+    margin:0  15px 15px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: white;
+    transition: all 0.5s ease;
+  }
+
+  .footing-col-links .enlaces_redes a:hover{
+    transform: scale(1.5);
+    color: #293133;
+  }
+
+}
+
+/*MEDIA QUERYS IPAD*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .seccionProyectos{
+    /*border: 2px solid blue;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  .tarjetaProVit{
+    background-image: url("../img/ordena.jpg");
+    background-position: center;
+    background-size: cover;
+    transition: all 200ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    font-family: 'Lobster', cursive;
+    font-style: oblique;
+    width: 80%;
+    height: 350px;
+    border-radius: 10px;
+  }
+
+  h1{
+    font-family: 'Lobster', cursive;
+    font-size: 50px;
+    color: #293133;
+    text-decoration: underline;
+    margin:100px 0px 100px 0px;
+  }
+
+  .tarjetaProNLCAST{
+    background-image: url("../img/pod.jpg");
+    background-position: center;
+    background-size: cover;
+    transition: all 200ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    font-family: 'Lobster', cursive;
+    font-style: oblique;
+    width: 80%;
+    height: 350px;
+    border-radius: 10px;
+  }
+  .textos_Proyectos{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #293133;
+    width: 100%;
+
+  }
+  .fotos_VIT{
+    /*border:2px solid green;*/
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .columna{
+    /*border:2px solid red;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+  }
+  .columna img{
+    width: 40%;
+    transition: all 1s ease;
+    box-shadow: 3px 2px 3px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+
+  }
+  .card-texto-VIT{
+    width: 100%;
+  }
+  p{
+    text-align: center;
+    font-size: 20px;
+  }
+  p b{
+    font-style: italic;
+  }
+
+  .img-sistema{
+    width: 90%;
+  }
+  .img-NLCast{
+    width: 90%;
+  }
+  .imgs-episodios{
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .img-ep{
+    width: 90%;
+    height: 49%;
+  }
+
+  .cont-enlaces{
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .enlace-i{
+    width: 90%;
+    height: 300px;
+    border-radius: 15px;
+  }
+
+  .footing{
+    background-color: white;
+    width: 100%;
+    bottom:0;
+    box-shadow: 5px 10px 8px 15px #888888;
+
+  }
+  .footing-row{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .footing-container{
+    width: 100%;
+    margin: auto;
+  }
+
+  .footing-col{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  }
+  .footing-col img{
+    border-radius: 10px;
+  }
+  .footing-col-links{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  }
+  .footing-col-links h4{
+    font-size: 18px;
+    color: #0069c0;
+    text-transform: capitalize;
+    margin: 10px 0 30px 0;
+    font-weight: 500;
+    position: relative;
+    font-family: 'Lobster', cursive;
+  }
+  /*Linea de debajo del follow us*/
+  .footing-col-links h4::before{
+    content: '';
+    position:absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #0069c0;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+  }
+
+  .footing-col-links .enlaces_redes a{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: #4fa1ca;
+    margin:0  15px 15px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: white;
+    transition: all 0.5s ease;
+  }
+
+  .footing-col-links .enlaces_redes a:hover{
+    transform: scale(1.5);
+    color: #293133;
+  }
+}
+
+/* MEDIA QUERY IPAD PRO*/
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .seccionProyectos{
+    /*border: 2px solid blue;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  .tarjetaProVit{
+    background-image: url("../img/ordena.jpg");
+    background-position: center;
+    background-size: cover;
+    transition: all 200ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    font-family: 'Lobster', cursive;
+    font-style: oblique;
+    width: 80%;
+    height: 350px;
+    border-radius: 10px;
+  }
+
+  h1{
+    font-family: 'Lobster', cursive;
+    font-size: 50px;
+    color: #293133;
+    text-decoration: underline;
+    margin:100px 0px 100px 0px;
+  }
+
+  .tarjetaProNLCAST{
+    background-image: url("../img/pod.jpg");
+    background-position: center;
+    background-size: cover;
+    transition: all 200ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    font-family: 'Lobster', cursive;
+    font-style: oblique;
+    width: 80%;
+    height: 350px;
+    border-radius: 10px;
+  }
+  .textos_Proyectos{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #293133;
+    width: 100%;
+
+  }
+  .fotos_VIT{
+    /*border:2px solid green;*/
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .columna{
+    /*border:2px solid red;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+  }
+  .columna img{
+    width: 40%;
+    transition: all 1s ease;
+    box-shadow: 3px 2px 3px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+
+  }
+  .card-texto-VIT{
+    width: 100%;
+  }
+  p{
+    text-align: center;
+    font-size: 20px;
+  }
+  p b{
+    font-style: italic;
+  }
+
+  .img-sistema{
+    width: 90%;
+  }
+  .img-NLCast{
+    width: 90%;
+  }
+  .imgs-episodios{
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .img-ep{
+    width: 90%;
+    height: 49%;
+  }
+
+  .cont-enlaces{
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .enlace-i{
+    width: 90%;
+    height: 300px;
+    border-radius: 15px;
+  }
+
+  .footing{
+    background-color: white;
+    width: 100%;
+    bottom:0;
+    box-shadow: 5px 10px 8px 15px #888888;
+
+  }
+  .footing-row{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .footing-container{
+    width: 100%;
+    margin: auto;
+  }
+
+  .footing-col{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  }
+  .footing-col img{
+    border-radius: 10px;
+  }
+  .footing-col-links{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  }
+  .footing-col-links h4{
+    font-size: 18px;
+    color: #0069c0;
+    text-transform: capitalize;
+    margin: 10px 0 30px 0;
+    font-weight: 500;
+    position: relative;
+    font-family: 'Lobster', cursive;
+  }
+  /*Linea de debajo del follow us*/
+  .footing-col-links h4::before{
+    content: '';
+    position:absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #0069c0;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+  }
+
+  .footing-col-links .enlaces_redes a{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: #4fa1ca;
+    margin:0  15px 15px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: white;
+    transition: all 0.5s ease;
+  }
+
+  .footing-col-links .enlaces_redes a:hover{
+    transform: scale(1.5);
+    color: #293133;
+  }
+}
+
+
+/* MEDIA QUERY DE PANTALLA PORTATIL COMUN*/
+@media (min-width: 1440px) and (max-width: 1920px){
+  .titulo h1{
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-size: 50px;
+    font-style: italic;
+    /* para ponerle bordes al texto */
+    -webkit-text-stroke: 2px #C80F2E;
+    font-weight: bold;
+    color: transparent;
+  }
+  /*css carrusel*/
+
+  #carrusel-principal{
+    width: 90%;
+    margin: auto;
+    /*overflow: hidden;*/
+    box-shadow: 0 15px 50px;
+  }
+
+  #sliderSection{
+    width: 100%;
+  }
+  #slider_img{
+    width: 100%;
+    height: 100%;
+  }
+
+  #slider_btn{
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 10%;
+    text-align: center;
+  }
+  .texto-carrusel{
+    width: 280px;
+    font-weight: bold;
+    font-style: italic;
+    margin: auto;
+    background-color: white;
+    color: black;
+  }
+  /*DESCRIPCION JUGADORES*/
+
+  .contenedor_descrip{
+    margin:50px 0 0 0;
+
+  }
+  .contenedor_jugador{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin:auto;
+    width: 90%;
+    padding: 5px;
+  }
+  .names{
+    font-style: italic;
+    text-decoration: underline;
+  }
+  .texto_descrip{
+    width: 70%;
+    text-align: justify;
+    padding: 0 0 0 10px;
+    font-size: 21px;
+    font-weight: bold;
+  }
+  /* FOOTER */
+
+  .footer{
+    background-color: #003366;
+    width: 100%;
+    bottom:0;
+  }
+  .foot-row{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .foot-container{
+    width: 100%;
+    margin: auto;
+  }
+
+  .footer-col{
+    width: 50%;
+    padding-left: 250px;
+
+  }
+  .footer-col h4{
+    font-size: 18px;
+    color: white;
+    text-transform: capitalize;
+    margin: 25px 0 30px 0;
+    font-weight: 500;
+    position: relative;
+  }
+  /*Linea de debajo del follow us*/
+  .footer-col h4::before{
+    content: '';
+    position:absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #C80F2E;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+  }
+
+  .footer-col .social-links a{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: #026bb6;
+    margin:0  15px 15px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: white;
+    transition: all 0.5s ease;
+  }
+
+  .footer-col .social-links a:hover{
+    transform: scale(1.5);
+    color: #C80F2E;
+  }
+}
