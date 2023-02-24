@@ -5,15 +5,17 @@ public class User {
     private String apellido;
     private String password;
     private String Email;
+    private int ID;
 
     public User() {
     }
 
-    public User(String name, String apellido, String password, String email) {
+    public User(String name, String apellido, String password, String email, int ID) {
         this.name = name;
         this.apellido = apellido;
         this.password = password;
-        Email = email;
+        this.Email = email;
+        this.ID = ID;
     }
 
     public String getName() {
@@ -46,5 +48,13 @@ public class User {
 
     public void setEmail(String email) {
         Email = email;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 }
