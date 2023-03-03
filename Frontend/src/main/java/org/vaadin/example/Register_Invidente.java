@@ -24,7 +24,7 @@ public class Register_Invidente extends VerticalLayout {
 
         // Agregar componentes al layout vertical
         add(title, usernameField, emailField, passwordField, confirmPasswordField, registerButton);
- 
+
         // Configurar layout
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
