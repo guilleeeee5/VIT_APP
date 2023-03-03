@@ -1,49 +1,53 @@
 package org.vaadin.example;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.notification.Notification;
+
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.login.LoginI18n;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
-import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
-import com.vaadin.flow.component.textfield.PasswordField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 
-@Route("login")
-public class LoginView extends FormLayout {
+@Route("login-basic")
+@Theme(value = Lumo.class, variant = Lumo.DARK)
+public class LoginView extends Div{
 
-    private TextField username;
-    private PasswordField password;
+    public void LoginBasic() {
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        HorizontalLayout horizontalLayout1 = new HorizontalLayout();
+        LoginI18n i18n = LoginI18n.createDefault();
 
-    public LoginView() {
-        // Crear campos de texto para usuario y contraseña
+        LoginI18n.Form i18nForm = i18n.getForm();
+        i18nForm.setTitle("Inicio de Sesión");
+        i18nForm.setUsername("Email");
+        i18nForm.setPassword("Contraseña");
+        i18nForm.setSubmit("Iniciar Sesión");
+        i18nForm.setForgotPassword("Regístrate");
+        i18n.setForm(i18nForm);
 
-        username = new TextField("Usuario");
-        password = new PasswordField("Contraseña");
-
-        // Crear botón para iniciar sesión
-        H1 title = new H1("Iniciar sesión");
-        H2 subtitle = new H2("Por favor, ingrese sus credenciales para continuar");
-        Button loginButton = new Button("Iniciar sesión");
-        subtitle.getStyle().set("font-size", "14px");
-        loginButton.addClickListener(event -> {
-            // Verificar si el usuario y contraseña son correctos
-            if (isValidLogin(username.getValue(), password.getValue())) {
-                // Si son correctos, redirigir al usuario a la página de inicio
-                getUI().ifPresent(ui -> ui.navigate("home"));
-            } else {
-                // Si no son correctos, mostrar un mensaje de error
-                Notification.show("Usuario o contraseña incorrectos");
-            }
-        });
         RadioButtonGroup<String> radioGroup = new RadioButtonGroup<>();
-        radioGroup.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);
         radioGroup.setLabel("Tipo de usuario");
         radioGroup.setItems("Invidente", "Jefe de Establecimiento", "Administrador");
+        LoginI18n.ErrorMessage i18nErrorMessage = i18n.getErrorMessage();
+        i18nErrorMessage.setTitle("Error");
+        i18nErrorMessage.setMessage("Error!!.");
+        i18n.setErrorMessage(i18nErrorMessage);
+
+        LoginForm loginForm = new LoginForm();
+        loginForm.setI18n(i18n);
+        loginForm.getElement().setAttribute("no-autofocus", "");
+        // Prevent the example from stealing focus when browsing the documentation
+
+
         // Agregar los componentes al formulario
-        add(title, subtitle, username, password, loginButton, radioGroup);
+        horizontalLayout.add(loginForm);
+        horizontalLayout1.add(radioGroup);
+        horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
+        horizontalLayout1.setAlignSelf(FlexComponent.Alignment.CENTER);
+        add(horizontalLayout, horizontalLayout1);
     }
 
     private boolean isValidLogin(String username, String password) {
