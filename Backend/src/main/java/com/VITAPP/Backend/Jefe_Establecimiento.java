@@ -12,8 +12,8 @@ public class Jefe_Establecimiento extends User{
 
     }
 
-    public Jefe_Establecimiento(String name, String apellido, String password, String email, int ID, String direccion, String ciudad, String codigo_Postal, String CIF, String nombre_establecimiento) {
-        super(name, apellido, password, email, ID);
+    public Jefe_Establecimiento(int ID, String name, String apellido, String password, String email,  String direccion, String ciudad, String codigo_Postal, String CIF, String nombre_establecimiento) {
+        super(ID, name, apellido, password, email);
         this.Direccion = direccion;
         this.Ciudad = ciudad;
         this.Codigo_Postal = codigo_Postal;

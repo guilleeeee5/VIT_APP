@@ -2,8 +2,8 @@ package com.VITAPP.Backend;
 
 public class DataHanding {
     public Discapacitado_VIsual comprobarDisc(String email, String password){
-        Discapacitado_VIsual discapacitadAUX = new Discapacitado_VIsual();
         //Consulta BBDD
+        Discapacitado_VIsual discapacitadAUX = new Discapacitado_VIsual();
         return discapacitadAUX;
     }
     public Jefe_Establecimiento comprobarJefe(String email, String password){
