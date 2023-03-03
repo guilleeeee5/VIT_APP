@@ -63,7 +63,7 @@ public class LoginView extends Div{
     }
 
     private boolean isValidLogin(String mail, String password, String tipo) {
-        boolean result;
+        boolean result = false;
         DataService data = new DataService();
 
         switch (tipo){
@@ -102,6 +102,6 @@ public class LoginView extends Div{
                 }
                 break;
         }
-        return false;
+        return result;
     }
 }
