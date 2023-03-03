@@ -1,49 +1,107 @@
 package org.vaadin.example;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.textfield.PasswordField;
-import com.vaadin.flow.component.textfield.TextField;
+
+import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.login.LoginI18n;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
+import com.vaadin.flow.data.binder.HasItemsAndComponents;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 
-@Route("login")
-public class LoginView extends FormLayout {
+import java.util.EventListener;
 
-    private TextField username;
-    private PasswordField password;
 
-    public LoginView() {
-        // Crear campos de texto para usuario y contraseña
+@Route("login-basic")
+@Theme(value = Lumo.class, variant = Lumo.DARK)
+public class LoginView extends Div{
 
-        username = new TextField("Usuario");
-        password = new PasswordField("Contraseña");
+    public void LoginBasic() {
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        HorizontalLayout horizontalLayout1 = new HorizontalLayout();
+        LoginI18n i18n = LoginI18n.createDefault();
 
-        // Crear botón para iniciar sesión
-        H1 title = new H1("Iniciar sesión");
-        H2 subtitle = new H2("Por favor, ingrese sus credenciales para continuar");
-        Button loginButton = new Button("Iniciar sesión");
-        subtitle.getStyle().set("font-size", "14px");
-        loginButton.addClickListener(event -> {
-            // Verificar si el usuario y contraseña son correctos
-            if (isValidLogin(username.getValue(), password.getValue())) {
-                // Si son correctos, redirigir al usuario a la página de inicio
-                getUI().ifPresent(ui -> ui.navigate("home"));
-            } else {
-                // Si no son correctos, mostrar un mensaje de error
-                Notification.show("Usuario o contraseña incorrectos");
-            }
-        });
+        LoginI18n.Form i18nForm = i18n.getForm();
+        i18nForm.setTitle("Inicio de Sesión");
+        i18nForm.setUsername("Email");
+        i18nForm.setPassword("Contraseña");
+        i18nForm.setSubmit("Iniciar Sesión");
+        i18nForm.setForgotPassword("Regístrate");
+        i18n.setForm(i18nForm);
+
+        RadioButtonGroup<String> radioGroup = new RadioButtonGroup<>();
+        radioGroup.setLabel("Tipo de usuario");
+        radioGroup.setItems("Discapacitado Visual", "Jefe de Establecimiento", "Administrador");
+        LoginI18n.ErrorMessage i18nErrorMessage = i18n.getErrorMessage();
+        i18nErrorMessage.setTitle("Error");
+        i18nErrorMessage.setMessage("Error!!.");
+        i18n.setErrorMessage(i18nErrorMessage);
+
+        LoginForm loginForm = new LoginForm();
+        loginForm.setI18n(i18n);
+        loginForm.getElement().setAttribute("no-autofocus", "");
+        // Prevent the example from stealing focus when browsing the documentation
+
 
         // Agregar los componentes al formulario
-        add(title, subtitle, username, password, loginButton);
+        horizontalLayout.add(loginForm);
+        horizontalLayout1.add(radioGroup);
+        horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
+        horizontalLayout1.setAlignSelf(FlexComponent.Alignment.CENTER);
+        add(horizontalLayout, horizontalLayout1);
+        radioGroup.addValueChangeListener(event -> {
+            // Obtener el valor seleccionado
+            String selectedValue = event.getValue();
+            // Hacer algo con el valor seleccionado
+            isValidLogin(i18nForm.getUsername(), i18nForm.getPassword(), selectedValue);
+        });
+
     }
 
-    private boolean isValidLogin(String username, String password) {
-        // Verificar si el usuario y contraseña son correctos en la base de datos
-        // (esto dependerá de cómo esté implementada tu aplicación)
-        return true; // Por ahora siempre retorna true para este ejemplo
+    private boolean isValidLogin(String mail, String password, String tipo) {
+        boolean result;
+        DataService data = new DataService();
+
+        switch (tipo){
+            case "Jefe de Establecimiento":
+                Jefe_Establecimiento jefe = new Jefe_Establecimiento();
+                jefe.setPassword(password);
+                jefe.setEmail(mail);
+                //Peticiones a la BBDD
+                 if (data.comprobarJefeInicio(mail, password) == null){
+                     result = false;
+                 }else {
+                     result = true;
+                 }
+                break;
+            case "Discapacitado Visual":
+                Discapacitado_VIsual discapacitadoVIsual = new Discapacitado_VIsual();
+                discapacitadoVIsual.setPassword(password);
+                discapacitadoVIsual.setEmail(mail);
+                //Peticiones a la BBDD
+                if (data.comprobarDiscInicio(mail, password) == null){
+                    result = false;
+                }else {
+                    result = true;
+                }
+                break;
+
+            case "Administrador":
+                Admin admin = new Admin();
+                admin.setPassword(password);
+                admin.setEmail(mail);
+                //Peticiones a la BBDD
+                if (data.comprobarAdminInicio(mail, password) == null){
+                    result = false;
+                }else {
+                    result = true;
+                }
+                break;
+        }
+        return false;
     }
 }
