@@ -6,7 +6,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout.add;
+//import com.vaadin.flow.component.orderedlayout.VerticalLayout.add;
 
 
 public class Register_Jefe_establecimiento {
@@ -24,12 +24,12 @@ public class Register_Jefe_establecimiento {
         Button registerButton = new Button("Registrarse"); // Usar com.vaadin.flow.component.button.Button
 
         // Agregar componentes al layout vertical
-        add(title, usernameField, emailField, passwordField, confirmPasswordField, registerButton);
+        //add(title, usernameField, emailField, passwordField, confirmPasswordField, registerButton);
 
 
         // Configurar layout
-        setAlignItems(FlexComponent.Alignment.CENTER);
-        setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+        //setAlignItems(FlexComponent.Alignment.CENTER);
+        //setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
 
         // Configurar acciones de los componentes
         registerButton.addClickListener(event -> register());
