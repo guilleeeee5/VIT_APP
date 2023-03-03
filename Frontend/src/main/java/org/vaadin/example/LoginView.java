@@ -1,15 +1,20 @@
 package org.vaadin.example;
 
 
+import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
+import com.vaadin.flow.data.binder.HasItemsAndComponents;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
+
+import java.util.EventListener;
+
 
 @Route("login-basic")
 @Theme(value = Lumo.class, variant = Lumo.DARK)
@@ -30,7 +35,7 @@ public class LoginView extends Div{
 
         RadioButtonGroup<String> radioGroup = new RadioButtonGroup<>();
         radioGroup.setLabel("Tipo de usuario");
-        radioGroup.setItems("Invidente", "Jefe de Establecimiento", "Administrador");
+        radioGroup.setItems("Discapacitado Visual", "Jefe de Establecimiento", "Administrador");
         LoginI18n.ErrorMessage i18nErrorMessage = i18n.getErrorMessage();
         i18nErrorMessage.setTitle("Error");
         i18nErrorMessage.setMessage("Error!!.");
@@ -48,11 +53,41 @@ public class LoginView extends Div{
         horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
         horizontalLayout1.setAlignSelf(FlexComponent.Alignment.CENTER);
         add(horizontalLayout, horizontalLayout1);
+        radioGroup.addValueChangeListener(event -> {
+            // Obtener el valor seleccionado
+            String selectedValue = event.getValue();
+            System.out.println("VALOOOOR" + selectedValue);
+            // Hacer algo con el valor seleccionado
+            isValidLogin(i18nForm.getUsername(), i18nForm.getPassword(), selectedValue);
+        });
+
     }
 
-    private boolean isValidLogin(String username, String password) {
-        // Verificar si el usuario y contraseña son correctos en la base de datos
-        // (esto dependerá de cómo esté implementada tu aplicación)
-        return true; // Por ahora siempre retorna true para este ejemplo
+    private boolean isValidLogin(String mail, String password, String tipo) {
+        switch (tipo){
+            case "Jefe de Establecimiento":
+                Jefe_Establecimiento jefe = new Jefe_Establecimiento();
+                jefe.setPassword(password);
+                jefe.setEmail(mail);
+                //Peticiones a la BBDD
+
+                break;
+            case "Discapacitado Visual":
+                Discapacitado_VIsual discapacitadoVIsual = new Discapacitado_VIsual();
+                discapacitadoVIsual.setPassword(password);
+                discapacitadoVIsual.setEmail(mail);
+                //Peticiones a la BBDD
+
+                break;
+
+            case "Administrador":
+                Admin admin = new Admin();
+                admin.setPassword(password);
+                admin.setEmail(mail);
+                //Peticiones a la BBDD
+
+                break;
+        }
+        return false;
     }
 }
