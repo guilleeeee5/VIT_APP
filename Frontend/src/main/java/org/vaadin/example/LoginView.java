@@ -5,6 +5,8 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
+import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
@@ -36,9 +38,12 @@ public class LoginView extends FormLayout {
                 Notification.show("Usuario o contraseña incorrectos");
             }
         });
-
+        RadioButtonGroup<String> radioGroup = new RadioButtonGroup<>();
+        radioGroup.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);
+        radioGroup.setLabel("Tipo de usuario");
+        radioGroup.setItems("Invidente", "Jefe de Establecimiento", "Administrador");
         // Agregar los componentes al formulario
-        add(title, subtitle, username, password, loginButton);
+        add(title, subtitle, username, password, loginButton, radioGroup);
     }
 
     private boolean isValidLogin(String username, String password) {
