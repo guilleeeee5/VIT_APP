@@ -56,7 +56,6 @@ public class LoginView extends Div{
         radioGroup.addValueChangeListener(event -> {
             // Obtener el valor seleccionado
             String selectedValue = event.getValue();
-            System.out.println("VALOOOOR" + selectedValue);
             // Hacer algo con el valor seleccionado
             isValidLogin(i18nForm.getUsername(), i18nForm.getPassword(), selectedValue);
         });
@@ -65,13 +64,14 @@ public class LoginView extends Div{
 
     private boolean isValidLogin(String mail, String password, String tipo) {
         boolean result;
+        DataService data = new DataService();
+
         switch (tipo){
             case "Jefe de Establecimiento":
                 Jefe_Establecimiento jefe = new Jefe_Establecimiento();
                 jefe.setPassword(password);
                 jefe.setEmail(mail);
                 //Peticiones a la BBDD
-                DataService data = new DataService();
                  if (data.comprobarJefeInicio(mail, password) == null){
                      result = false;
                  }else {

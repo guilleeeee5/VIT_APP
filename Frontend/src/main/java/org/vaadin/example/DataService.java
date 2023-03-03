@@ -8,15 +8,12 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DataService {
-    public static ArrayList<Jefe_Establecimiento> getJefes(){
-
-
-    }
+    private static final String urlPrefix = "http://backend:8081";
     @RequestMapping
     public static Jefe_Establecimiento comprobarJefeInicio(String email, String pasword){
         //int n = BBDD.length();
         Jefe_Establecimiento jefeEstablecimientoAux = null;
-
+        
 
         return jefeEstablecimientoAux;
     }
