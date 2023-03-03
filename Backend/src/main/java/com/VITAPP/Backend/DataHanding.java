@@ -18,11 +18,9 @@ public class DataHanding {
         Admin adminAux = new Admin();
         //Consulta BBDD
         Class.forName("com.mysql.jdbc.Driver");
-        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:80/vit_app_bbdd", "admin", "admin");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
         Statement statement = conexionBBDD.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido from usuario JOIN admin" +
-                "ON usuario.ID = admin.ID" +
-                "AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido from usuario JOIN admin ON usuario.ID = admin.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
         while (resultSet.next())
         {
             String nombre = resultSet.getString("name");
@@ -30,7 +28,7 @@ public class DataHanding {
             adminAux.setName(nombre);
             adminAux.setApellido(apellido);
         }
-
+        System.out.println(adminAux.toString());
         return adminAux;
     }
 }

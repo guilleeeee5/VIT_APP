@@ -1,13 +1,10 @@
 package com.VITAPP.Backend;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
-
+@RestController
 public class API {
     //Inicio de sesion
     @GetMapping("/Discapacitado_VIsual/{email}/{password}")
@@ -21,7 +18,7 @@ public class API {
         return data.comprobarJefe(email, password);
     }
     @GetMapping("/Admin/{email}/{password}")
-    public Admin iniciarSesionAdmin(@PathVariable String email, String password) throws SQLException, ClassNotFoundException {
+    public Admin iniciarSesionAdmin(@PathVariable String email,@PathVariable String password) throws SQLException, ClassNotFoundException {
         DataHanding data = new DataHanding();
         return data.comprobarAdmin(email, password);
     }
