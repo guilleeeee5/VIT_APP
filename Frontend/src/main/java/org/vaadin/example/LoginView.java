@@ -64,20 +64,30 @@ public class LoginView extends Div{
     }
 
     private boolean isValidLogin(String mail, String password, String tipo) {
+        boolean result;
         switch (tipo){
             case "Jefe de Establecimiento":
                 Jefe_Establecimiento jefe = new Jefe_Establecimiento();
                 jefe.setPassword(password);
                 jefe.setEmail(mail);
                 //Peticiones a la BBDD
-
+                DataService data = new DataService();
+                 if (data.comprobarJefeInicio(mail, password) == null){
+                     result = false;
+                 }else {
+                     result = true;
+                 }
                 break;
             case "Discapacitado Visual":
                 Discapacitado_VIsual discapacitadoVIsual = new Discapacitado_VIsual();
                 discapacitadoVIsual.setPassword(password);
                 discapacitadoVIsual.setEmail(mail);
                 //Peticiones a la BBDD
-
+                if (data.comprobarDiscInicio(mail, password) == null){
+                    result = false;
+                }else {
+                    result = true;
+                }
                 break;
 
             case "Administrador":
@@ -85,7 +95,11 @@ public class LoginView extends Div{
                 admin.setPassword(password);
                 admin.setEmail(mail);
                 //Peticiones a la BBDD
-
+                if (data.comprobarAdminInicio(mail, password) == null){
+                    result = false;
+                }else {
+                    result = true;
+                }
                 break;
         }
         return false;
