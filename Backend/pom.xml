@@ -27,11 +27,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>management</artifactId>
-			<version>5-0-2-beta</version>
-		</dependency>
 	</dependencies>
 
 	<build>
