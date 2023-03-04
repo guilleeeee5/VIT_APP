@@ -1,5 +1,7 @@
 package com.VITAPP.Backend;
 
+import java.util.Arrays;
+
 public class Discapacitado_VIsual extends User{
     private String edificio;
     private int[][] mapa;
@@ -17,7 +19,7 @@ public class Discapacitado_VIsual extends User{
         return edificio;
     }
 
-    public void setEdificios(String[] edificios) {
+    public void setEdificio(String edificio) {
         this.edificio = edificio;
     }
 
@@ -28,4 +30,6 @@ public class Discapacitado_VIsual extends User{
     public void setMapa(int[][] mapa) {
         this.mapa = mapa;
     }
+
+
 }
