@@ -3,6 +3,7 @@ package org.vaadin.example;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -27,6 +28,7 @@ public class Register_Jefe_establecimiento extends Div
         VerticalLayout Vertical = new VerticalLayout();
         HorizontalLayout Horizontal = new HorizontalLayout();
         HorizontalLayout Horizontal1 = new HorizontalLayout();
+        HorizontalLayout HorizontalB = new HorizontalLayout();
 
         H1 title = new H1("Resgistrarse Jefe de establecimiento");
         TextField nombre = new TextField("Nombre");
@@ -42,6 +44,9 @@ public class Register_Jefe_establecimiento extends Div
         NumberField telefono = new NumberField("Teléfono");
         TextField cif = new TextField("CIF");
         Button registerButton = new Button("Registrarse"); // Usar com.vaadin.flow.component.button.Button
+        Button atrasButton = new Button("Atras");
+
+
 
         //Añadimos un indicador que los campos sean obligatorios de rellenar
         nombre.setRequiredIndicatorVisible(true);
@@ -49,6 +54,7 @@ public class Register_Jefe_establecimiento extends Div
         contrasena.setRequiredIndicatorVisible(true);
         confirmarContrasena.setRequiredIndicatorVisible(true);
         correo.setRequiredIndicatorVisible(true);
+
         direccion.setRequiredIndicatorVisible(true);
         CP.setRequiredIndicatorVisible(true);
         telefono.setRequiredIndicatorVisible(true);
@@ -56,19 +62,26 @@ public class Register_Jefe_establecimiento extends Div
 
         Horizontal.add(nombre, apellido);
         Horizontal1.add(direccion, Provincia);
+        HorizontalB.add(registerButton, atrasButton);
 
         // Agregar componentes al layout vertical
-        Vertical.add(title, Horizontal, contrasena, confirmarContrasena,correo,Horizontal1,CP,telefono,cif, registerButton);
+        Vertical.add(title, Horizontal, contrasena, confirmarContrasena,correo,Horizontal1,CP,telefono,cif, HorizontalB);
         Vertical.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
 
         add(Vertical);
         //layout.addComponent(Vertical);
         // Configurar acciones de los componentes
         registerButton.addClickListener(event -> register());
+        atrasButton.addClickListener(event -> Atras());
+
     }
 
     private void register() {
         // Lógica de registro
         Notification.show("Registro exitoso");
+    }
+    private void Atras() {
+        // Lógica de registro
+        Notification.show("Atras");
     }
 }

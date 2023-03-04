@@ -40,6 +40,8 @@ public class LoginView extends Div{
         i18nForm.setForgotPassword("Regístrate");
         i18n.setForm(i18nForm);
 
+        i18nForm.getForgotPassword();
+
         RadioButtonGroup<String> radioGroup = new RadioButtonGroup<>();
         radioGroup.setLabel("Tipo de usuario");
         radioGroup.setItems("Discapacitado Visual", "Jefe de Establecimiento", "Administrador");
