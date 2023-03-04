@@ -45,8 +45,8 @@ public class MainView extends VerticalLayout {
         Register_Jefe_establecimiento RJE = new Register_Jefe_establecimiento();
         Register_Invidente RJI = new Register_Invidente();
 
-        login.LoginBasic();
-        add(login);
+        //login.LoginBasic();
+        //add(login);
         RJI.build();
         add(RJI);
         //RJE.build();

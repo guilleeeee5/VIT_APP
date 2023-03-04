@@ -49,6 +49,8 @@ public class Register_Invidente extends VerticalLayout {
         Vertical.add(title, Horizontal, contrasena, confirmarContrasena,correo,Horizontal1, HorizontalB);
         Vertical.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
 
+        add(Vertical);
+
         // Configurar acciones de los componentes
         registerButton.addClickListener(event -> register());
         atrasButton.addClickListener(event -> Atras());
