@@ -6,7 +6,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout.add;
+
 
 
 public class Register_Jefe_establecimiento {
@@ -15,7 +15,7 @@ public class Register_Jefe_establecimiento {
     }
 
     private void build() {
-        // Configurar componentes
+       /* // Configurar componentes
         H1 title = new H1("Registrarse");
         TextField usernameField = new TextField("Username");
         TextField emailField = new TextField("Email");
@@ -37,6 +37,6 @@ public class Register_Jefe_establecimiento {
 
     private void register() {
         // Lógica de registro
-        Notification.show("Registro exitoso");
+        Notification.show("Registro exitoso");*/
     }
 }
