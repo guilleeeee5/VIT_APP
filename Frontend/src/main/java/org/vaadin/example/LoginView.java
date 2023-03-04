@@ -13,6 +13,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
+import java.io.IOException;
 import java.util.EventListener;
 
 
@@ -57,12 +58,16 @@ public class LoginView extends Div{
             // Obtener el valor seleccionado
             String selectedValue = event.getValue();
             // Hacer algo con el valor seleccionado
-            isValidLogin(i18nForm.getUsername(), i18nForm.getPassword(), selectedValue);
+            try {
+                isValidLogin(i18nForm.getUsername(), i18nForm.getPassword(), selectedValue);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
     }
 
-    private boolean isValidLogin(String mail, String password, String tipo) {
+    private boolean isValidLogin(String mail, String password, String tipo) throws IOException {
         boolean result = false;
         DataService data = new DataService();
 

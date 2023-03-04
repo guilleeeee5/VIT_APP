@@ -1,5 +1,7 @@
 package org.vaadin.example;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +20,13 @@ public class DataService {
     private static final String urlPrefix = "http://backend:8081";
     @RequestMapping("/JefeEstablecimiento/")
     public static Jefe_Establecimiento comprobarJefeInicio(@RequestParam String email,@RequestParam String pasword) throws IOException {
+
         String query = String.format("username=%s&password=%s",
                 URLEncoder.encode(email, "UTF-8"),
                 URLEncoder.encode(pasword, "UTF-8"));
         URL requestUrl = new URL(urlPrefix + "?" + query);
 
+        Jefe_Establecimiento jefeEstablecimientoAux = null;
         // Crear una conexión HTTP
         HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
         connection.setRequestMethod("GET");
@@ -35,10 +39,13 @@ public class DataService {
             response.append(inputLine);
         }
         in.close();
+        Gson gson = new Gson();
+
+        jefeEstablecimientoAux = gson.fromJson(String.valueOf(response), new TypeToken<Jefe_Establecimiento>(){}.getType());
 
         // Imprimir la respuesta del backend
         System.out.println(response.toString());
-        Jefe_Establecimiento jefeEstablecimientoAux = null;
+
 
         return jefeEstablecimientoAux;
     }
