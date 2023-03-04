@@ -8,12 +8,15 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.button.Button; // importar la clase Button de Vaadin
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 
 
 import javax.swing.*;
 import java.awt.*;
 
 @Route("respuesta")
+@Theme(value = Lumo.class, variant = Lumo.LIGHT)
 public class Pregunta_Registro extends VerticalLayout {
 
     public int RespuestaView() {
@@ -25,8 +28,9 @@ public class Pregunta_Registro extends VerticalLayout {
         // Configurar componentes
         H1 titulo = new H1("¿Va a utilizar VIT para desplazarse o va a Instalar VIT?");
         Button utilizarVit = new Button("Utilizar VIT para desplazarte");
-        utilizarVit.setWidth("100px");
+        utilizarVit.setWidth("250px");
         Button descargarVit = new Button("Instalar VIT");
+        descargarVit.setWidth("250px");
         /*ComboBox<String> opciones = new ComboBox<>("Seleccione una opción");
         opciones.setItems("Utilizar VIT para desplazarse", "Instalar VIT");
         opciones.setRequired(true);*/
