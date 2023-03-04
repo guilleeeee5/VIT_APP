@@ -1,18 +1,24 @@
 package org.vaadin.example;
 
 
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Footer;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.data.binder.HasItemsAndComponents;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
+import java.awt.*;
 import java.util.EventListener;
 
 
@@ -20,7 +26,8 @@ import java.util.EventListener;
 @Theme(value = Lumo.class, variant = Lumo.DARK)
 public class LoginView extends Div{
 
-    public void LoginBasic() {
+    public void LoginBasic()
+    {
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         HorizontalLayout horizontalLayout1 = new HorizontalLayout();
         LoginI18n i18n = LoginI18n.createDefault();
