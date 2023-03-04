@@ -21,8 +21,8 @@ import java.io.File;
 //import com.vaadin.flow.component.orderedlayout.VerticalLayout.add;
 
 
-@Route("Register-Jefe")
 @Theme(value = Lumo.class, variant = Lumo.DARK)
+@Route("Register-Jefe")
 public class Register_Jefe_establecimiento extends Div
 {
     public void build()

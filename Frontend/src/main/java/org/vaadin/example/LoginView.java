@@ -42,7 +42,6 @@ public class LoginView extends Div{
         i18nForm.setSubmit("Iniciar Sesión");
         i18nForm.setForgotPassword("Regístrate");
 
-
         i18n.setForm(i18nForm);
         RadioButtonGroup<String> radioGroup = new RadioButtonGroup<>();
         radioGroup.setLabel("Tipo de usuario");
@@ -54,6 +53,14 @@ public class LoginView extends Div{
 
         LoginForm loginForm = new LoginForm();
         loginForm.setI18n(i18n);
+
+        loginForm.addForgotPasswordListener(forgotPasswordEvent ->
+        {
+            UI.getCurrent().getPage().open("Register-Jefe:build()", "_blank");
+            //RJE.build();
+            //add(RJE);
+        });
+
         loginForm.getElement().setAttribute("no-autofocus", "");
 
         // Prevent the example from stealing focus when browsing the documentation
