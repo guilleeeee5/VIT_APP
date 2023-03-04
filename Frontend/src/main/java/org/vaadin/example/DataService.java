@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class DataService {
     private static final String urlPrefix = "http://backend:8081";
-    @RequestMapping
+    @RequestMapping()
     public static Jefe_Establecimiento comprobarJefeInicio(String email, String pasword){
         //int n = BBDD.length();
         Jefe_Establecimiento jefeEstablecimientoAux = null;
