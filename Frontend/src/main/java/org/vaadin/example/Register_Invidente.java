@@ -53,7 +53,12 @@ public class Register_Invidente extends VerticalLayout {
 
         // Configurar acciones de los componentes
         registerButton.addClickListener(event -> register());
-        atrasButton.addClickListener(event -> Atras());
+        atrasButton.addClickListener(event -> {
+            LoginView LV = new LoginView();
+            removeAll();
+            LV.LoginBasic();
+            add(LV);
+        });
 
     }
 

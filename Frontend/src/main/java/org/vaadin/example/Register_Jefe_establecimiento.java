@@ -78,16 +78,17 @@ public class Register_Jefe_establecimiento extends Div
         //layout.addComponent(Vertical);
         // Configurar acciones de los componentes
         registerButton.addClickListener(event -> register());
-        atrasButton.addClickListener(event -> Atras());
+        atrasButton.addClickListener(event -> {
+            LoginView LV = new LoginView();
+            removeAll();
+            LV.LoginBasic();
+            add(LV);
+        });
 
     }
 
     private void register() {
         // Lógica de registro
         Notification.show("Registro exitoso");
-    }
-    private void Atras() {
-        // Lógica de registro
-        Notification.show("Atras");
     }
 }
