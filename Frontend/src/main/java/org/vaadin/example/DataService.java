@@ -56,7 +56,7 @@ public class DataService {
         String query = String.format("email=%s&password=%s",
                 URLEncoder.encode(email, "UTF-8"),
                 URLEncoder.encode(pasword, "UTF-8"));
-        URL requestUrl = new URL(urlPrefix + "/Discapatacitado_Visual" + "?" + query);
+        URL requestUrl = new URL(urlPrefix + "/Discapacitado_Visual" + "?" + query);
 
         Discapacitado_VIsual discAux = null;
         // Crear una conexión HTTP
@@ -73,7 +73,7 @@ public class DataService {
         in.close();
         Gson gson = new Gson();
 
-        discAux = gson.fromJson(String.valueOf(response), new TypeToken<Jefe_Establecimiento>(){}.getType());
+        discAux = gson.fromJson(String.valueOf(response), new TypeToken<Discapacitado_VIsual>(){}.getType());
 
         // Imprimir la respuesta del backend
         System.out.println(response.toString());
@@ -103,7 +103,7 @@ public class DataService {
         in.close();
         Gson gson = new Gson();
 
-        adminAux = gson.fromJson(String.valueOf(response), new TypeToken<Jefe_Establecimiento>(){}.getType());
+        adminAux = gson.fromJson(String.valueOf(response), new TypeToken<Admin>(){}.getType());
 
         // Imprimir la respuesta del backend
         System.out.println(response.toString());
