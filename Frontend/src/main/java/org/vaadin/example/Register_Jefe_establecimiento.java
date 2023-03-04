@@ -43,6 +43,17 @@ public class Register_Jefe_establecimiento extends Div
         TextField cif = new TextField("CIF");
         Button registerButton = new Button("Registrarse"); // Usar com.vaadin.flow.component.button.Button
 
+        //Añadimos un indicador que los campos sean obligatorios de rellenar
+        nombre.setRequiredIndicatorVisible(true);
+        apellido.setRequiredIndicatorVisible(true);
+        contrasena.setRequiredIndicatorVisible(true);
+        confirmarContrasena.setRequiredIndicatorVisible(true);
+        correo.setRequiredIndicatorVisible(true);
+        direccion.setRequiredIndicatorVisible(true);
+        CP.setRequiredIndicatorVisible(true);
+        telefono.setRequiredIndicatorVisible(true);
+        cif.setRequiredIndicatorVisible(true);
+
         Horizontal.add(nombre, apellido);
         Horizontal1.add(direccion, Provincia);
 
