@@ -35,7 +35,9 @@ public class Pregunta_Registro extends VerticalLayout {
 
 
         // Agregar componentes al layout vertical
-        
+        horizontalLayout.add(utilizarVit,descargarVit);
+        horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
+        add(img,titulo,horizontalLayout);
         // Configurar layout
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
