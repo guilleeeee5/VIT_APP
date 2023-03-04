@@ -5,6 +5,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.NumberField;
@@ -24,23 +25,29 @@ public class Register_Jefe_establecimiento extends Div
     {
         // Configurar componentes
         VerticalLayout Vertical = new VerticalLayout();
+        HorizontalLayout Horizontal = new HorizontalLayout();
+        HorizontalLayout Horizontal1 = new HorizontalLayout();
+
         H1 title = new H1("Resgistrarse Jefe de establecimiento");
         TextField nombre = new TextField("Nombre");
         TextField apellido = new TextField("Apellido");
         PasswordField contrasena = new PasswordField("Contraseña");
         PasswordField confirmarContrasena = new PasswordField("Confirmar contraseña");
         EmailField correo = new EmailField("Correo Electrónico");
+
         TextField direccion = new TextField("Dirección de la calle");
+        TextField Provincia = new TextField("Provincia");
+
         TextField CP = new TextField("Codigo Postal");
         NumberField telefono = new NumberField("Teléfono");
         TextField cif = new TextField("CIF");
         Button registerButton = new Button("Registrarse"); // Usar com.vaadin.flow.component.button.Button
 
+        Horizontal.add(nombre, apellido);
+        Horizontal1.add(direccion, Provincia);
+
         // Agregar componentes al layout vertical
-
-        Vertical.add(title, nombre, apellido, contrasena, confirmarContrasena,correo,direccion,CP,telefono,cif, registerButton);
-
-        Vertical.setAlignItems(FlexComponent.Alignment.CENTER);
+        Vertical.add(title, Horizontal, contrasena, confirmarContrasena,correo,Horizontal1,CP,telefono,cif, registerButton);
         Vertical.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
 
         add(Vertical);
