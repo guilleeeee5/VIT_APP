@@ -47,6 +47,7 @@ public class LoginView extends Div{
         loginForm.getElement().setAttribute("no-autofocus", "");
         // Prevent the example from stealing focus when browsing the documentation
 
+        
 
         // Agregar los componentes al formulario
         horizontalLayout.add(loginForm);
@@ -54,17 +55,6 @@ public class LoginView extends Div{
         horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
         horizontalLayout1.setAlignSelf(FlexComponent.Alignment.CENTER);
         add(horizontalLayout, horizontalLayout1);
-        radioGroup.addValueChangeListener(event -> {
-            // Obtener el valor seleccionado
-            String selectedValue = event.getValue();
-            // Hacer algo con el valor seleccionado
-            try {
-                isValidLogin(i18nForm.getUsername(), i18nForm.getPassword(), selectedValue);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
     }
 
     private boolean isValidLogin(String mail, String password, String tipo) throws IOException {

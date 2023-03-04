@@ -21,7 +21,7 @@ public class DataService {
     @RequestMapping("/JefeEstablecimiento/")
     public static Jefe_Establecimiento comprobarJefeInicio(@RequestParam String email,@RequestParam String pasword) throws IOException {
 
-        String query = String.format("username=%s&password=%s",
+        String query = String.format("email=%s&password=%s",
                 URLEncoder.encode(email, "UTF-8"),
                 URLEncoder.encode(pasword, "UTF-8"));
         URL requestUrl = new URL(urlPrefix + "?" + query);
