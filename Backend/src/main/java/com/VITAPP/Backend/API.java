@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class API {
     //Inicio de sesion
     @GetMapping("/Discapacitado_Visual")
-    public Discapacitado_VIsual iniciarSesionDisc(@RequestParam String email,@RequestParam String password){
+    public Discapacitado_VIsual iniciarSesionDisc(@RequestParam String email,@RequestParam String password) throws SQLException, ClassNotFoundException {
         DataHanding data = new DataHanding();
         return data.comprobarDisc(email, password);
     }

@@ -4,9 +4,26 @@ package com.VITAPP.Backend;
 import java.sql.*;
 
 public class DataHanding {
-    public Discapacitado_VIsual comprobarDisc(String email, String password){
+    public Discapacitado_VIsual comprobarDisc(String email, String password) throws ClassNotFoundException, SQLException {
         Discapacitado_VIsual discapacitadAUX = new Discapacitado_VIsual();
         //Consulta BBDD
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
+        Statement statement = conexionBBDD.createStatement();
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, Discapacitado_Visual.edificio, Discapacitado_Visual.mapa from usuario JOIN Discapacitado_Visual ON usuario.ID = Discapacitado_Visual.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
+        while (resultSet.next())
+        {
+            String nombre = resultSet.getString("name");
+            String apellido = resultSet.getString("apellido");
+            String Email = resultSet.getString("Email");
+            String edificio = resultSet.getString("edificio");
+            //String mapa = resultSet.
+            discapacitadAUX.setName(nombre);
+            discapacitadAUX.setApellido(apellido);
+            discapacitadAUX.setEmail(Email);
+            discapacitadAUX.setEdificio(edificio);
+            //discapacitadAUX.setMapa(mapa);
+        }
         return discapacitadAUX;
     }
     public Jefe_Establecimiento comprobarJefe(String email, String password) throws ClassNotFoundException, SQLException {
