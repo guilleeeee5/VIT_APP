@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -80,10 +81,34 @@ public class DataService {
 
         return discAux;
     }
-   
-    public static Admin comprobarAdminInicio(String email, String pasword){
-        //int n = BBDD.length();
-        Admin admin = null;
-        return admin;
+
+    public static Admin comprobarAdminInicio(String email, String pasword) throws IOException {
+        String query = String.format("email=%s&password=%s",
+                URLEncoder.encode(email, "UTF-8"),
+                URLEncoder.encode(pasword, "UTF-8"));
+        URL requestUrl = new URL(urlPrefix + "/Admin" + "?" + query);
+
+        Admin adminAux = null;
+        // Crear una conexión HTTP
+        HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
+        connection.setRequestMethod("GET");
+
+        // Leer la respuesta del backend
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        Gson gson = new Gson();
+
+        adminAux = gson.fromJson(String.valueOf(response), new TypeToken<Jefe_Establecimiento>(){}.getType());
+
+        // Imprimir la respuesta del backend
+        System.out.println(response.toString());
+
+
+        return adminAux;
     }
 }
