@@ -5,6 +5,7 @@ import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
@@ -35,7 +36,7 @@ public class LoginView extends Div{
         i18n.setForm(i18nForm);
 
         RadioButtonGroup<String> radioGroup = new RadioButtonGroup<>();
-        radioGroup.setLabel("Tipo de usuario");
+        radioGroup.setLabel("Seleccione el tipo de usuario");
         radioGroup.setItems("Discapacitado Visual", "Jefe de Establecimiento", "Administrador");
         LoginI18n.ErrorMessage i18nErrorMessage = i18n.getErrorMessage();
         i18nErrorMessage.setTitle("Error");
@@ -51,14 +52,18 @@ public class LoginView extends Div{
             String email = event.getUsername();
             String password = event.getPassword();
             String userType = radioGroup.getValue();
+
             try {
-                isValidLogin(email, password, userType);
+                boolean isValid = isValidLogin(email, password, userType);
+                if (isValid == false) {
+                    Notification.show("El email o la contraseña son incorrectos.");
+                    loginForm.setError(true);
+                    i18nForm.setUsername("");
+                    i18nForm.setPassword("");
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            // Aquí puedes hacer lo que quieras con los valores obtenidos, por ejemplo,
-            // puedes enviar una petición al servidor para autenticar al usuario.
-
         });
 
         // Agregar los componentes al formulario
