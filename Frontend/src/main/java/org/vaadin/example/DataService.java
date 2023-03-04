@@ -3,16 +3,43 @@ package org.vaadin.example;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class DataService {
     private static final String urlPrefix = "http://backend:8081";
-    @RequestMapping()
-    public static Jefe_Establecimiento comprobarJefeInicio(String email, String pasword){
-        //int n = BBDD.length();
+    @RequestMapping("/JefeEstablecimiento/")
+    public static Jefe_Establecimiento comprobarJefeInicio(@RequestParam String email,@RequestParam String pasword) throws IOException {
+        String query = String.format("username=%s&password=%s",
+                URLEncoder.encode(email, "UTF-8"),
+                URLEncoder.encode(pasword, "UTF-8"));
+        URL requestUrl = new URL(urlPrefix + "?" + query);
+
+        // Crear una conexión HTTP
+        HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
+        connection.setRequestMethod("GET");
+
+        // Leer la respuesta del backend
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        // Imprimir la respuesta del backend
+        System.out.println(response.toString());
         Jefe_Establecimiento jefeEstablecimientoAux = null;
+
         return jefeEstablecimientoAux;
     }
     @RequestMapping
