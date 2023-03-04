@@ -47,7 +47,19 @@ public class LoginView extends Div{
         loginForm.getElement().setAttribute("no-autofocus", "");
         // Prevent the example from stealing focus when browsing the documentation
 
-        
+        loginForm.addLoginListener(event -> {
+            String email = event.getUsername();
+            String password = event.getPassword();
+            String userType = radioGroup.getValue();
+            try {
+                isValidLogin(email, password, userType);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            // Aquí puedes hacer lo que quieras con los valores obtenidos, por ejemplo,
+            // puedes enviar una petición al servidor para autenticar al usuario.
+
+        });
 
         // Agregar los componentes al formulario
         horizontalLayout.add(loginForm);
