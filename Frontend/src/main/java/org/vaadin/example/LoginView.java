@@ -84,7 +84,7 @@ public class LoginView extends Div{
                 jefe.setPassword(password);
                 jefe.setEmail(mail);
                 //Peticiones a la BBDD
-                 if (data.comprobarJefeInicio(mail, password) == null){
+                 if (data.comprobarJefeInicio(mail, password).getName() == null){
                      result = false;
                  }else {
                      result = true;
@@ -95,7 +95,7 @@ public class LoginView extends Div{
                 discapacitadoVIsual.setPassword(password);
                 discapacitadoVIsual.setEmail(mail);
                 //Peticiones a la BBDD
-                if (data.comprobarDiscInicio(mail, password) == null){
+                if (data.comprobarDiscInicio(mail, password).getName() == null){
                     result = false;
                 }else {
                     result = true;
@@ -107,7 +107,7 @@ public class LoginView extends Div{
                 admin.setPassword(password);
                 admin.setEmail(mail);
                 //Peticiones a la BBDD
-                if (data.comprobarAdminInicio(mail, password) == null){
+                if (data.comprobarAdminInicio(mail, password).getName() == null){
                     result = false;
                 }else {
                     result = true;
