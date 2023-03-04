@@ -107,7 +107,7 @@ public class LoginView extends Div{
                 }else {
                     result = true;
                 }
-                break;
+                break; 
         }
         return result;
     }
