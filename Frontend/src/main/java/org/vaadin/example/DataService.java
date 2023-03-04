@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 public class DataService {
     private static final String urlPrefix = "http://localhost:8081";
-    @RequestMapping("/Jefe_Establecimiento/")
+
     public static Jefe_Establecimiento comprobarJefeInicio(@RequestParam String email,@RequestParam String pasword) throws IOException {
 
         String query = String.format("email=%s&password=%s",
@@ -49,13 +50,37 @@ public class DataService {
 
         return jefeEstablecimientoAux;
     }
-    @RequestMapping
-    public static Discapacitado_VIsual comprobarDiscInicio(String email, String pasword){
-        //int n = BBDD.length();
-        Discapacitado_VIsual discapacitadoVIsual = null;
-        return discapacitadoVIsual;
+
+    public static Discapacitado_VIsual comprobarDiscInicio(String email, String pasword) throws IOException {
+        String query = String.format("email=%s&password=%s",
+                URLEncoder.encode(email, "UTF-8"),
+                URLEncoder.encode(pasword, "UTF-8"));
+        URL requestUrl = new URL(urlPrefix + "/Discapatacitado_Visual" + "?" + query);
+
+        Discapacitado_VIsual discAux = null;
+        // Crear una conexión HTTP
+        HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
+        connection.setRequestMethod("GET");
+
+        // Leer la respuesta del backend
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        Gson gson = new Gson();
+
+        discAux = gson.fromJson(String.valueOf(response), new TypeToken<Jefe_Establecimiento>(){}.getType());
+
+        // Imprimir la respuesta del backend
+        System.out.println(response.toString());
+
+
+        return discAux;
     }
-    @RequestMapping
+   
     public static Admin comprobarAdminInicio(String email, String pasword){
         //int n = BBDD.length();
         Admin admin = null;
