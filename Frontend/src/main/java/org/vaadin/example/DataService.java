@@ -17,14 +17,14 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class DataService {
-    private static final String urlPrefix = "http://backend:8081";
-    @RequestMapping("/JefeEstablecimiento/")
+    private static final String urlPrefix = "http://localhost:8081";
+    @RequestMapping("/Jefe_Establecimiento/")
     public static Jefe_Establecimiento comprobarJefeInicio(@RequestParam String email,@RequestParam String pasword) throws IOException {
 
         String query = String.format("email=%s&password=%s",
                 URLEncoder.encode(email, "UTF-8"),
                 URLEncoder.encode(pasword, "UTF-8"));
-        URL requestUrl = new URL(urlPrefix + "?" + query);
+        URL requestUrl = new URL(urlPrefix + "/Jefe_Establecimiento" + "?" + query);
 
         Jefe_Establecimiento jefeEstablecimientoAux = null;
         // Crear una conexión HTTP
