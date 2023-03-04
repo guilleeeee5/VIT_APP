@@ -56,9 +56,9 @@ public class LoginView extends Div{
 
         loginForm.addForgotPasswordListener(forgotPasswordEvent ->
         {
-            UI.getCurrent().getPage().open("Register-Jefe:build()", "_blank");
-            //RJE.build();
-            //add(RJE);
+            removeAll();
+            RJE.build();
+            add(RJE);
         });
 
         loginForm.getElement().setAttribute("no-autofocus", "");
