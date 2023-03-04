@@ -3,6 +3,7 @@ package org.vaadin.example;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -15,6 +16,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
+
+import java.io.File;
 //import com.vaadin.flow.component.orderedlayout.VerticalLayout.add;
 
 
@@ -29,6 +32,9 @@ public class Register_Jefe_establecimiento extends Div
         HorizontalLayout Horizontal = new HorizontalLayout();
         HorizontalLayout Horizontal1 = new HorizontalLayout();
         HorizontalLayout HorizontalB = new HorizontalLayout();
+
+        //Image image = new Image("images/logo.png", "My Alt Image");
+
 
         H1 title = new H1("Resgistrarse Jefe de establecimiento");
         TextField nombre = new TextField("Nombre");

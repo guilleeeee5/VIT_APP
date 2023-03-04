@@ -4,6 +4,7 @@ package org.vaadin.example;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H2;
@@ -30,6 +31,8 @@ public class LoginView extends Div{
     {
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         HorizontalLayout horizontalLayout1 = new HorizontalLayout();
+        Register_Jefe_establecimiento RJE = new Register_Jefe_establecimiento();
+
         LoginI18n i18n = LoginI18n.createDefault();
 
         LoginI18n.Form i18nForm = i18n.getForm();
@@ -38,10 +41,9 @@ public class LoginView extends Div{
         i18nForm.setPassword("Contraseña");
         i18nForm.setSubmit("Iniciar Sesión");
         i18nForm.setForgotPassword("Regístrate");
+
+
         i18n.setForm(i18nForm);
-
-        i18nForm.getForgotPassword();
-
         RadioButtonGroup<String> radioGroup = new RadioButtonGroup<>();
         radioGroup.setLabel("Tipo de usuario");
         radioGroup.setItems("Discapacitado Visual", "Jefe de Establecimiento", "Administrador");
@@ -53,9 +55,8 @@ public class LoginView extends Div{
         LoginForm loginForm = new LoginForm();
         loginForm.setI18n(i18n);
         loginForm.getElement().setAttribute("no-autofocus", "");
+
         // Prevent the example from stealing focus when browsing the documentation
-
-
         // Agregar los componentes al formulario
         horizontalLayout.add(loginForm);
         horizontalLayout1.add(radioGroup);
