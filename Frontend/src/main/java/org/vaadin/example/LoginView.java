@@ -49,8 +49,8 @@ public class LoginView extends Div{
         radioGroup.setLabel("Seleccione el tipo de usuario");
         radioGroup.setItems("Discapacitado Visual", "Jefe de Establecimiento", "Administrador");
         LoginI18n.ErrorMessage i18nErrorMessage = i18n.getErrorMessage();
-        i18nErrorMessage.setTitle("Error");
-        i18nErrorMessage.setMessage("Error!!.");
+        i18nErrorMessage.setTitle("Error!");
+        i18nErrorMessage.setMessage("Email o contraseña incorrectos.");
         i18n.setErrorMessage(i18nErrorMessage);
 
         LoginForm loginForm = new LoginForm();
@@ -96,7 +96,9 @@ public class LoginView extends Div{
             String selectedValue = event.getValue();
             // Hacer algo con el valor seleccionado
             try {
-                isValidLogin(i18nForm.getUsername(), i18nForm.getPassword(), selectedValue);
+                if(selectedValue != null){
+                    isValidLogin(i18nForm.getUsername(), i18nForm.getPassword(), selectedValue);
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

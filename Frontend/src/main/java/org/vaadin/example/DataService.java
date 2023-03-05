@@ -3,7 +3,16 @@ package org.vaadin.example;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -110,5 +119,67 @@ public class DataService {
 
 
         return adminAux;
+    }
+    public static boolean anhadirDiscapacitado(@RequestBody Discapacitado_VIsual discapacitadoVIsual){
+        boolean result = false;
+        Gson g = new Gson();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        String datospasar = discapacitadoVIsual.mostrarJson();
+        StringEntity entidad = null;
+        try {
+            entidad = new StringEntity(datospasar);
+            HttpPost requestpuesta = new HttpPost(urlPrefix);
+            requestpuesta.setHeader("Content-Type", "application/json");
+            requestpuesta.setHeader("Accept", "application/json");
+            requestpuesta.setEntity(entidad);
+            CloseableHttpResponse response = null;
+            response = httpClient.execute(requestpuesta);
+            String respuestaActual = new BasicResponseHandler().handleResponse(response);
+            discapacitadoVIsual = g.fromJson(respuestaActual, new TypeToken<Discapacitado_VIsual>(){}.getType());
+
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (HttpResponseException e) {
+            throw new RuntimeException(e);
+        } catch (ClientProtocolException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if(discapacitadoVIsual.getName() != null){
+            result = true;
+        }
+        return result;
+    }
+    public static boolean anhadirJefe(@RequestBody Jefe_Establecimiento jefeEstablecimiento){
+        boolean result = false;
+        Gson g = new Gson();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        String datospasar = jefeEstablecimiento.mostrarJson();
+        StringEntity entidad = null;
+        try {
+            entidad = new StringEntity(datospasar);
+            HttpPost requestpuesta = new HttpPost(urlPrefix);
+            requestpuesta.setHeader("Content-Type", "application/json");
+            requestpuesta.setHeader("Accept", "application/json");
+            requestpuesta.setEntity(entidad);
+            CloseableHttpResponse response = null;
+            response = httpClient.execute(requestpuesta);
+            String respuestaActual = new BasicResponseHandler().handleResponse(response);
+            jefeEstablecimiento = g.fromJson(respuestaActual, new TypeToken<Jefe_Establecimiento>(){}.getType());
+
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (HttpResponseException e) {
+            throw new RuntimeException(e);
+        } catch (ClientProtocolException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if(jefeEstablecimiento.getName() != null){
+            result = true;
+        }
+        return result;
     }
 }

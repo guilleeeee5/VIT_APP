@@ -89,6 +89,7 @@ public class Register_Jefe_establecimiento extends Div
 
     private void register() {
         // Lógica de registro
+
         Notification.show("Registro exitoso");
     }
 }
