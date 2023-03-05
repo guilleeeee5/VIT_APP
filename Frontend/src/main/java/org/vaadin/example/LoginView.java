@@ -95,7 +95,11 @@ public class LoginView extends Div{
             // Obtener el valor seleccionado
             String selectedValue = event.getValue();
             // Hacer algo con el valor seleccionado
-            isValidLogin(i18nForm.getUsername(), i18nForm.getPassword(), selectedValue);
+            try {
+                isValidLogin(i18nForm.getUsername(), i18nForm.getPassword(), selectedValue);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
     }
