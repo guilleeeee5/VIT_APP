@@ -1,13 +1,19 @@
 package org.vaadin.example;
 
 
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Footer;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.data.binder.HasItemsAndComponents;
 import com.vaadin.flow.router.Route;
@@ -15,6 +21,7 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 import java.io.IOException;
+import java.awt.*;
 import java.util.EventListener;
 
 
@@ -25,6 +32,8 @@ public class LoginView extends Div{
     public void LoginBasic() {
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         HorizontalLayout horizontalLayout1 = new HorizontalLayout();
+        Register_Jefe_establecimiento RJE = new Register_Jefe_establecimiento();
+
         LoginI18n i18n = LoginI18n.createDefault();
 
         LoginI18n.Form i18nForm = i18n.getForm();
@@ -33,6 +42,7 @@ public class LoginView extends Div{
         i18nForm.setPassword("Contraseña");
         i18nForm.setSubmit("Iniciar Sesión");
         i18nForm.setForgotPassword("Regístrate");
+
         i18n.setForm(i18nForm);
 
         RadioButtonGroup<String> radioGroup = new RadioButtonGroup<>();
@@ -45,7 +55,16 @@ public class LoginView extends Div{
 
         LoginForm loginForm = new LoginForm();
         loginForm.setI18n(i18n);
+
+        loginForm.addForgotPasswordListener(forgotPasswordEvent ->
+        {
+            removeAll();
+            RJE.build();
+            add(RJE);
+        });
+
         loginForm.getElement().setAttribute("no-autofocus", "");
+
         // Prevent the example from stealing focus when browsing the documentation
 
         loginForm.addLoginListener(event -> {
@@ -72,6 +91,13 @@ public class LoginView extends Div{
         horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
         horizontalLayout1.setAlignSelf(FlexComponent.Alignment.CENTER);
         add(horizontalLayout, horizontalLayout1);
+        radioGroup.addValueChangeListener(event -> {
+            // Obtener el valor seleccionado
+            String selectedValue = event.getValue();
+            // Hacer algo con el valor seleccionado
+            isValidLogin(i18nForm.getUsername(), i18nForm.getPassword(), selectedValue);
+        });
+
     }
 
     private boolean isValidLogin(String mail, String password, String tipo) throws IOException {
@@ -111,8 +137,8 @@ public class LoginView extends Div{
                     result = false;
                 }else {
                     result = true;
-                }   
-                break; 
+                }
+                break;
         }
         return result;
     }
