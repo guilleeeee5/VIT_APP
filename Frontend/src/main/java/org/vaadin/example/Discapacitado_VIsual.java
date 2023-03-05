@@ -28,4 +28,13 @@ public class Discapacitado_VIsual extends User{
     public void setMapa(int[][] mapa) {
         this.mapa = mapa;
     }
+
+    public String mostrarJson() {
+        return "{\n" +
+                "\"name\": " + "\"" + getName() + "\"," + "\n" +
+                "\"apellido\": " + "\"" + getApellido()  + "\"," + "\n" +
+                "\"password\": " + getPassword()  +  ",\n" +
+                "\"email\": " + getEmail() + ",\n" +
+                "}";
+    }
 }

@@ -70,4 +70,16 @@ public class Jefe_Establecimiento extends User{
     public void setNombre_establecimiento(String nombre_establecimiento) {
         Nombre_establecimiento = nombre_establecimiento;
     }
+    public String mostrarJson() {
+        return "{\n" +
+                "\"name\": " + "\"" + getName() + "\"," + "\n" +
+                "\"apellido\": " + "\"" + getApellido()  + "\"," + "\n" +
+                "\"password\": " + getPassword()  +  ",\n" +
+                "\"email\": " + getEmail() + ",\n" +
+                "\"Numero\": " + getNumero() + ",\n" +
+                "\"codigo_Postal\": " + getCodigo_Postal() + ",\n" +
+                "\"CIF\": " + getCIF() + ",\n" +
+                "\"Nombre_establecimiento\": " + getNombre_establecimiento() + ",\n" +
+                "}";
+    }
 }
