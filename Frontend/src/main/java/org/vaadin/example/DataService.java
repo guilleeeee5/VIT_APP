@@ -111,4 +111,10 @@ public class DataService {
 
         return adminAux;
     }
+    public static boolean anhadirDiscapacitado(Discapacitado_VIsual discapacitadoVIsual){
+        boolean result = false;
+        
+
+        return result;
+    }
 }
