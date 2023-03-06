@@ -1,6 +1,7 @@
 package com.VITAPP.Backend;
 
 
+import javax.xml.transform.Result;
 import java.sql.*;
 
 public class DataHanding {
@@ -67,5 +68,24 @@ public class DataHanding {
             adminAux.setApellido(apellido);
         }
         return adminAux;
+    }
+
+    public Discapacitado_VIsual comprobarRegistro(Discapacitado_VIsual discapacitado_vIsual) throws ClassNotFoundException, SQLException {
+        Discapacitado_VIsual discapacitado_vIsualaux = new Discapacitado_VIsual();
+        // Consulta BBDD
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
+        Statement statement = conexionBBDD.createStatement();
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT * from discapacitado_visual JOIN usuario ON usuario.ID = discapacitado_visual.ID AND usuario.Email = '%s'", discapacitado_vIsual.getEmail()));
+        if(resultSet.next()){
+            return discapacitado_vIsualaux;
+        }
+        else{
+            Statement statement1 = conexionBBDD.createStatement();
+            int insertado1 = statement1.executeUpdate(String.format("INSERT INTO usuario (name, apellido, Email, password) VALUES ('%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getEmail(), discapacitado_vIsual.getPassword()));
+            int insertado2 = statement1.executeUpdate("INSERT INTO discapacitado_visual (ID) VALUES (LAST_INSERT_ID());");
+            return discapacitado_vIsual;
+        }
+
     }
 }

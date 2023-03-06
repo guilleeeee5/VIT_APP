@@ -4,6 +4,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 @RestController
 public class API {
     //Inicio de sesion
@@ -22,4 +24,13 @@ public class API {
         DataHanding data = new DataHanding();
         return data.comprobarAdmin(email, password);
     }
+
+
+
+    @PostMapping("/Discapacitado_Visual_Registro")
+    public Discapacitado_VIsual crearRegistroDiscapacitado(@RequestBody Discapacitado_VIsual discapacitado_visual) throws SQLException, ClassNotFoundException {
+        DataHanding data = new DataHanding();
+        return data.comprobarRegistro(discapacitado_visual);
+    }
+
 }

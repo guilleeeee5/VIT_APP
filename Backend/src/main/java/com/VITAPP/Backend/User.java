@@ -58,5 +58,14 @@ public class User {
         this.ID = ID;
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", password='" + password + '\'' +
+                ", Email='" + Email + '\'' +
+                ", ID=" + ID +
+                '}';
+    }
 }
