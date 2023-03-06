@@ -20,6 +20,8 @@ import java.awt.*;
 public class Pregunta_Registro extends VerticalLayout {
 
     public int RespuestaView() {
+        Register_Invidente RI = new Register_Invidente();
+        Register_Jefe_establecimiento RJE = new Register_Jefe_establecimiento();
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         Image img = new Image("../../../../../../images/logo.png","");
@@ -37,7 +39,17 @@ public class Pregunta_Registro extends VerticalLayout {
 
         //enviar.addClickListener();
 
+        utilizarVit.addClickListener(clickEvent -> {
+            removeAll();
+            RJE.build();
+            add(RJE);
+        });
 
+        descargarVit.addClickListener(clickEvent -> {
+            removeAll();
+            RI.build();
+            add(RI);
+        });
         // Agregar componentes al layout vertical
         horizontalLayout.add(utilizarVit,descargarVit);
         horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);

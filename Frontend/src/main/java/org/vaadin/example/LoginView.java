@@ -32,7 +32,7 @@ public class LoginView extends Div{
     public void LoginBasic() {
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         HorizontalLayout horizontalLayout1 = new HorizontalLayout();
-        Register_Jefe_establecimiento RJE = new Register_Jefe_establecimiento();
+        Pregunta_Registro PR = new Pregunta_Registro();
 
         LoginI18n i18n = LoginI18n.createDefault();
 
@@ -59,8 +59,8 @@ public class LoginView extends Div{
         loginForm.addForgotPasswordListener(forgotPasswordEvent ->
         {
             removeAll();
-            RJE.build();
-            add(RJE);
+            PR.RespuestaView();
+            add(PR);
         });
 
         loginForm.getElement().setAttribute("no-autofocus", "");
