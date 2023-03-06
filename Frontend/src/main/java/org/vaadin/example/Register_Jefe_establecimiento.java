@@ -87,9 +87,23 @@ public class Register_Jefe_establecimiento extends Div
 
     }
 
-    private void register() {
+    private void register(String nombre, String apellido, String contrasena, String correo) {
         // Lógica de registro
+        DataService data = new DataService();
+        Discapacitado_VIsual discapacitadoVIsual = new Discapacitado_VIsual();
 
-        Notification.show("Registro exitoso");
+        discapacitadoVIsual.setName(nombre);
+        discapacitadoVIsual.setApellido(apellido);
+        discapacitadoVIsual.setPassword(contrasena);
+        discapacitadoVIsual.setEmail(correo);
+        if(data.anhadirDiscapacitado(discapacitadoVIsual)){
+            removeAll();
+            LoginView login = new LoginView();
+            login.LoginBasic();
+            add(login);
+            Notification.show("Registro exitoso");
+        }else {
+            Notification.show("Error. Usuario con ese Email ya existente");
+        }
     }
 }

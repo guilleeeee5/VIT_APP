@@ -53,11 +53,16 @@ public class Register_Invidente extends VerticalLayout {
 
         // Configurar acciones de los componentes
         registerButton.addClickListener(event -> {
-            if(contrasena.getValue().equals(confirmarContrasena.getValue())){
+            if(contrasena.getValue().equals(confirmarContrasena.getValue()) && correo.isInvalid() == false){
                 register(nombre.getValue(), apellido.getValue(), contrasena.getValue(), correo.getValue());
+                correo.setInvalid(false);
             }
-            else{
+            else if(contrasena.getValue().equals(confirmarContrasena.getValue()) == false){
                 Notification.show("Las contraseñas no coinciden. ");
+            }else{
+                // Se muestra una notificación y se marca el campo de correo como inválido
+                Notification.show("Complete correctamente los campos requeridos");
+                correo.setInvalid(true);
             }
         });
 
