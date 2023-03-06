@@ -42,7 +42,7 @@ public class MainView extends VerticalLayout {
     public MainView(@Autowired GreetService service) {
         // Agrega Login al layout principal
         LoginView login = new LoginView();
-        login.LoginBasic();   
+        login.LoginBasic();
         add(login);
     }
 
