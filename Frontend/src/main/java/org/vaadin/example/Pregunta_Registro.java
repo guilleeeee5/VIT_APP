@@ -22,7 +22,7 @@ public class Pregunta_Registro extends VerticalLayout {
     public int RespuestaView() {
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
-        Image img = new Image("../../../../../images/logo.png","");
+        Image img = new Image("../../../../../../images/logo.png","");
         img.setHeight("70px");
         img.setWidth("70px");
         // Configurar componentes
