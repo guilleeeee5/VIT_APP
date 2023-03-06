@@ -29,9 +29,9 @@ public class Pregunta_Registro extends VerticalLayout {
         img.setWidth("70px");
         // Configurar componentes
         H1 titulo = new H1("¿Va a utilizar VIT para desplazarse o va a Instalar VIT?");
-        Button utilizarVit = new Button("Utilizar VIT para desplazarte");
+        Button utilizarVit = new Button("Instalar VIT");
         utilizarVit.setWidth("250px");
-        Button descargarVit = new Button("Instalar VIT");
+        Button descargarVit = new Button("Utilizar VIT para desplazarte");
         descargarVit.setWidth("250px");
         /*ComboBox<String> opciones = new ComboBox<>("Seleccione una opción");
         opciones.setItems("Utilizar VIT para desplazarse", "Instalar VIT");

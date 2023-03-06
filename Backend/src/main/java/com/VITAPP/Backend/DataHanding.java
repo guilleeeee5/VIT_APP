@@ -11,7 +11,7 @@ public class DataHanding {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
         Statement statement = conexionBBDD.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, Discapacitado_Visual.edificio, Discapacitado_Visual.mapa from usuario JOIN Discapacitado_Visual ON usuario.ID = Discapacitado_Visual.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, discapacitado_visual.edificio, Discapacitado_Visual.mapa from usuario JOIN discapacitado_visual ON usuario.ID = discapacitado_visual.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
         while (resultSet.next())
         {
             String nombre = resultSet.getString("name");
@@ -33,7 +33,7 @@ public class DataHanding {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
         Statement statement = conexionBBDD.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, Jefe_Establecimiento.Direccion, Jefe_Establecimiento.Ciudad, Jefe_Establecimiento.Codigo_Postal, Jefe_Establecimiento.Nombre_Establecimiento from usuario JOIN Jefe_Establecimiento ON usuario.ID = Jefe_Establecimiento.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, jefe_establecimiento.Direccion, jefe_establecimiento.Ciudad, jefe_establecimiento.Codigo_Postal, jefe_establecimiento.Nombre_Establecimiento from usuario JOIN jefe_establecimiento ON usuario.ID = jefe_establecimiento.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
         while (resultSet.next())
         {
             String nombre = resultSet.getString("name");
