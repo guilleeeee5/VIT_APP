@@ -52,7 +52,16 @@ public class Register_Invidente extends VerticalLayout {
         add(Vertical);
 
         // Configurar acciones de los componentes
-        registerButton.addClickListener(event -> register());
+        registerButton.addClickListener(event -> {
+            if(contrasena.getValue().equals(confirmarContrasena.getValue())){
+                register(nombre.getValue(), apellido.getValue(), contrasena.getValue(), correo.getValue());
+            }
+            else{
+                Notification.show("Las contraseñas no coinciden. ");
+            }
+        });
+
+
         atrasButton.addClickListener(event -> {
             LoginView LV = new LoginView();
             removeAll();
@@ -62,12 +71,24 @@ public class Register_Invidente extends VerticalLayout {
 
     }
 
-    private void register() {
+    private void register(String nombre, String apellido, String contrasena, String correo) {
         // Lógica de registro
-        Notification.show("Registro exitoso");
+        DataService data = new DataService();
+        Discapacitado_VIsual discapacitadoVIsual = new Discapacitado_VIsual();
+
+        discapacitadoVIsual.setName(nombre);
+        discapacitadoVIsual.setApellido(apellido);
+        discapacitadoVIsual.setPassword(contrasena);
+        discapacitadoVIsual.setEmail(correo);
+        if(data.anhadirDiscapacitado(discapacitadoVIsual)){
+            removeAll();
+            LoginView login = new LoginView();
+            login.LoginBasic();
+            add(login);
+            Notification.show("Registro exitoso");
+        }else {
+            Notification.show("Error. Usuario con ese Email ya existente");
+        }
     }
-    private void Atras() {
-        // Lógica de registro
-        Notification.show("Atras");
-    }
+
 }
