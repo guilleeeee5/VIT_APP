@@ -79,7 +79,7 @@ public class Jefe_Establecimiento extends User{
                 "\"Numero\": " + getNumero() + ",\n" +
                 "\"codigo_Postal\": " + getCodigo_Postal() + ",\n" +
                 "\"CIF\": " + getCIF() + ",\n" +
-                "\"Nombre_establecimiento\": " + getNombre_establecimiento() + ",\n" +
+                "\"Nombre_establecimiento\": " + getNombre_establecimiento() + "\n" +
                 "}";
     }
 }

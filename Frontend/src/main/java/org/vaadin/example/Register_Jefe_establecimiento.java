@@ -44,7 +44,8 @@ public class Register_Jefe_establecimiento extends Div
         EmailField correo = new EmailField("Correo Electrónico");
 
         TextField direccion = new TextField("Dirección de la calle");
-        TextField Provincia = new TextField("Provincia");
+        TextField provincia = new TextField("Provincia");
+        TextField nombreEstablecimiento = new TextField("Nombre de Establecimiento");
 
         TextField CP = new TextField("Codigo Postal");
         NumberField telefono = new NumberField("Teléfono");
@@ -67,7 +68,7 @@ public class Register_Jefe_establecimiento extends Div
         cif.setRequiredIndicatorVisible(true);
 
         Horizontal.add(nombre, apellido);
-        Horizontal1.add(direccion, Provincia);
+        Horizontal1.add(direccion, provincia);
         HorizontalB.add(registerButton, atrasButton);
 
         // Agregar componentes al layout vertical
@@ -77,7 +78,19 @@ public class Register_Jefe_establecimiento extends Div
         add(Vertical);
         //layout.addComponent(Vertical);
         // Configurar acciones de los componentes
-        registerButton.addClickListener(event -> register());
+        registerButton.addClickListener(event -> {
+            if(contrasena.getValue().equals(confirmarContrasena.getValue()) && correo.isInvalid() == false){
+                register(nombre.getValue(), apellido.getValue(), contrasena.getValue(), correo.getValue(), direccion.getValue(), CP.getValue(), telefono.getValue(), cif.getValue(), provincia.getValue(), nombreEstablecimiento.getValue());
+                correo.setInvalid(false);
+            }
+            else if(contrasena.getValue().equals(confirmarContrasena.getValue()) == false){
+                Notification.show("Las contraseñas no coinciden. ");
+            }else{
+                // Se muestra una notificación y se marca el campo de correo como inválido
+                Notification.show("Complete correctamente los campos requeridos");
+                correo.setInvalid(true);
+            }
+        });
         atrasButton.addClickListener(event -> {
             LoginView LV = new LoginView();
             removeAll();
@@ -87,16 +100,21 @@ public class Register_Jefe_establecimiento extends Div
 
     }
 
-    private void register(String nombre, String apellido, String contrasena, String correo) {
+    private void register(String nombre, String apellido, String contrasena, String correo, String direccion, String CP, double telefono, String cif, String provincia, String nombreEstablecimiento) {
         // Lógica de registro
         DataService data = new DataService();
-        Discapacitado_VIsual discapacitadoVIsual = new Discapacitado_VIsual();
+        Jefe_Establecimiento jefeEstablecimiento = new Jefe_Establecimiento();
 
-        discapacitadoVIsual.setName(nombre);
-        discapacitadoVIsual.setApellido(apellido);
-        discapacitadoVIsual.setPassword(contrasena);
-        discapacitadoVIsual.setEmail(correo);
-        if(data.anhadirDiscapacitado(discapacitadoVIsual)){
+        jefeEstablecimiento.setName(nombre);
+        jefeEstablecimiento.setApellido(apellido);
+        jefeEstablecimiento.setPassword(contrasena);
+        jefeEstablecimiento.setEmail(correo);
+        jefeEstablecimiento.setCalle(direccion);
+        jefeEstablecimiento.setCiudad(provincia);
+        jefeEstablecimiento.setCodigo_Postal(CP);
+        jefeEstablecimiento.setNumero(Double.toString(telefono));
+        jefeEstablecimiento.setNombre_establecimiento(nombreEstablecimiento);
+        if(data.anhadirJefe(jefeEstablecimiento)){
             removeAll();
             LoginView login = new LoginView();
             login.LoginBasic();
