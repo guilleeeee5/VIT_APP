@@ -32,7 +32,9 @@ public class Register_Invidente extends VerticalLayout {
         PasswordField confirmarContrasena = new PasswordField("Confirmar contraseña");
         EmailField correo = new EmailField("Correo Electrónico");
         Button registerButton = new Button("Registrarse"); // Usar com.vaadin.flow.component.button.Button
+        registerButton.addClassName("btn_registro");
         Button atrasButton = new Button("Atras");
+        atrasButton.addClassName("btn_atras");
 
 
 

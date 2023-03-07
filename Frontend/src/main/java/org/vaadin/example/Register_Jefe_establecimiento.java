@@ -51,7 +51,9 @@ public class Register_Jefe_establecimiento extends Div
         NumberField telefono = new NumberField("Teléfono");
         TextField cif = new TextField("CIF");
         Button registerButton = new Button("Registrarse"); // Usar com.vaadin.flow.component.button.Button
+        registerButton.addClassName("btn_registro");
         Button atrasButton = new Button("Atras");
+        atrasButton.addClassName("btn_atras");
 
 
 
