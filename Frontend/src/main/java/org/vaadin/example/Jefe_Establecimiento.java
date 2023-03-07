@@ -3,8 +3,7 @@ package org.vaadin.example;
 import org.yaml.snakeyaml.events.Event;
 
 public class Jefe_Establecimiento extends User{
-    private String Calle;
-    private String Numero;
+    private String Direccion;
     private String Ciudad;
     private String Codigo_Postal;
     private String CIF;
@@ -13,30 +12,21 @@ public class Jefe_Establecimiento extends User{
 
     }
 
-    public Jefe_Establecimiento(String name, String apellido, String password, String email, int ID, String calle, String numero, String ciudad, String codigo_Postal, String CIF) {
-        super(name, apellido, password, email, ID);
-        Calle = calle;
-        Numero = numero;
-        Ciudad = ciudad;
-        Codigo_Postal = codigo_Postal;
+    public Jefe_Establecimiento(int ID, String name, String apellido, String password, String email,  String direccion, String ciudad, String codigo_Postal, String CIF, String nombre_establecimiento) {
+        super( name, apellido, password, email, ID);
+        this.Direccion = direccion;
+        this.Ciudad = ciudad;
+        this.Codigo_Postal = codigo_Postal;
         this.CIF = CIF;
-        Nombre_establecimiento = Nombre_establecimiento;
+        this.Nombre_establecimiento = nombre_establecimiento;
     }
 
-    public String getCalle() {
-        return Calle;
+    public String getDireccion() {
+        return Direccion;
     }
 
-    public void setCalle(String calle) {
-        Calle = calle;
-    }
-
-    public String getNumero() {
-        return Numero;
-    }
-
-    public void setNumero(String numero) {
-        Numero = numero;
+    public void setDireccion(String direccion) {
+        this.Direccion = direccion;
     }
 
     public String getCiudad() {
@@ -44,7 +34,7 @@ public class Jefe_Establecimiento extends User{
     }
 
     public void setCiudad(String ciudad) {
-        Ciudad = ciudad;
+        this.Ciudad = ciudad;
     }
 
     public String getCodigo_Postal() {
@@ -52,7 +42,7 @@ public class Jefe_Establecimiento extends User{
     }
 
     public void setCodigo_Postal(String codigo_Postal) {
-        Codigo_Postal = codigo_Postal;
+        this.Codigo_Postal = codigo_Postal;
     }
 
     public String getCIF() {
@@ -68,18 +58,19 @@ public class Jefe_Establecimiento extends User{
     }
 
     public void setNombre_establecimiento(String nombre_establecimiento) {
-        Nombre_establecimiento = nombre_establecimiento;
+        this.Nombre_establecimiento = nombre_establecimiento;
     }
     public String mostrarJson() {
         return "{\n" +
                 "\"name\": " + "\"" + getName() + "\"," + "\n" +
                 "\"apellido\": " + "\"" + getApellido()  + "\"," + "\n" +
-                "\"password\": " + getPassword()  +  ",\n" +
-                "\"email\": " + getEmail() + ",\n" +
-                "\"Numero\": " + getNumero() + ",\n" +
-                "\"codigo_Postal\": " + getCodigo_Postal() + ",\n" +
-                "\"CIF\": " + getCIF() + ",\n" +
-                "\"Nombre_establecimiento\": " + getNombre_establecimiento() + "\n" +
+                "\"password\": " + "\"" + getPassword() + "\""  +  ",\n" +
+                "\"email\": " + "\"" + getEmail() + "\"" +",\n" +
+                "\"direccion\": " + "\"" + getDireccion() + "\"" + ",\n" +
+                "\"ciudad\": " + "\"" + getCiudad() + "\"" + ",\n" +
+                "\"codigo_Postal\": " + "\"" + getCodigo_Postal() + "\"" + ",\n" +
+                "\"cif\": " + "\"" + getCIF() + "\"" + ",\n" +
+                "\"Nombre_establecimiento\": " + "\"" + getNombre_establecimiento() + "\"" + "\n" +
                 "}";
     }
 }

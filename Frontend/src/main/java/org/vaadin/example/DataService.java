@@ -159,7 +159,7 @@ public class DataService {
         StringEntity entidad = null;
         try {
             entidad = new StringEntity(datospasar);
-            HttpPost requestpuesta = new HttpPost(urlPrefix + "Jefe_Establecimiento_Registro");
+            HttpPost requestpuesta = new HttpPost(urlPrefix + "/Jefe_Establecimiento_Registro");
             requestpuesta.setHeader("Content-Type", "application/json");
             requestpuesta.setHeader("Accept", "application/json");
             requestpuesta.setEntity(entidad);

@@ -99,7 +99,7 @@ public class DataHanding {
         // Consulta BBDD
         Class.forName("com.mysql.jdbc.Driver");
         // Importante cambiar el puerto para este ejemplo, en este caso comprobar que el CIF y el email del jefe establecimiento estan iguales en la base de datos, ya que un jefe de establecimiento puede tener mas de 1 establecimiento
-        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3306/vit_app_bbdd", "admin", "admin");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
         Statement statement = conexionBBDD.createStatement();
         ResultSet resultSet = statement.executeQuery(String.format("SELECT * from jefe_establecimiento JOIN usuario ON usuario.ID = jefe_establecimiento.ID AND (usuario.Email = '%s' OR jefe_establecimiento.CIF = '%s');", jefe_establecimiento.getEmail(), jefe_establecimiento.getCIF()));
         if(resultSet.next()){

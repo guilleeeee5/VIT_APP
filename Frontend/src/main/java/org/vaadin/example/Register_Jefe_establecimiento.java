@@ -43,12 +43,11 @@ public class Register_Jefe_establecimiento extends Div
         PasswordField confirmarContrasena = new PasswordField("Confirmar contraseña");
         EmailField correo = new EmailField("Correo Electrónico");
 
-        TextField direccion = new TextField("Dirección de la calle");
-        TextField provincia = new TextField("Provincia");
+        TextField direccion = new TextField("Dirección");
+        TextField ciudad = new TextField("Ciudad");
         TextField nombreEstablecimiento = new TextField("Nombre de Establecimiento");
 
         TextField CP = new TextField("Codigo Postal");
-        NumberField telefono = new NumberField("Teléfono");
         TextField cif = new TextField("CIF");
         Button registerButton = new Button("Registrarse"); // Usar com.vaadin.flow.component.button.Button
         Button atrasButton = new Button("Atras");
@@ -64,15 +63,15 @@ public class Register_Jefe_establecimiento extends Div
 
         direccion.setRequiredIndicatorVisible(true);
         CP.setRequiredIndicatorVisible(true);
-        telefono.setRequiredIndicatorVisible(true);
+        ciudad.setRequiredIndicatorVisible(true);
         cif.setRequiredIndicatorVisible(true);
 
         Horizontal.add(nombre, apellido);
-        Horizontal1.add(direccion, provincia);
+        Horizontal1.add(direccion, ciudad);
         HorizontalB.add(registerButton, atrasButton);
 
         // Agregar componentes al layout vertical
-        Vertical.add(title, Horizontal, contrasena, confirmarContrasena,correo,Horizontal1,CP,telefono,cif, HorizontalB);
+        Vertical.add(title, Horizontal, contrasena, confirmarContrasena,correo,Horizontal1,CP,cif, HorizontalB);
         Vertical.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
 
         add(Vertical);
@@ -80,7 +79,7 @@ public class Register_Jefe_establecimiento extends Div
         // Configurar acciones de los componentes
         registerButton.addClickListener(event -> {
             if(contrasena.getValue().equals(confirmarContrasena.getValue()) && correo.isInvalid() == false){
-                register(nombre.getValue(), apellido.getValue(), contrasena.getValue(), correo.getValue(), direccion.getValue(), CP.getValue(), telefono.getValue(), cif.getValue(), provincia.getValue(), nombreEstablecimiento.getValue());
+                register(nombre.getValue(), apellido.getValue(), contrasena.getValue(), correo.getValue(), direccion.getValue(),ciudad.getValue(), CP.getValue(), cif.getValue(), nombreEstablecimiento.getValue());
                 correo.setInvalid(false);
             }
             else if(contrasena.getValue().equals(confirmarContrasena.getValue()) == false){
@@ -100,7 +99,7 @@ public class Register_Jefe_establecimiento extends Div
 
     }
 
-    private void register(String nombre, String apellido, String contrasena, String correo, String direccion, String CP, double telefono, String cif, String provincia, String nombreEstablecimiento) {
+    private void register(String nombre, String apellido, String contrasena, String correo, String direccion, String ciudad,  String CP,  String cif, String nombreEstablecimiento) {
         // Lógica de registro
         DataService data = new DataService();
         Jefe_Establecimiento jefeEstablecimiento = new Jefe_Establecimiento();
@@ -109,10 +108,10 @@ public class Register_Jefe_establecimiento extends Div
         jefeEstablecimiento.setApellido(apellido);
         jefeEstablecimiento.setPassword(contrasena);
         jefeEstablecimiento.setEmail(correo);
-        jefeEstablecimiento.setCalle(direccion);
-        jefeEstablecimiento.setCiudad(provincia);
+        jefeEstablecimiento.setDireccion(direccion);
+        jefeEstablecimiento.setCiudad(ciudad);
         jefeEstablecimiento.setCodigo_Postal(CP);
-        jefeEstablecimiento.setNumero(Double.toString(telefono));
+        jefeEstablecimiento.setCIF(cif);
         jefeEstablecimiento.setNombre_establecimiento(nombreEstablecimiento);
         if(data.anhadirJefe(jefeEstablecimiento)){
             removeAll();
