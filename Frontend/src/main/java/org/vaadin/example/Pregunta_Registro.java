@@ -8,12 +8,14 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.button.Button; // importar la clase Button de Vaadin
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.InputStream;
 
 @Route("respuesta")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
@@ -22,9 +24,15 @@ public class Pregunta_Registro extends VerticalLayout {
     public int RespuestaView() {
         Register_Invidente RI = new Register_Invidente();
         Register_Jefe_establecimiento RJE = new Register_Jefe_establecimiento();
-
         HorizontalLayout horizontalLayout = new HorizontalLayout();
-        Image img = new Image("src/main/resources/META-INF/resources/images/icon.png","");
+
+        StreamResource resource = new StreamResource("imagen.png", () -> {
+            InputStream is = getClass().getClassLoader().getResourceAsStream("../../../../resources/META-INF/resources/images/logo.png");
+            return is;
+        });
+        Image img = new Image();
+        img.setSrc(resource);
+
         img.setHeight("70px");
         img.setWidth("70px");
         // Configurar componentes
