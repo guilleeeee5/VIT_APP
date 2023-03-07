@@ -1,6 +1,7 @@
 package org.vaadin.example;
 
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -19,6 +20,7 @@ import java.io.InputStream;
 
 @Route("respuesta")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
+@CssImport("./styles/front.css")
 public class Pregunta_Registro extends VerticalLayout {
 
     public int RespuestaView() {
@@ -39,9 +41,14 @@ public class Pregunta_Registro extends VerticalLayout {
         H1 titulo = new H1("¿Va a utilizar VIT para desplazarse o va a Instalar VIT?");
         Button utilizarVit = new Button("Instalar VIT");
         utilizarVit.setWidth("250px");
+        utilizarVit.addClassName("btn_registro");
+
         Button descargarVit = new Button("Utilizar VIT para desplazarte");
         descargarVit.setWidth("250px");
+        descargarVit.addClassName("btn_registro");
+
         Button atrasButton = new Button("Atras");
+        atrasButton.addClassName("btn_atras");
         /*ComboBox<String> opciones = new ComboBox<>("Seleccione una opción");
         opciones.setItems("Utilizar VIT para desplazarse", "Instalar VIT");
         opciones.setRequired(true);*/
