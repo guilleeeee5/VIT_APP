@@ -25,6 +25,7 @@ public class DataHanding {
             discapacitadAUX.setEdificio(edificio);
             //discapacitadAUX.setMapa(mapa);
         }
+        conexionBBDD.close();
         return discapacitadAUX;
     }
     public Jefe_Establecimiento comprobarJefe(String email, String password) throws ClassNotFoundException, SQLException {
@@ -51,6 +52,7 @@ public class DataHanding {
             jefeAux.setCodigo_Postal(Codigo_Postal);
             jefeAux.setNombre_establecimiento(Nombre_Establecimiento);
         }
+        conexionBBDD.close();
         return jefeAux;
     }
     public Admin comprobarAdmin(String email, String password) throws ClassNotFoundException, SQLException {
@@ -67,6 +69,7 @@ public class DataHanding {
             adminAux.setName(nombre);
             adminAux.setApellido(apellido);
         }
+        conexionBBDD.close();
         return adminAux;
     }
 
@@ -77,13 +80,15 @@ public class DataHanding {
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
         Statement statement = conexionBBDD.createStatement();
         ResultSet resultSet = statement.executeQuery(String.format("SELECT * from discapacitado_visual JOIN usuario ON usuario.ID = discapacitado_visual.ID AND usuario.Email = '%s'", discapacitado_vIsual.getEmail()));
-        if(resultSet.next()){
+        if(!resultSet.next()){
+            conexionBBDD.close();
             return discapacitado_vIsualaux;
         }
         else{
             Statement statement1 = conexionBBDD.createStatement();
             int insertado1 = statement1.executeUpdate(String.format("INSERT INTO usuario (name, apellido, Email, password) VALUES ('%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getEmail(), discapacitado_vIsual.getPassword()));
             int insertado2 = statement1.executeUpdate("INSERT INTO discapacitado_visual (ID) VALUES (LAST_INSERT_ID());");
+            conexionBBDD.close();
             return discapacitado_vIsual;
         }
 
@@ -96,14 +101,16 @@ public class DataHanding {
         // Importante cambiar el puerto para este ejemplo, en este caso comprobar que el CIF y el email del jefe establecimiento estan iguales en la base de datos, ya que un jefe de establecimiento puede tener mas de 1 establecimiento
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3306/vit_app_bbdd", "admin", "admin");
         Statement statement = conexionBBDD.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT * from jefe_establecimiento JOIN usuario ON usuario.ID = jefe_establecimiento.ID AND usuario.Email = '%s' OR jefe_establecimiento.CIF = '%s'", jefe_establecimiento.getEmail(), jefe_establecimiento.getCIF()));
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT * from jefe_establecimiento JOIN usuario ON usuario.ID = jefe_establecimiento.ID AND (usuario.Email = '%s' OR jefe_establecimiento.CIF = '%s');", jefe_establecimiento.getEmail(), jefe_establecimiento.getCIF()));
         if(resultSet.next()){
+            conexionBBDD.close();
             return jefe_establecimiento_aux;
         }
         else{
             Statement statement1 = conexionBBDD.createStatement();
-            int insertado1 = statement1.executeUpdate(String.format("INSERT INTO usuario (name, apellido, Email, password) VALUES ('%s', '%s', '%s', '%s');", jefe_establecimiento.getName(), jefe_establecimiento_aux.getApellido(), jefe_establecimiento_aux.getEmail(), jefe_establecimiento_aux.getPassword()));
-            int insertado2 = statement1.executeUpdate("INSERT INTO jefe_establecimiento (ID) VALUES (LAST_INSERT_ID());");
+            int insertado1 = statement1.executeUpdate(String.format("INSERT INTO usuario (name, apellido, Email, password) VALUES ('%s', '%s', '%s', '%s');", jefe_establecimiento.getName(), jefe_establecimiento.getApellido(), jefe_establecimiento.getEmail(), jefe_establecimiento.getPassword()));
+            int insertado2 = statement1.executeUpdate(String.format("INSERT INTO jefe_establecimiento (ID, Direccion, Ciudad, Codigo_Postal, Nombre_Establecimiento, CIF) VALUES (LAST_INSERT_ID(), '%s', '%s', '%s', '%s', '%s');", jefe_establecimiento.getDireccion(), jefe_establecimiento.getCiudad(), jefe_establecimiento.getCodigo_Postal(), jefe_establecimiento.getNombre_establecimiento(), jefe_establecimiento.getCIF()));
+            conexionBBDD.close();
             return jefe_establecimiento;
         }
 
