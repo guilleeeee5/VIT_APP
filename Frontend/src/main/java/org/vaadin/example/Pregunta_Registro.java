@@ -24,7 +24,7 @@ public class Pregunta_Registro extends VerticalLayout {
         Register_Jefe_establecimiento RJE = new Register_Jefe_establecimiento();
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
-        Image img = new Image("../../../../../../images/logo.png","");
+        Image img = new Image("/images/logo.png","");
         img.setHeight("70px");
         img.setWidth("70px");
         // Configurar componentes

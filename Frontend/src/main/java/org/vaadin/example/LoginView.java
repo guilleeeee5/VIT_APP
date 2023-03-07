@@ -26,7 +26,7 @@ import java.util.EventListener;
 
 
 @Route("login-basic")
-@Theme(value = Lumo.class, variant = Lumo.DARK)
+@Theme(value = Lumo.class, variant = Lumo.LIGHT)
 public class LoginView extends Div{
 
     public void LoginBasic() {
