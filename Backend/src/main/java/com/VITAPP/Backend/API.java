@@ -3,6 +3,7 @@ package com.VITAPP.Backend;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -31,6 +32,12 @@ public class API {
     public Discapacitado_VIsual crearRegistroDiscapacitado(@RequestBody Discapacitado_VIsual discapacitado_visual) throws SQLException, ClassNotFoundException {
         DataHanding data = new DataHanding();
         return data.comprobarRegistro(discapacitado_visual);
+    }
+
+    @PostMapping("/Jefe_Establecimiento_Registro")
+    public Jefe_Establecimiento crearRegistroJefeEstablecimiento(@RequestBody Jefe_Establecimiento jefe_establecimiento) throws SQLException, ClassNotFoundException {
+        DataHanding data = new DataHanding();
+        return data.comprobarRegistroJefeEstablecimiento(jefe_establecimiento);
     }
 
 }

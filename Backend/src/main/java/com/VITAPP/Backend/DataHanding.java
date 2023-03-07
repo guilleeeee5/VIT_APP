@@ -88,4 +88,24 @@ public class DataHanding {
         }
 
     }
+
+    public Jefe_Establecimiento comprobarRegistroJefeEstablecimiento(Jefe_Establecimiento jefe_establecimiento) throws ClassNotFoundException, SQLException {
+        Jefe_Establecimiento jefe_establecimiento_aux = new Jefe_Establecimiento();
+        // Consulta BBDD
+        Class.forName("com.mysql.jdbc.Driver");
+        // Importante cambiar el puerto para este ejemplo, en este caso comprobar que el CIF y el email del jefe establecimiento estan iguales en la base de datos, ya que un jefe de establecimiento puede tener mas de 1 establecimiento
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3306/vit_app_bbdd", "admin", "admin");
+        Statement statement = conexionBBDD.createStatement();
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT * from jefe_establecimiento JOIN usuario ON usuario.ID = jefe_establecimiento.ID AND usuario.Email = '%s' OR jefe_establecimiento.CIF = '%s'", jefe_establecimiento.getEmail(), jefe_establecimiento.getCIF()));
+        if(resultSet.next()){
+            return jefe_establecimiento_aux;
+        }
+        else{
+            Statement statement1 = conexionBBDD.createStatement();
+            int insertado1 = statement1.executeUpdate(String.format("INSERT INTO usuario (name, apellido, Email, password) VALUES ('%s', '%s', '%s', '%s');", jefe_establecimiento.getName(), jefe_establecimiento_aux.getApellido(), jefe_establecimiento_aux.getEmail(), jefe_establecimiento_aux.getPassword()));
+            int insertado2 = statement1.executeUpdate("INSERT INTO jefe_establecimiento (ID) VALUES (LAST_INSERT_ID());");
+            return jefe_establecimiento;
+        }
+
+    }
 }
