@@ -1,13 +1,6 @@
 package org.vaadin.example;
 
 
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.HasValue;
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.notification.Notification;
@@ -15,23 +8,26 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
-import com.vaadin.flow.data.binder.HasItemsAndComponents;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 import java.io.IOException;
-import java.awt.*;
-import java.util.EventListener;
 
 
 @Route("login-basic")
-@Theme(value = Lumo.class, variant = Lumo.DARK)
-public class LoginView extends Div{
+@Theme(value = Lumo.class, variant = Lumo.LIGHT)
+public class LoginView extends VerticalLayout{
 
     public void LoginBasic() {
+
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         HorizontalLayout horizontalLayout1 = new HorizontalLayout();
+        VerticalLayout VL = new VerticalLayout();
+        VL.setWidthFull();
+        VL.setAlignItems(FlexComponent.Alignment.CENTER);
+        VL.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+        add(VL);
         Pregunta_Registro PR = new Pregunta_Registro();
 
         LoginI18n i18n = LoginI18n.createDefault();
@@ -90,7 +86,8 @@ public class LoginView extends Div{
         horizontalLayout1.add(radioGroup);
         horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
         horizontalLayout1.setAlignSelf(FlexComponent.Alignment.CENTER);
-        add(horizontalLayout, horizontalLayout1);
+
+        VL.add(horizontalLayout, horizontalLayout1);
         radioGroup.addValueChangeListener(event -> {
             // Obtener el valor seleccionado
             String selectedValue = event.getValue();

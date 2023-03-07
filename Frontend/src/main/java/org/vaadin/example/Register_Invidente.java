@@ -2,6 +2,7 @@ package org.vaadin.example;
 
 import com.vaadin.flow.component.button.Button; // importar la clase Button de Vaadin
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Pre;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -31,7 +32,9 @@ public class Register_Invidente extends VerticalLayout {
         PasswordField confirmarContrasena = new PasswordField("Confirmar contraseña");
         EmailField correo = new EmailField("Correo Electrónico");
         Button registerButton = new Button("Registrarse"); // Usar com.vaadin.flow.component.button.Button
+        registerButton.addClassName("btn_registro");
         Button atrasButton = new Button("Atras");
+        atrasButton.addClassName("btn_atras");
 
 
 
@@ -68,10 +71,10 @@ public class Register_Invidente extends VerticalLayout {
 
 
         atrasButton.addClickListener(event -> {
-            LoginView LV = new LoginView();
+            Pregunta_Registro PR = new Pregunta_Registro();
             removeAll();
-            LV.LoginBasic();
-            add(LV);
+            PR.RespuestaView();
+            add(PR);
         });
 
     }

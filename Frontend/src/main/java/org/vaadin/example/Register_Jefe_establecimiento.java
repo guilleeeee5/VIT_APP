@@ -50,7 +50,9 @@ public class Register_Jefe_establecimiento extends Div
         TextField CP = new TextField("Codigo Postal");
         TextField cif = new TextField("CIF");
         Button registerButton = new Button("Registrarse"); // Usar com.vaadin.flow.component.button.Button
+        registerButton.addClassName("btn_registro");
         Button atrasButton = new Button("Atras");
+        atrasButton.addClassName("btn_atras");
 
 
 
@@ -91,10 +93,10 @@ public class Register_Jefe_establecimiento extends Div
             }
         });
         atrasButton.addClickListener(event -> {
-            LoginView LV = new LoginView();
+            Pregunta_Registro PR = new Pregunta_Registro();
             removeAll();
-            LV.LoginBasic();
-            add(LV);
+            PR.RespuestaView();
+            add(PR);
         });
 
     }
