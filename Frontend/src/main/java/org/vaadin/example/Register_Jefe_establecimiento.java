@@ -92,10 +92,10 @@ public class Register_Jefe_establecimiento extends Div
             }
         });
         atrasButton.addClickListener(event -> {
-            LoginView LV = new LoginView();
+            Pregunta_Registro PR = new Pregunta_Registro();
             removeAll();
-            LV.LoginBasic();
-            add(LV);
+            PR.RespuestaView();
+            add(PR);
         });
 
     }

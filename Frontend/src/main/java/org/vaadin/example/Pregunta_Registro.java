@@ -33,6 +33,7 @@ public class Pregunta_Registro extends VerticalLayout {
         utilizarVit.setWidth("250px");
         Button descargarVit = new Button("Utilizar VIT para desplazarte");
         descargarVit.setWidth("250px");
+        Button atrasButton = new Button("Atras");
         /*ComboBox<String> opciones = new ComboBox<>("Seleccione una opción");
         opciones.setItems("Utilizar VIT para desplazarse", "Instalar VIT");
         opciones.setRequired(true);*/
@@ -50,10 +51,16 @@ public class Pregunta_Registro extends VerticalLayout {
             RI.build();
             add(RI);
         });
+        atrasButton.addClickListener(event -> {
+            LoginView LV = new LoginView();
+            removeAll();
+            LV.LoginBasic();
+            add(LV);
+        });
         // Agregar componentes al layout vertical
         horizontalLayout.add(utilizarVit,descargarVit);
         horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
-        add(img,titulo,horizontalLayout);
+        add(img,titulo,horizontalLayout,atrasButton);
         // Configurar layout
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
