@@ -2,6 +2,7 @@ package org.vaadin.example;
 
 import com.vaadin.flow.component.button.Button; // importar la clase Button de Vaadin
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Pre;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -12,6 +13,7 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 
 @Route("Register-Invidente-basic")
 public class Register_Invidente extends VerticalLayout {
@@ -35,6 +37,12 @@ public class Register_Invidente extends VerticalLayout {
         registerButton.addClassName("btn_registro");
         Button atrasButton = new Button("Atras");
         atrasButton.addClassName("btn_atras");
+
+        StreamResource imageResource = new StreamResource("logo.png",
+                () -> getClass().getResourceAsStream("/images/logo.png"));
+
+        Image img = new Image(imageResource, "");
+        add(img);
 
 
 

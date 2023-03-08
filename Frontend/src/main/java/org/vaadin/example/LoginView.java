@@ -1,6 +1,7 @@
 package org.vaadin.example;
 
 
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.notification.Notification;
@@ -9,6 +10,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
@@ -28,6 +30,11 @@ public class LoginView extends VerticalLayout{
         VL.setAlignItems(FlexComponent.Alignment.CENTER);
         VL.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         add(VL);
+        StreamResource imageResource = new StreamResource("logo.png",
+                () -> getClass().getResourceAsStream("/images/logo.png"));
+
+        Image img = new Image(imageResource, "");
+        VL.add(img);
         Pregunta_Registro PR = new Pregunta_Registro();
 
         LoginI18n i18n = LoginI18n.createDefault();

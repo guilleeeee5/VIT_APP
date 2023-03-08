@@ -14,6 +14,7 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
@@ -53,6 +54,12 @@ public class Register_Jefe_establecimiento extends Div
         registerButton.addClassName("btn_registro");
         Button atrasButton = new Button("Atras");
         atrasButton.addClassName("btn_atras");
+
+        StreamResource imageResource = new StreamResource("logo.png",
+                () -> getClass().getResourceAsStream("/images/logo.png"));
+
+        Image img = new Image(imageResource, "");
+        add(img);
 
 
 

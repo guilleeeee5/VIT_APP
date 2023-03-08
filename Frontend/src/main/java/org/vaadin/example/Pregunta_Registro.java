@@ -28,15 +28,12 @@ public class Pregunta_Registro extends VerticalLayout {
         Register_Jefe_establecimiento RJE = new Register_Jefe_establecimiento();
         HorizontalLayout horizontalLayout = new HorizontalLayout();
 
-        StreamResource resource = new StreamResource("imagen.png", () -> {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("../../../../resources/META-INF/resources/images/logo.png");
-            return is;
-        });
-        Image img = new Image();
-        img.setSrc(resource);
+        StreamResource imageResource = new StreamResource("logo.png",
+                () -> getClass().getResourceAsStream("/images/logo.png"));
 
-        img.setHeight("70px");
-        img.setWidth("70px");
+        Image img = new Image(imageResource, "");
+
+
         // Configurar componentes
         H1 titulo = new H1("¿Va a utilizar VIT para desplazarse o va a Instalar VIT?");
         Button utilizarVit = new Button("Instalar VIT");
