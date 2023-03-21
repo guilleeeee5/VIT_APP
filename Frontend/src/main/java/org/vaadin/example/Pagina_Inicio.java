@@ -13,27 +13,48 @@ import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.InputStream;
+
 @Route("inicio")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
 @CssImport("./styles/front.css")
 public class Pagina_Inicio extends VerticalLayout{
-    HorizontalLayout horizontalLayout = new HorizontalLayout();
+
+    public int ViewInicio() {
+        Pregunta_Registro PR = new Pregunta_Registro();
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
 
 
-    StreamResource imageResource = new StreamResource("logo.png",
-            () -> getClass().getResourceAsStream("/images/logo.png"));
+        StreamResource imageResource = new StreamResource("logo.png",
+                () -> getClass().getResourceAsStream("/images/logo.png"));
 
-    Image img = new Image(imageResource, "");
-    
-    StreamResource imgInvidente = new StreamResource("logo.png",
-            () -> getClass().getResourceAsStream("/images/guiaInvidente.png"));
+        Image img = new Image(imageResource, "");
 
-    Image imgI = new Image(imgInvidente, "");
+        StreamResource imgInvidente = new StreamResource("logo.png",
+                () -> getClass().getResourceAsStream("/images/guiaInvidente.png"));
 
-    StreamResource imgEmpresa = new StreamResource("logo.png",
-            () -> getClass().getResourceAsStream("/images/guiaEmpresa.png"));
+        Image imgI = new Image(imgInvidente, "");
 
-    Image imgE = new Image(imgEmpresa, "");
+        StreamResource imgEmpresa = new StreamResource("logo.png",
+                () -> getClass().getResourceAsStream("/images/guiaEmpresa.png"));
 
-    H1 titulo = new H1("¿Va a utilizar VIT para desplazarse o va a Instalar VIT?");
+        Image imgE = new Image(imgEmpresa, "");
+
+        H1 titulo = new H1("¿Va a utilizar VIT para desplazarse o va a Instalar VIT?");
+
+        Button btnEmpezar = new Button("EMPIEZA YA");
+        btnEmpezar.setWidth("250px");
+
+        btnEmpezar.addClickListener(clickEvent -> {
+            removeAll();
+            PR.RespuestaView();
+            add(PR);
+        });
+
+        return 0;
+    }
+
+
 }
