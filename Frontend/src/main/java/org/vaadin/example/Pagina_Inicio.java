@@ -53,6 +53,14 @@ public class Pagina_Inicio extends VerticalLayout{
             add(PR);
         });
 
+        // Agregar componentes al layout vertical
+        horizontalLayout.add(imgI,imgE);
+        horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
+        add(img,titulo,horizontalLayout,btnEmpezar);
+        // Configurar layout
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
+
         return 0;
     }
 
