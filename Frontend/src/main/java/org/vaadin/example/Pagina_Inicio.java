@@ -17,5 +17,23 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
 @CssImport("./styles/front.css")
 public class Pagina_Inicio extends VerticalLayout{
+    HorizontalLayout horizontalLayout = new HorizontalLayout();
+
+
+    StreamResource imageResource = new StreamResource("logo.png",
+            () -> getClass().getResourceAsStream("/images/logo.png"));
+
+    Image img = new Image(imageResource, "");
     
+    StreamResource imgInvidente = new StreamResource("logo.png",
+            () -> getClass().getResourceAsStream("/images/guiaInvidente.png"));
+
+    Image imgI = new Image(imgInvidente, "");
+
+    StreamResource imgEmpresa = new StreamResource("logo.png",
+            () -> getClass().getResourceAsStream("/images/guiaEmpresa.png"));
+
+    Image imgE = new Image(imgEmpresa, "");
+
+    H1 titulo = new H1("¿Va a utilizar VIT para desplazarse o va a Instalar VIT?");
 }
