@@ -3,6 +3,7 @@ package org.vaadin.example;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -49,6 +50,8 @@ public class Pagina_Inicio extends VerticalLayout{
 
         H1 titulo = new H1("Guías de uso");
 
+        H2 tit = new H2("INVIDENTE - ESTABLECIMIENTO");
+
         //Creamos el boton y su evento
         Button btnEmpezar = new Button("EMPIEZA YA");
         btnEmpezar.setWidth("250px");
@@ -64,7 +67,7 @@ public class Pagina_Inicio extends VerticalLayout{
         // Agregar componentes al layout vertical
         horizontalLayout.add(imgI,imgE);
         horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
-        add(img,titulo,horizontalLayout,btnEmpezar);
+        add(img,titulo,tit,horizontalLayout,btnEmpezar);
         // Configurar layout
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
