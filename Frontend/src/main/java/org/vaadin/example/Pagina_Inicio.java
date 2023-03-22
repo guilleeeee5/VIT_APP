@@ -22,28 +22,34 @@ import java.io.InputStream;
 @CssImport("./styles/front.css")
 public class Pagina_Inicio extends VerticalLayout{
 
-    public int ViewInicio() {
+    public void ViewInicio() {
+        //Creacion del objeto al que se va navegar después de pulsar el boton y el layout horizontal
         Pregunta_Registro PR = new Pregunta_Registro();
         HorizontalLayout horizontalLayout = new HorizontalLayout();
 
-
+        //Creamos los objetos de las imagenes
         StreamResource imageResource = new StreamResource("logo.png",
                 () -> getClass().getResourceAsStream("/images/logo.png"));
 
         Image img = new Image(imageResource, "");
+        img.setWidth("250px");
 
         StreamResource imgInvidente = new StreamResource("logo.png",
                 () -> getClass().getResourceAsStream("/images/guiaInvidente.png"));
 
         Image imgI = new Image(imgInvidente, "");
+        imgI.setWidth("250px");
 
         StreamResource imgEmpresa = new StreamResource("logo.png",
                 () -> getClass().getResourceAsStream("/images/guiaEmpresa.png"));
 
         Image imgE = new Image(imgEmpresa, "");
+        imgE.setWidth("250px");
+
 
         H1 titulo = new H1("¿Va a utilizar VIT para desplazarse o va a Instalar VIT?");
 
+        //Creamos el boton y su evento
         Button btnEmpezar = new Button("EMPIEZA YA");
         btnEmpezar.setWidth("250px");
 
@@ -53,6 +59,7 @@ public class Pagina_Inicio extends VerticalLayout{
             add(PR);
         });
 
+        
         // Agregar componentes al layout vertical
         horizontalLayout.add(imgI,imgE);
         horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
@@ -61,7 +68,6 @@ public class Pagina_Inicio extends VerticalLayout{
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
 
-        return 0;
     }
 
 
