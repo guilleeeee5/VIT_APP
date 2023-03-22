@@ -23,8 +23,8 @@ import java.io.InputStream;
 public class Pagina_Inicio extends VerticalLayout{
 
     public void ViewInicio() {
-        //Creacion del objeto al que se va navegar después de pulsar el boton y el layout horizontal
-        Pregunta_Registro PR = new Pregunta_Registro();
+        //Creacion del objeto al que se va a navegar después de pulsar el boton y el layout horizontal
+        LoginView LV = new LoginView();
         HorizontalLayout horizontalLayout = new HorizontalLayout();
 
         //Creamos los objetos de las imagenes
@@ -38,28 +38,29 @@ public class Pagina_Inicio extends VerticalLayout{
                 () -> getClass().getResourceAsStream("/images/guiaInvidente.png"));
 
         Image imgI = new Image(imgInvidente, "");
-        imgI.setWidth("250px");
+        imgI.setWidth("500px");
 
         StreamResource imgEmpresa = new StreamResource("logo.png",
                 () -> getClass().getResourceAsStream("/images/guiaEmpresa.png"));
 
         Image imgE = new Image(imgEmpresa, "");
-        imgE.setWidth("250px");
+        imgE.setWidth("500px");
 
 
-        H1 titulo = new H1("¿Va a utilizar VIT para desplazarse o va a Instalar VIT?");
+        H1 titulo = new H1("Guías de uso");
 
         //Creamos el boton y su evento
         Button btnEmpezar = new Button("EMPIEZA YA");
         btnEmpezar.setWidth("250px");
+        btnEmpezar.addClassName("btn_EmpezarInicio");
 
         btnEmpezar.addClickListener(clickEvent -> {
             removeAll();
-            PR.RespuestaView();
-            add(PR);
+            LV.LoginBasic();
+            add(LV);
         });
 
-        
+
         // Agregar componentes al layout vertical
         horizontalLayout.add(imgI,imgE);
         horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
