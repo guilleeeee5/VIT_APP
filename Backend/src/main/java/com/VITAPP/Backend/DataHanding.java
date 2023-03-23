@@ -3,6 +3,7 @@ package com.VITAPP.Backend;
 
 import javax.xml.transform.Result;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DataHanding {
     public Discapacitado_VIsual comprobarDisc(String email, String password) throws ClassNotFoundException, SQLException {
@@ -114,5 +115,13 @@ public class DataHanding {
             return jefe_establecimiento;
         }
 
+    }
+
+    public ArrayList<Jefe_Establecimiento> eliminarJefe(Jefe_Establecimiento jefe){
+        Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
+        //Consulta BBDD
+
+
+        return jefeAux;
     }
 }

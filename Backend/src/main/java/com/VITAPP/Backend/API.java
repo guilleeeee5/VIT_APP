@@ -40,4 +40,10 @@ public class API {
         return data.comprobarRegistroJefeEstablecimiento(jefe_establecimiento);
     }
 
+    @DeleteMapping("/Jefe_Establecimiento")
+    public ArrayList<Jefe_Establecimiento> eliminarJefe(@RequestBody Jefe_Establecimiento jefe){
+        DataHanding data = new DataHanding();
+        return data.eliminarJefe(jefe);
+    }
+
 }
