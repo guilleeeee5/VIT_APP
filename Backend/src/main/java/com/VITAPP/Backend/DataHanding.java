@@ -123,10 +123,10 @@ public class DataHanding {
         //WHERE CIF = 'valor_CIF';
         Class.forName("com.mysql.jdbc.Driver");
         // Importante cambiar el puerto para este ejemplo, en este caso comprobar que el CIF y el email del jefe establecimiento estan iguales en la base de datos, ya que un jefe de establecimiento puede tener mas de 1 establecimiento
-        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3306/vit_app_bbdd", "admin", "admin");
         Statement statement = conexionBBDD.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("DELETE FROM jefe_establecimiento WHERE CIF = '%s'", jefe.getCIF()));
-        ResultSet resultSet1 = statement.executeQuery(String.format("SELECT * from jefe_establecimiento"));
+        int rowsAffected = statement.executeUpdate(String.format("DELETE FROM jefe_establecimiento WHERE CIF = '%s'", jefe.getCIF()));
+        ResultSet resultSet1 = statement.executeQuery(String.format("SELECT * from jefe_establecimiento JOIN usuario ON usuario.ID = jefe_establecimiento.ID"));
         // Recorrer los resultados del ResultSet y crear objetos Jefe_Establecimiento
         while (resultSet1.next()) {
             Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
