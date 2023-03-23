@@ -41,7 +41,7 @@ public class API {
     }
 
     @DeleteMapping("/Jefe_Establecimiento")
-    public ArrayList<Jefe_Establecimiento> eliminarJefe(@RequestBody Jefe_Establecimiento jefe){
+    public ArrayList<Jefe_Establecimiento> eliminarJefe(@RequestBody Jefe_Establecimiento jefe) throws SQLException, ClassNotFoundException {
         DataHanding data = new DataHanding();
         return data.eliminarJefe(jefe);
     }
