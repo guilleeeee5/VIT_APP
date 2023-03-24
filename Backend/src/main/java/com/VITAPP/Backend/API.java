@@ -46,6 +46,10 @@ public class API {
         return data.eliminarJefe(jefe);
     }
 
-    @PutMapping
+    @PutMapping("/JefeEstablecimineto")
+    public ArrayList<Jefe_Establecimiento> modificarjefe(@RequestBody Jefe_Establecimiento jefeAntiguo, Jefe_Establecimiento jefeNuevo) throws SQLException, ClassNotFoundException {
+        DataHanding data = new DataHanding();
+        return data.modificarJefe(jefeAntiguo, jefeNuevo);
+    }
 
 }
