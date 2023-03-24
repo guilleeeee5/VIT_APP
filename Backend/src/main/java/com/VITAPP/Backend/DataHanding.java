@@ -151,23 +151,23 @@ public class DataHanding {
 
     public ArrayList<Jefe_Establecimiento> modificarJefe(Jefe_Establecimiento jefeAntiguo, Jefe_Establecimiento jefeNuevo) throws ClassNotFoundException, SQLException {
         ArrayList<Jefe_Establecimiento> jefes = new ArrayList<Jefe_Establecimiento>();
-        //Consulta BBDD UPDATE jefe_establecimiento
-        //SET name = 'valor_name', apellido = 'valor_apellido', password = 'valor_password', Email = 'valor_Email', Direccion = 'valor_Direccion', Ciudad = 'valor_Ciudad', Codigo_Postal = 'valor_Codigo_Postal', Nombre_Establecimiento = 'valor_Nombre_Establecimiento'
-        //WHERE CIF = 'valor_CIF';
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3306/vit_app_bbdd", "admin", "admin");
-        PreparedStatement statement = conexionBBDD.prepareStatement("UPDATE jefe_establecimiento SET name = ?, apellido = ?, password = ?, Email = ?, Direccion = ?, Ciudad = ?, Codigo_Postal = ?, Nombre_Establecimiento = ? WHERE CIF = ?");
-        statement.setString(1, jefeNuevo.getName());
-        statement.setString(2, jefeNuevo.getApellido());
-        statement.setString(3, jefeNuevo.getPassword());
-        statement.setString(4, jefeNuevo.getEmail());
-        statement.setString(5, jefeNuevo.getDireccion());
-        statement.setString(6, jefeNuevo.getCiudad());
-        statement.setString(7, jefeNuevo.getCodigo_Postal());
-        statement.setString(8, jefeNuevo.getNombre_establecimiento());
-        statement.setString(9, jefeAntiguo.getCIF());
+        PreparedStatement statement = conexionBBDD.prepareStatement("UPDATE jefe_establecimiento SET Direccion = ?, Ciudad = ?, Codigo_Postal = ?, Nombre_Establecimiento = ? WHERE CIF = ?");
+        statement.setString(1, jefeNuevo.getDireccion());
+        statement.setString(2, jefeNuevo.getCiudad());
+        statement.setString(3, jefeNuevo.getCodigo_Postal());
+        statement.setString(4, jefeNuevo.getNombre_establecimiento());
+        statement.setString(5, jefeAntiguo.getCIF());
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected > 0) {
+            PreparedStatement statement2 = conexionBBDD.prepareStatement("UPDATE usuario SET name = ?, apellido = ?, password = ?, Email = ? WHERE CIF = ?");
+            statement2.setString(1, jefeNuevo.getName());
+            statement2.setString(2, jefeNuevo.getApellido());
+            statement2.setString(3, jefeNuevo.getPassword());
+            statement2.setString(4, jefeNuevo.getEmail());
+            statement2.setString(5, jefeAntiguo.getCIF());
+            statement2.executeUpdate();
             ResultSet resultSet = statement.executeQuery("SELECT * from jefe_establecimiento");
             while (resultSet.next()) {
                 Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
@@ -185,5 +185,6 @@ public class DataHanding {
         }
         return jefes;
     }
+
 
 }
