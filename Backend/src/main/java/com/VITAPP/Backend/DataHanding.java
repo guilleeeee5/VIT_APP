@@ -148,4 +148,43 @@ public class DataHanding {
 
         return jefes;
     }
+
+    public ArrayList<Jefe_Establecimiento> modificarJefe(Jefe_Establecimiento jefeAntiguo, Jefe_Establecimiento jefeNuevo) throws ClassNotFoundException, SQLException {
+        ArrayList<Jefe_Establecimiento> jefes = new ArrayList<Jefe_Establecimiento>();
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3306/vit_app_bbdd", "admin", "admin");
+        PreparedStatement statement = conexionBBDD.prepareStatement("UPDATE jefe_establecimiento SET Direccion = ?, Ciudad = ?, Codigo_Postal = ?, Nombre_Establecimiento = ? WHERE CIF = ?");
+        statement.setString(1, jefeNuevo.getDireccion());
+        statement.setString(2, jefeNuevo.getCiudad());
+        statement.setString(3, jefeNuevo.getCodigo_Postal());
+        statement.setString(4, jefeNuevo.getNombre_establecimiento());
+        statement.setString(5, jefeAntiguo.getCIF());
+        int rowsAffected = statement.executeUpdate();
+        if (rowsAffected > 0) {
+            PreparedStatement statement2 = conexionBBDD.prepareStatement("UPDATE usuario SET name = ?, apellido = ?, password = ?, Email = ? WHERE CIF = ?");
+            statement2.setString(1, jefeNuevo.getName());
+            statement2.setString(2, jefeNuevo.getApellido());
+            statement2.setString(3, jefeNuevo.getPassword());
+            statement2.setString(4, jefeNuevo.getEmail());
+            statement2.setString(5, jefeAntiguo.getCIF());
+            statement2.executeUpdate();
+            ResultSet resultSet = statement.executeQuery("SELECT * from jefe_establecimiento");
+            while (resultSet.next()) {
+                Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
+                jefeAux.setName(resultSet.getString("name"));
+                jefeAux.setApellido(resultSet.getString("apellido"));
+                jefeAux.setPassword(resultSet.getString("password"));
+                jefeAux.setEmail(resultSet.getString("Email"));
+                jefeAux.setDireccion(resultSet.getString("Direccion"));
+                jefeAux.setCiudad(resultSet.getString("Ciudad"));
+                jefeAux.setCodigo_Postal(resultSet.getString("Codigo_Postal"));
+                jefeAux.setCIF(resultSet.getString("CIF"));
+                jefeAux.setNombre_establecimiento(resultSet.getString("Nombre_Establecimiento"));
+                jefes.add(jefeAux);
+            }
+        }
+        return jefes;
+    }
+
+
 }
