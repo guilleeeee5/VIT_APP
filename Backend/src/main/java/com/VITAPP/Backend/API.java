@@ -46,4 +46,6 @@ public class API {
         return data.eliminarJefe(jefe);
     }
 
+    @PutMapping
+
 }
