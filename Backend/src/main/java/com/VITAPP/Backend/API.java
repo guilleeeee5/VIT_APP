@@ -26,7 +26,11 @@ public class API {
         return data.comprobarAdmin(email, password);
     }
 
-
+    @GetMapping("/gestionEstablecimiento")
+    public ArrayList<Jefe_Establecimiento> get_Establecimientos() throws SQLException, ClassNotFoundException{
+        DataHanding data = new DataHanding();
+        return data.devolverEstablecimientos();
+    }
 
     @PostMapping("/Discapacitado_Visual_Registro")
     public Discapacitado_VIsual crearRegistroDiscapacitado(@RequestBody Discapacitado_VIsual discapacitado_visual) throws SQLException, ClassNotFoundException {
