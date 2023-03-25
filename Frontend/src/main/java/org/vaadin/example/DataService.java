@@ -21,10 +21,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
 public class DataService {
@@ -183,26 +183,24 @@ public class DataService {
         return result;
     }
 
-    public static ArrayList<Jefe_Establecimiento> obtenerListaEstablecimientos() throws IOException {
+    public static ArrayList<Jefe_Establecimiento> obtenerListaEstablecimientos() throws IOException, URISyntaxException {
 
-        URL requestUrl = new URL(urlPrefix + "/gestionEstablecimiento");
-        Gson g = new Gson();
-        Jefe_Establecimiento jefito = new Jefe_Establecimiento();
-        ArrayList<Jefe_Establecimiento> jefeAux = null;
-        // Crear una conexión HTTP
-        HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
-        connection.setRequestMethod("GET");
+        ArrayList<Jefe_Establecimiento> jefito = new ArrayList<>();
+        HttpRequest httpRequest = HttpRequest.newBuilder().uri(new URI(urlPrefix + "/gestionEstablecimiento")).GET().build();
+        Gson gson = new Gson();
+        String resultado = null;
+        HttpResponse<String> respuesta = null;
 
-        // Leer la respuesta del backend
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
+        try {
+            respuesta = HttpClient.newBuilder().build().send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            resultado = respuesta.body();
+            jefito = gson.fromJson(resultado, new com.googlecode.gentyref.TypeToken<ArrayList<Jefe_Establecimiento>>(){}.getType());
 
-        while ((inputLine = in.readLine()) != null) {
-            jefito = g.fromJson(inputLine, new TypeToken<Jefe_Establecimiento>(){}.getType());
-            jefeAux.add(jefito);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-        in.close();
-
-        return jefeAux;
+        return jefito;
     }
 }

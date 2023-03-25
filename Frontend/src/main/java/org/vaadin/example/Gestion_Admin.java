@@ -31,16 +31,24 @@ public class Gestion_Admin extends VerticalLayout {
 
         // Generar la tabla con los campos arriba puestos.
         Grid<Jefe_Establecimiento> grid = new Grid<>(Jefe_Establecimiento.class, false);
+        grid.addColumn(Jefe_Establecimiento::getName).setHeader("Nombre");
+        grid.addColumn(Jefe_Establecimiento::getApellido).setHeader("Apellido");
+        grid.addColumn(Jefe_Establecimiento::getEmail).setHeader("Email");
+        grid.addColumn(Jefe_Establecimiento::getCif).setHeader("CIF");
         grid.addColumn(Jefe_Establecimiento::getID).setHeader("ID_Establecimiento").setSortable(true);
         grid.addColumn(Jefe_Establecimiento::getNombre_establecimiento).setHeader("Nombre_Establecimiento");
         grid.addColumn(Jefe_Establecimiento::getCiudad).setHeader("Ciudad");
         grid.addColumn(Jefe_Establecimiento::getCodigo_Postal).setHeader("Código Postal");
         grid.addColumn(Jefe_Establecimiento::getDireccion).setHeader("Dirección");
+        grid.addColumn(Jefe_Establecimiento::getEstado).setHeader("Estado");
+
 
         //Rellenno el arrayilst, con los datos recibidos
         try {
             listaEstablecimientos = DataService.obtenerListaEstablecimientos();
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
 
