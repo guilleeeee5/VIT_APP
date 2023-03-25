@@ -30,7 +30,7 @@ public class API {
     public ArrayList<Jefe_Establecimiento> get_Establecimientos() throws SQLException, ClassNotFoundException{
         DataHanding data = new DataHanding();
         return data.devolverEstablecimientos();
-        
+
     }
 
     @PostMapping("/Discapacitado_Visual_Registro")

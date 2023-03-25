@@ -199,14 +199,10 @@ public class DataHanding {
         int count = 0;
         while (result.next()){
             Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
-            jefeAux.setName(result.getString("name"));
-            jefeAux.setApellido(result.getString("apellido"));
-            jefeAux.setPassword(result.getString("password"));
-            jefeAux.setEmail(result.getString("Email"));
-            jefeAux.setDireccion(result.getString("Direccion"));
             jefeAux.setCiudad(result.getString("Ciudad"));
             jefeAux.setCodigo_Postal(result.getString("Codigo_Postal"));
-            jefeAux.setCIF(result.getString("CIF"));
+            jefeAux.setDireccion(result.getString("Direccion"));
+            jefeAux.setID(Integer.parseInt(result.getString("ID")));
             jefeAux.setNombre_establecimiento(result.getString("Nombre_Establecimiento"));
             listaEstablecimientos.add(jefeAux);
         }
