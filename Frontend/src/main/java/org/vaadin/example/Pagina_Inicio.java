@@ -16,6 +16,7 @@ import com.vaadin.flow.theme.lumo.Lumo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.io.InputStream;
 
 @Route("inicio")
@@ -63,11 +64,19 @@ public class Pagina_Inicio extends VerticalLayout{
             add(LV);
         });
 
+        Button btnAux = new Button();
+        btnAux.addClickListener(event -> {
+            try {
+                DataService.obtenerListaEstablecimientos();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         // Agregar componentes al layout vertical
         horizontalLayout.add(imgI,imgE);
         horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
-        add(img,titulo,tit,horizontalLayout,btnEmpezar);
+        add(img,titulo,tit,horizontalLayout,btnEmpezar,btnAux);
         // Configurar layout
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);

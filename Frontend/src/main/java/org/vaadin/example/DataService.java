@@ -182,4 +182,27 @@ public class DataService {
         }
         return result;
     }
+
+    public static ArrayList<Jefe_Establecimiento> obtenerListaEstablecimientos() throws IOException {
+
+        URL requestUrl = new URL(urlPrefix + "/gestionEstablecimiento");
+        Gson g = new Gson();
+        Jefe_Establecimiento jefito = new Jefe_Establecimiento();
+        ArrayList<Jefe_Establecimiento> jefeAux = null;
+        // Crear una conexión HTTP
+        HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
+        connection.setRequestMethod("GET");
+
+        // Leer la respuesta del backend
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+
+        while ((inputLine = in.readLine()) != null) {
+            jefito = g.fromJson(inputLine, new TypeToken<Jefe_Establecimiento>(){}.getType());
+            jefeAux.add(jefito);
+        }
+        in.close();
+        
+        return jefeAux;
+    }
 }

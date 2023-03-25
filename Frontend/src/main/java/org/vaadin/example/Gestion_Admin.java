@@ -25,7 +25,7 @@ import java.util.ArrayList;
 @CssImport("./styles/front.css")
 public class Gestion_Admin extends VerticalLayout {
 
-    public void gestionAdminView{
+    public void gestionAdminView(){
         ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<Jefe_Establecimiento>();
 
         // Generar la tabla con los campos arriba puestos.
@@ -36,13 +36,12 @@ public class Gestion_Admin extends VerticalLayout {
         grid.addColumn(Jefe_Establecimiento::getCodigo_Postal).setHeader("Código Postal");
         grid.addColumn(Jefe_Establecimiento::getDireccion).setHeader("Dirección");
 
-        // Rellenno el arrayilst, con los datos recibidos
+        /* Rellenno el arrayilst, con los datos recibidos
         try {
-            listaEstablecimientos = DataService.;
-        } catch (
-                URISyntaxException e) {
+            //listaEstablecimientos = DataService.;
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         grid.setItems(listaEstablecimientos);
 
