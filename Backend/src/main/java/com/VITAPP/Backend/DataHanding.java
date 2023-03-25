@@ -206,7 +206,7 @@ public class DataHanding {
             jefeAux.setEmail(result.getString("Email"));
             jefeAux.setCodigo_Postal(result.getString("Codigo_Postal"));
             jefeAux.setDireccion(result.getString("Direccion"));
-            jefeAux.setID(Integer.parseInt(result.getString("ID")));
+            jefeAux.setID(result.getInt("ID"));
             jefeAux.setNombre_establecimiento(result.getString("Nombre_Establecimiento"));
             jefeAux.setEstado(result.getString("estado"));
             listaEstablecimientos.add(jefeAux);

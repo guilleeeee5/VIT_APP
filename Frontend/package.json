@@ -70,6 +70,7 @@
     "terser": "^5.13.1"
   },
   "devDependencies": {
+    "@types/node": "^17.0.4",
     "babel-loader": "8.2.2",
     "chokidar": "^3.5.0",
     "compression-webpack-plugin": "4.0.1",
@@ -182,6 +183,6 @@
       "webpack-dev-server": "3.11.0",
       "webpack-merge": "4.2.2"
     },
-    "hash": "203cb3e2b2ce7197a0147fae62ef30c16698b7633efd805b2a71096ef6d34a14"
+    "hash": "787d93e83b915542ea22a009828a49805754612d36f0c85649e4c8d720ed580f"
   }
 }
