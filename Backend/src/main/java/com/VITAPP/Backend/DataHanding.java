@@ -187,4 +187,26 @@ public class DataHanding {
     }
 
 
+    public ArrayList<Jefe_Establecimiento> devolverEstablecimientos() throws SQLException, ClassNotFoundException {
+        ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<Jefe_Establecimiento>();
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3306/vit_app_bbdd", "admin", "admin");
+
+        String sql = "SELECT * FROM jefe_establecimiento";
+
+        Statement statement = conexionBBDD.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        int count = 0;
+        while (result.next()){
+            Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
+            jefeAux.setCiudad(result.getString("Ciudad"));
+            jefeAux.setCodigo_Postal(result.getString("Codigo_Postal"));
+            jefeAux.setDireccion(result.getString("Direccion"));
+            jefeAux.setID(Integer.parseInt(result.getString("ID")));
+            jefeAux.setNombre_establecimiento(result.getString("Nombre_Establecimiento"));
+            listaEstablecimientos.add(jefeAux);
+        }
+
+        return listaEstablecimientos;
+    }
 }
