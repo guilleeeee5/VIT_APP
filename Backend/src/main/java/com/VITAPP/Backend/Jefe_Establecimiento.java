@@ -8,17 +8,20 @@ public class Jefe_Establecimiento extends User{
     private String Codigo_Postal;
     private String CIF;
     private String Nombre_establecimiento;
+
+    private String estado;
     public Jefe_Establecimiento() {
 
     }
 
-    public Jefe_Establecimiento(int ID, String name, String apellido, String password, String email,  String direccion, String ciudad, String codigo_Postal, String CIF, String nombre_establecimiento) {
+    public Jefe_Establecimiento(int ID, String name, String apellido, String password, String email,  String direccion, String ciudad, String codigo_Postal, String CIF, String nombre_establecimiento, String estado) {
         super(ID, name, apellido, password, email);
         this.Direccion = direccion;
         this.Ciudad = ciudad;
         this.Codigo_Postal = codigo_Postal;
         this.CIF = CIF;
         this.Nombre_establecimiento = nombre_establecimiento;
+        this.estado = estado;
     }
 
     public String getDireccion() {
@@ -59,5 +62,13 @@ public class Jefe_Establecimiento extends User{
 
     public void setNombre_establecimiento(String nombre_establecimiento) {
         this.Nombre_establecimiento = nombre_establecimiento;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

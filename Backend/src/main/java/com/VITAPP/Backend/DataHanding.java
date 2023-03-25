@@ -208,6 +208,7 @@ public class DataHanding {
             jefeAux.setDireccion(result.getString("Direccion"));
             jefeAux.setID(Integer.parseInt(result.getString("ID")));
             jefeAux.setNombre_establecimiento(result.getString("Nombre_Establecimiento"));
+            jefeAux.setEstado(result.getString("estado"));
             listaEstablecimientos.add(jefeAux);
         }
 
