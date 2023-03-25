@@ -16,6 +16,7 @@ import com.vaadin.flow.theme.lumo.Lumo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -36,12 +37,12 @@ public class Gestion_Admin extends VerticalLayout {
         grid.addColumn(Jefe_Establecimiento::getCodigo_Postal).setHeader("Código Postal");
         grid.addColumn(Jefe_Establecimiento::getDireccion).setHeader("Dirección");
 
-        /* Rellenno el arrayilst, con los datos recibidos
+        //Rellenno el arrayilst, con los datos recibidos
         try {
-            //listaEstablecimientos = DataService.;
-        } catch (URISyntaxException e) {
+            listaEstablecimientos = DataService.obtenerListaEstablecimientos();
+        } catch (IOException e) {
             throw new RuntimeException(e);
-        }*/
+        }
 
         grid.setItems(listaEstablecimientos);
 

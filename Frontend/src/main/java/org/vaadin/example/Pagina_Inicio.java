@@ -64,19 +64,12 @@ public class Pagina_Inicio extends VerticalLayout{
             add(LV);
         });
 
-        Button btnAux = new Button();
-        btnAux.addClickListener(event -> {
-            try {
-                DataService.obtenerListaEstablecimientos();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+
 
         // Agregar componentes al layout vertical
         horizontalLayout.add(imgI,imgE);
         horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);
-        add(img,titulo,tit,horizontalLayout,btnEmpezar,btnAux);
+        add(img,titulo,tit,horizontalLayout,btnEmpezar);
         // Configurar layout
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
