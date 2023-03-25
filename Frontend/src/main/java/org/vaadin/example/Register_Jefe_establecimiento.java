@@ -120,7 +120,7 @@ public class Register_Jefe_establecimiento extends Div
         jefeEstablecimiento.setDireccion(direccion);
         jefeEstablecimiento.setCiudad(ciudad);
         jefeEstablecimiento.setCodigo_Postal(CP);
-        jefeEstablecimiento.setCIF(cif);
+        jefeEstablecimiento.setCif(cif);
         jefeEstablecimiento.setNombre_establecimiento(nombreEstablecimiento);
         if(data.anhadirJefe(jefeEstablecimiento)){
             removeAll();

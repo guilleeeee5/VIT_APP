@@ -16,6 +16,7 @@ import com.vaadin.flow.theme.lumo.Lumo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.io.InputStream;
 
 @Route("inicio")
@@ -62,6 +63,7 @@ public class Pagina_Inicio extends VerticalLayout{
             LV.LoginBasic();
             add(LV);
         });
+
 
 
         // Agregar componentes al layout vertical

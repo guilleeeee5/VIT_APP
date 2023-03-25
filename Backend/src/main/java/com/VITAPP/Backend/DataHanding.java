@@ -123,7 +123,7 @@ public class DataHanding {
         //WHERE CIF = 'valor_CIF';
         Class.forName("com.mysql.jdbc.Driver");
         // Importante cambiar el puerto para este ejemplo, en este caso comprobar que el CIF y el email del jefe establecimiento estan iguales en la base de datos, ya que un jefe de establecimiento puede tener mas de 1 establecimiento
-        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3306/vit_app_bbdd", "admin", "admin");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
         Statement statement = conexionBBDD.createStatement();
         int rowsAffected = statement.executeUpdate(String.format("DELETE FROM jefe_establecimiento WHERE CIF = '%s'", jefe.getCIF()));
         ResultSet resultSet1 = statement.executeQuery(String.format("SELECT * from jefe_establecimiento JOIN usuario ON usuario.ID = jefe_establecimiento.ID"));
@@ -152,7 +152,7 @@ public class DataHanding {
     public ArrayList<Jefe_Establecimiento> modificarJefe(Jefe_Establecimiento jefeAntiguo, Jefe_Establecimiento jefeNuevo) throws ClassNotFoundException, SQLException {
         ArrayList<Jefe_Establecimiento> jefes = new ArrayList<Jefe_Establecimiento>();
         Class.forName("com.mysql.jdbc.Driver");
-        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3306/vit_app_bbdd", "admin", "admin");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
         PreparedStatement statement = conexionBBDD.prepareStatement("UPDATE jefe_establecimiento SET Direccion = ?, Ciudad = ?, Codigo_Postal = ?, Nombre_Establecimiento = ? WHERE CIF = ?");
         statement.setString(1, jefeNuevo.getDireccion());
         statement.setString(2, jefeNuevo.getCiudad());
@@ -190,9 +190,9 @@ public class DataHanding {
     public ArrayList<Jefe_Establecimiento> devolverEstablecimientos() throws SQLException, ClassNotFoundException {
         ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<Jefe_Establecimiento>();
         Class.forName("com.mysql.jdbc.Driver");
-        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3306/vit_app_bbdd", "admin", "admin");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
 
-        String sql = "SELECT * FROM jefe_establecimiento";
+        String sql = "SELECT * from jefe_establecimiento JOIN usuario ON usuario.ID = jefe_establecimiento.ID";
 
         Statement statement = conexionBBDD.createStatement();
         ResultSet result = statement.executeQuery(sql);
@@ -200,10 +200,15 @@ public class DataHanding {
         while (result.next()){
             Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
             jefeAux.setCiudad(result.getString("Ciudad"));
+            jefeAux.setName(result.getString("name"));
+            jefeAux.setApellido(result.getString("apellido"));
+            jefeAux.setCIF(result.getString("CIF"));
+            jefeAux.setEmail(result.getString("Email"));
             jefeAux.setCodigo_Postal(result.getString("Codigo_Postal"));
             jefeAux.setDireccion(result.getString("Direccion"));
-            jefeAux.setID(Integer.parseInt(result.getString("ID")));
+            jefeAux.setID(result.getInt("ID"));
             jefeAux.setNombre_establecimiento(result.getString("Nombre_Establecimiento"));
+            jefeAux.setEstado(result.getString("estado"));
             listaEstablecimientos.add(jefeAux);
         }
 

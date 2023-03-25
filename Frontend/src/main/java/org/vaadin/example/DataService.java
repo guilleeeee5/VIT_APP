@@ -21,10 +21,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
 public class DataService {
@@ -181,5 +181,26 @@ public class DataService {
             result = true;
         }
         return result;
+    }
+
+    public static ArrayList<Jefe_Establecimiento> obtenerListaEstablecimientos() throws IOException, URISyntaxException {
+
+        ArrayList<Jefe_Establecimiento> jefito = new ArrayList<>();
+        HttpRequest httpRequest = HttpRequest.newBuilder().uri(new URI(urlPrefix + "/gestionEstablecimiento")).GET().build();
+        Gson gson = new Gson();
+        String resultado = null;
+        HttpResponse<String> respuesta = null;
+
+        try {
+            respuesta = HttpClient.newBuilder().build().send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            resultado = respuesta.body();
+            jefito = gson.fromJson(resultado, new com.googlecode.gentyref.TypeToken<ArrayList<Jefe_Establecimiento>>(){}.getType());
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return jefito;
     }
 }
