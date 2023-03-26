@@ -45,13 +45,14 @@ public class API {
         return data.comprobarRegistroJefeEstablecimiento(jefe_establecimiento);
     }
 
-    @DeleteMapping("/Jefe_Establecimiento")
-    public ArrayList<Jefe_Establecimiento> eliminarJefe(@RequestBody Jefe_Establecimiento jefe) throws SQLException, ClassNotFoundException {
+    @DeleteMapping("/Jefe_Establecimiento/{cif}")
+    public ArrayList<Jefe_Establecimiento> eliminarJefe(@PathVariable String cif) throws SQLException, ClassNotFoundException {
         DataHanding data = new DataHanding();
-        return data.eliminarJefe(jefe);
+        data.eliminarJefe(cif);
+        return data.devolverEstablecimientos();
     }
 
-    @PutMapping("/Jefe_Establecimineto")
+    @PutMapping("/Jefe_Establecimiento")
     public ArrayList<Jefe_Establecimiento> modificarjefe(@RequestBody ArrayList<Jefe_Establecimiento> jefesActualziar) throws SQLException, ClassNotFoundException {
         DataHanding data = new DataHanding();
         Jefe_Establecimiento jefeAntiguo = jefesActualziar.get(0);

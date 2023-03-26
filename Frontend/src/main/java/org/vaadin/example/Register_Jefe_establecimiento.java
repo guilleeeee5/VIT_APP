@@ -80,7 +80,7 @@ public class Register_Jefe_establecimiento extends Div
         HorizontalB.add(registerButton, atrasButton);
 
         // Agregar componentes al layout vertical
-        Vertical.add(title, Horizontal, contrasena, confirmarContrasena,correo,Horizontal1,CP,cif, HorizontalB);
+        Vertical.add(title, Horizontal, contrasena, confirmarContrasena,correo, nombreEstablecimiento ,Horizontal1,CP,cif, HorizontalB);
         Vertical.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
 
         add(Vertical);
@@ -111,17 +111,7 @@ public class Register_Jefe_establecimiento extends Div
     private void register(String nombre, String apellido, String contrasena, String correo, String direccion, String ciudad,  String CP,  String cif, String nombreEstablecimiento) {
         // Lógica de registro
         DataService data = new DataService();
-        Jefe_Establecimiento jefeEstablecimiento = new Jefe_Establecimiento();
-
-        jefeEstablecimiento.setName(nombre);
-        jefeEstablecimiento.setApellido(apellido);
-        jefeEstablecimiento.setPassword(contrasena);
-        jefeEstablecimiento.setEmail(correo);
-        jefeEstablecimiento.setDireccion(direccion);
-        jefeEstablecimiento.setCiudad(ciudad);
-        jefeEstablecimiento.setCodigo_Postal(CP);
-        jefeEstablecimiento.setCif(cif);
-        jefeEstablecimiento.setNombre_establecimiento(nombreEstablecimiento);
+        Jefe_Establecimiento jefeEstablecimiento = new Jefe_Establecimiento(nombre, apellido, contrasena, correo, direccion, ciudad, CP, cif, nombreEstablecimiento, "0");
         if(data.anhadirJefe(jefeEstablecimiento)){
             removeAll();
             LoginView login = new LoginView();

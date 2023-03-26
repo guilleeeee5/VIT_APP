@@ -6,15 +6,15 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.http.util.EntityUtils;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -203,4 +203,39 @@ public class DataService {
         }
         return jefito;
     }
+
+    public static ArrayList<Jefe_Establecimiento> actualizarEstablecimiento(@RequestBody ArrayList<Jefe_Establecimiento> montarJSON) throws URISyntaxException, IOException {
+        Gson g = new Gson();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPut request = new HttpPut(urlPrefix + "/Jefe_Establecimiento");
+        request.setHeader("Content-Type", "application/json");
+        request.setHeader("Accept", "application/json");
+        String jsonpasado = "[" + montarJSON.get(0).mostrarJson() + "," + montarJSON.get(1).mostrarJson() + "]";
+        StringEntity stringEntity = new StringEntity(jsonpasado);
+        request.setEntity(stringEntity);
+        CloseableHttpResponse response = httpClient.execute(request);
+        String respuestaActual = new BasicResponseHandler().handleResponse(response);
+
+        montarJSON = g.fromJson(respuestaActual, new TypeToken<ArrayList<Jefe_Establecimiento>>(){}.getType());
+
+        return montarJSON;
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/Jefe_Establecimiento/{cif}")
+    public static ArrayList<Jefe_Establecimiento> eliminarJefeEstablecimiento(@PathVariable String cif) throws URISyntaxException, IOException, InterruptedException {
+        Gson g = new Gson();
+        ArrayList<Jefe_Establecimiento> listaDevuelta = new ArrayList<>();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpDelete request = new HttpDelete(urlPrefix+"/Jefe_Establecimiento/" + cif);
+        request.setHeader("Content-Type", "application/json");
+        request.setHeader("Accept", "application/json");
+        CloseableHttpResponse response = httpClient.execute(request);
+        String respuestaActual = new BasicResponseHandler().handleResponse(response);
+        listaDevuelta = g.fromJson(respuestaActual, new TypeToken<ArrayList<Jefe_Establecimiento>>(){}.getType());
+        return listaDevuelta;
+    }
+
+
+
+
 }

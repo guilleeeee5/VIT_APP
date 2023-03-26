@@ -10,6 +10,13 @@ public class User {
     public User() {
     }
 
+    public User(String name, String apellido, String password, String email) {
+        this.name = name;
+        this.apellido = apellido;
+        this.password = password;
+        this.email = email;
+    }
+
     public User(String name, String apellido, String password, String email, int ID) {
         this.name = name;
         this.apellido = apellido;
@@ -47,7 +54,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        email = email;
+        this.email = email;
     }
 
     public int getID() {
@@ -56,5 +63,16 @@ public class User {
 
     public void setID(int ID) {
         this.ID = ID;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", ID=" + ID +
+                '}';
     }
 }
