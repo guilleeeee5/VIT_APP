@@ -13,6 +13,10 @@ public class Discapacitado_VIsual extends User{
     public Discapacitado_VIsual() {
     }
 
+    public Discapacitado_VIsual(String nombre, String apellido, String contrasena, String correo) {
+        super(nombre, apellido, contrasena, correo);
+    }
+
     public String getEdificios() {
         return edificio;
     }
