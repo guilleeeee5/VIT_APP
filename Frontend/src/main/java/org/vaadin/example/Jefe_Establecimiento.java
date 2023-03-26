@@ -12,7 +12,7 @@ public class Jefe_Establecimiento extends User{
 
     }
 
-    
+
 
     public Jefe_Establecimiento(int ID, String name, String apellido, String password, String email, String direccion, String ciudad, String codigo_Postal, String cif, String nombre_establecimiento, String estado) {
         super( name, apellido, password, email, ID);
@@ -85,5 +85,17 @@ public class Jefe_Establecimiento extends User{
                 "\"nombre_establecimiento\": " + "\"" + getNombre_establecimiento() + "\"" + ",\n" +
                 "\"estado\": " + "\"" + getEstado() + "\"" + "\n" +
                 "}";
+    }
+
+    @Override
+    public String toString() {
+        return "Jefe_Establecimiento{" +
+                "direccion='" + direccion + '\'' +
+                ", ciudad='" + ciudad + '\'' +
+                ", codigo_Postal='" + codigo_Postal + '\'' +
+                ", cif='" + cif + '\'' +
+                ", nombre_establecimiento='" + nombre_establecimiento + '\'' +
+                ", estado='" + estado + '\'' +
+                '}';
     }
 }

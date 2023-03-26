@@ -21,7 +21,9 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 
+import javax.management.Notification;
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -33,8 +35,9 @@ import java.util.ArrayList;
 public class Gestion_Admin extends VerticalLayout {
 
     public void gestionAdminView(){
-        ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<Jefe_Establecimiento>();
+        ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<>();
         Jefe_Establecimiento antiguojefeEstablecimiento = new Jefe_Establecimiento();
+
 
         Dialog dialog = new Dialog();
         dialog.setHeight("800");
@@ -51,7 +54,6 @@ public class Gestion_Admin extends VerticalLayout {
 
         Label etiqueta1 = new Label("Dirección");
         TextField texto1 = new TextField();
-        texto1.setEnabled(false);
         Label etiqueta2 = new Label("Ciudad");
         TextField texto2 = new TextField();
         Label etiqueta3 = new Label("Codigo Postal");
@@ -63,15 +65,17 @@ public class Gestion_Admin extends VerticalLayout {
 
         Button boton = new Button("Actualizar");
         Button boton2 = new Button("Cancelar");
+        Button boton3 = new Button("Borrar");
         boton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        boton2.addThemeVariants(ButtonVariant.LUMO_ERROR);
+        boton2.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
+        boton3.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
         vl1.add(etiqueta1, texto1, etiqueta2, texto2);
         vl2.add(etiqueta3, texto3, etiqueta4, texto4);
         vl3.add(etiqueta5, texto5);
         hl1.add(vl1, vl2, vl3);
         hl1.setAlignItems(Alignment.CENTER);
-        hl2.add(boton, boton2);
+        hl2.add(boton, boton2, boton3);
         hl2.setAlignItems(Alignment.CENTER);
         vlDialog.add(hl1, hl2);
         dialog.add(vlDialog);
@@ -112,20 +116,80 @@ public class Gestion_Admin extends VerticalLayout {
         });
         grid.addItemDoubleClickListener(event -> dialog.open());
 
+        grid.addItemDoubleClickListener(new ComponentEventListener<ItemDoubleClickEvent<Jefe_Establecimiento>>() {
+            @Override
+            public void onComponentEvent(ItemDoubleClickEvent<Jefe_Establecimiento> jefeEstablecimientoItemDoubleClickEvent) {
+                texto1.setValue(antiguojefeEstablecimiento.getDireccion());
+                texto2.setValue(antiguojefeEstablecimiento.getCiudad());
+                texto3.setValue(antiguojefeEstablecimiento.getCodigo_Postal());
+                texto4.setValue(antiguojefeEstablecimiento.getCif());
+                texto5.setValue(antiguojefeEstablecimiento.getNombre_establecimiento());
+            }
+        });
+
         boton.addClickListener(new ComponentEventListener<ClickEvent<Button>>() {
             @Override
             public void onComponentEvent(ClickEvent<Button> buttonClickEvent) {
+                ArrayList<Jefe_Establecimiento> listaEstablecimientosaux = new ArrayList<>();
+                ArrayList<Jefe_Establecimiento> listaEstablecimientosaux2 = new ArrayList<>();
+                try {
+                    listaEstablecimientosaux2 = DataService.obtenerListaEstablecimientos();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                }
                 String direccion = texto1.getValue();
                 String ciudad = texto2.getValue();
                 String cod_postal = texto3.getValue();
                 String cif = texto4.getValue();
                 String nom_establecimiento = texto5.getValue();
-                Jefe_Establecimiento nuevo_establecimiento = new Jefe_Establecimiento(direccion, ciudad, cod_postal, cif, nom_establecimiento);
+                Jefe_Establecimiento nuevo_establecimiento = new Jefe_Establecimiento();
+                nuevo_establecimiento.setDireccion(direccion);
+                nuevo_establecimiento.setCiudad(ciudad);
+                nuevo_establecimiento.setCodigo_Postal(cod_postal);
+                nuevo_establecimiento.setCif(cif);
+                nuevo_establecimiento.setNombre_establecimiento(nom_establecimiento);
+
+                if(antiguojefeEstablecimiento.toString().equals(nuevo_establecimiento.toString())){
+                    System.out.printf("Es el mismo objeto");
+                }
+                else{
+                    listaEstablecimientosaux.add(antiguojefeEstablecimiento);
+                    listaEstablecimientosaux.add(nuevo_establecimiento);
+                    try {
+                        listaEstablecimientosaux2 = DataService.actualizarEstablecimiento(listaEstablecimientosaux);
+                        grid.setItems(listaEstablecimientosaux2);
+                        dialog.close();
+                    } catch (URISyntaxException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    grid.setItems(listaEstablecimientosaux2);
+                }
+
             }
         });
 
 
-
+        boton3.addClickListener(new ComponentEventListener<ClickEvent<Button>>() {
+            @Override
+            public void onComponentEvent(ClickEvent<Button> buttonClickEvent) {
+                ArrayList<Jefe_Establecimiento> listaEstablecimientosaux = new ArrayList<>();
+                try {
+                    listaEstablecimientosaux = DataService.eliminarJefeEstablecimiento(antiguojefeEstablecimiento.getCif());
+                    grid.setItems(listaEstablecimientosaux);
+                    dialog.close();
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
 
 

@@ -117,36 +117,11 @@ public class DataHanding {
 
     }
 
-    public ArrayList<Jefe_Establecimiento> eliminarJefe(Jefe_Establecimiento jefe) throws ClassNotFoundException, SQLException {
-        ArrayList<Jefe_Establecimiento> jefes = new ArrayList<Jefe_Establecimiento>();
-        //Consulta BBDD DELETE FROM jefe_establecimiento
-        //WHERE CIF = 'valor_CIF';
+    public void eliminarJefe(String cif) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        // Importante cambiar el puerto para este ejemplo, en este caso comprobar que el CIF y el email del jefe establecimiento estan iguales en la base de datos, ya que un jefe de establecimiento puede tener mas de 1 establecimiento
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
         Statement statement = conexionBBDD.createStatement();
-        int rowsAffected = statement.executeUpdate(String.format("DELETE FROM jefe_establecimiento WHERE CIF = '%s'", jefe.getCIF()));
-        ResultSet resultSet1 = statement.executeQuery(String.format("SELECT * from jefe_establecimiento JOIN usuario ON usuario.ID = jefe_establecimiento.ID"));
-        // Recorrer los resultados del ResultSet y crear objetos Jefe_Establecimiento
-        while (resultSet1.next()) {
-            Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
-            // Establecer las propiedades del objeto a partir de los valores del ResultSet
-            jefeAux.setName(resultSet1.getString("name"));
-            jefeAux.setApellido(resultSet1.getString("apellido"));
-            jefeAux.setPassword(resultSet1.getString("password"));
-            jefeAux.setEmail(resultSet1.getString("Email"));
-            jefeAux.setDireccion(resultSet1.getString("Direccion"));
-            jefeAux.setCiudad(resultSet1.getString("Ciudad"));
-            jefeAux.setCodigo_Postal(resultSet1.getString("Codigo_Postal"));
-            jefeAux.setCIF(resultSet1.getString("CIF"));
-            jefeAux.setNombre_establecimiento(resultSet1.getString("Nombre_Establecimiento"));
-            jefeAux.setEstado(resultSet1.getString("estado"));
-            // Agregar el objeto Jefe_Establecimiento al ArrayList
-            jefes.add(jefeAux);
-        }
-
-
-        return jefes;
+        int rowsAffected = statement.executeUpdate(String.format("DELETE FROM jefe_establecimiento WHERE CIF = '%s'", cif));
     }
 
     public ArrayList<Jefe_Establecimiento> modificarJefe(Jefe_Establecimiento jefeAntiguo, Jefe_Establecimiento jefeNuevo) throws ClassNotFoundException, SQLException {

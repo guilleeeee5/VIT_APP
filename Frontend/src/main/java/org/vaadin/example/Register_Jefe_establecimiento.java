@@ -80,7 +80,7 @@ public class Register_Jefe_establecimiento extends Div
         HorizontalB.add(registerButton, atrasButton);
 
         // Agregar componentes al layout vertical
-        Vertical.add(title, Horizontal, contrasena, confirmarContrasena,correo,Horizontal1,CP,cif, HorizontalB);
+        Vertical.add(title, Horizontal, contrasena, confirmarContrasena,correo, nombreEstablecimiento ,Horizontal1,CP,cif, HorizontalB);
         Vertical.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
 
         add(Vertical);
