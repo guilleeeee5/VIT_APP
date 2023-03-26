@@ -147,6 +147,10 @@ public class LoginView extends VerticalLayout{
                     result = false;
                 }else {
                     result = true;
+                    removeAll();
+                    Gestion_Admin Gadmin = new Gestion_Admin();
+                    Gadmin.gestionAdminView();
+                    add(Gadmin);
                 }
                 break;
         }

@@ -4,17 +4,24 @@ public class User {
     private String name;
     private String apellido;
     private String password;
-    private String Email;
+    private String email;
     private int ID;
 
     public User() {
+    }
+
+    public User(String name, String apellido, String password, String email) {
+        this.name = name;
+        this.apellido = apellido;
+        this.password = password;
+        this.email = email;
     }
 
     public User(String name, String apellido, String password, String email, int ID) {
         this.name = name;
         this.apellido = apellido;
         this.password = password;
-        this.Email = email;
+        this.email = email;
         this.ID = ID;
     }
 
@@ -43,11 +50,11 @@ public class User {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public int getID() {
@@ -56,5 +63,16 @@ public class User {
 
     public void setID(int ID) {
         this.ID = ID;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", ID=" + ID +
+                '}';
     }
 }

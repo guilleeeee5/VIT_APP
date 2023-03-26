@@ -26,7 +26,12 @@ public class API {
         return data.comprobarAdmin(email, password);
     }
 
+    @GetMapping("/gestionEstablecimiento")
+    public ArrayList<Jefe_Establecimiento> get_Establecimientos() throws SQLException, ClassNotFoundException{
+        DataHanding data = new DataHanding();
+        return data.devolverEstablecimientos();
 
+    }
 
     @PostMapping("/Discapacitado_Visual_Registro")
     public Discapacitado_VIsual crearRegistroDiscapacitado(@RequestBody Discapacitado_VIsual discapacitado_visual) throws SQLException, ClassNotFoundException {
@@ -40,4 +45,18 @@ public class API {
         return data.comprobarRegistroJefeEstablecimiento(jefe_establecimiento);
     }
 
+    @DeleteMapping("/Jefe_Establecimiento/{cif}")
+    public ArrayList<Jefe_Establecimiento> eliminarJefe(@PathVariable String cif) throws SQLException, ClassNotFoundException {
+        DataHanding data = new DataHanding();
+        data.eliminarJefe(cif);
+        return data.devolverEstablecimientos();
+    }
+
+    @PutMapping("/Jefe_Establecimiento")
+    public ArrayList<Jefe_Establecimiento> modificarjefe(@RequestBody ArrayList<Jefe_Establecimiento> jefesActualziar) throws SQLException, ClassNotFoundException {
+        DataHanding data = new DataHanding();
+        Jefe_Establecimiento jefeAntiguo = jefesActualziar.get(0);
+        Jefe_Establecimiento jefeNuevo = jefesActualziar.get(1);
+        return data.modificarJefe(jefeAntiguo, jefeNuevo);
+    }
 }

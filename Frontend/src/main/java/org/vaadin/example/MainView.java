@@ -43,10 +43,14 @@ public class MainView extends VerticalLayout {
      * @param service The message service. Automatically injected Spring managed bean.
      */
     public MainView(@Autowired GreetService service) {
-        // Agrega Login al layout principal
+        /* Agrega Login al layout principal
         LoginView login = new LoginView();
         login.LoginBasic();
-        add(login);
+        add(login);*/
+
+        Pagina_Inicio inicio = new Pagina_Inicio();
+        inicio.ViewInicio();
+        add(inicio);
     }
 
 }

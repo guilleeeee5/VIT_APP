@@ -3,6 +3,7 @@ package com.VITAPP.Backend;
 
 import javax.xml.transform.Result;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DataHanding {
     public Discapacitado_VIsual comprobarDisc(String email, String password) throws ClassNotFoundException, SQLException {
@@ -114,5 +115,80 @@ public class DataHanding {
             return jefe_establecimiento;
         }
 
+    }
+
+    public void eliminarJefe(String cif) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
+        Statement statement = conexionBBDD.createStatement();
+        int rowsAffected = statement.executeUpdate(String.format("DELETE FROM jefe_establecimiento WHERE CIF = '%s'", cif));
+    }
+
+    public ArrayList<Jefe_Establecimiento> modificarJefe(Jefe_Establecimiento jefeAntiguo, Jefe_Establecimiento jefeNuevo) throws ClassNotFoundException, SQLException {
+        ArrayList<Jefe_Establecimiento> jefes = new ArrayList<Jefe_Establecimiento>();
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
+        PreparedStatement statement = conexionBBDD.prepareStatement(String.format("UPDATE jefe_establecimiento SET Direccion = %s, Ciudad = %s, Codigo_Postal = %s, Nombre_Establecimiento = %s, estado = %s WHERE CIF = %s", jefeNuevo.getDireccion(), jefeNuevo.getCiudad(), jefeNuevo.getCodigo_Postal(), jefeNuevo.getNombre_establecimiento(), jefeNuevo.getEstado(), jefeAntiguo.getCIF()));
+        statement.setString(1, jefeNuevo.getDireccion());
+        statement.setString(2, jefeNuevo.getCiudad());
+        statement.setString(3, jefeNuevo.getCodigo_Postal());
+        statement.setString(4, jefeNuevo.getNombre_establecimiento());
+        statement.setString(5, jefeAntiguo.getCIF());
+        statement.setString(5, jefeAntiguo.getEstado());
+        int rowsAffected = statement.executeUpdate();
+        if (rowsAffected > 0) {
+            PreparedStatement statement2 = conexionBBDD.prepareStatement(String.format("UPDATE usuario SET name = %s, apellido = %s, password = %s, Email = %s, estado = %s WHERE CIF = %s", jefeNuevo.getName(), jefeNuevo.getApellido(), jefeNuevo.getPassword(), jefeNuevo.getEstado(), jefeAntiguo.getCIF()));
+            statement2.setString(1, jefeNuevo.getName());
+            statement2.setString(2, jefeNuevo.getApellido());
+            statement2.setString(3, jefeNuevo.getPassword());
+            statement2.setString(4, jefeNuevo.getEmail());
+            statement2.setString(5, jefeAntiguo.getCIF());
+            statement2.executeUpdate();
+            ResultSet resultSet = statement.executeQuery("SELECT * from jefe_establecimiento");
+            while (resultSet.next()) {
+                Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
+                jefeAux.setName(resultSet.getString("name"));
+                jefeAux.setApellido(resultSet.getString("apellido"));    
+                jefeAux.setPassword(resultSet.getString("password"));
+                jefeAux.setEmail(resultSet.getString("Email"));
+                jefeAux.setDireccion(resultSet.getString("Direccion"));
+                jefeAux.setCiudad(resultSet.getString("Ciudad"));
+                jefeAux.setCodigo_Postal(resultSet.getString("Codigo_Postal"));
+                jefeAux.setCIF(resultSet.getString("CIF"));
+                jefeAux.setNombre_establecimiento(resultSet.getString("Nombre_Establecimiento"));
+                jefeAux.setEstado(resultSet.getString("estado"));
+                jefes.add(jefeAux);
+            }
+        }
+        return jefes;
+    }
+
+
+    public ArrayList<Jefe_Establecimiento> devolverEstablecimientos() throws SQLException, ClassNotFoundException {
+        ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<Jefe_Establecimiento>();
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
+
+        String sql = "SELECT * from jefe_establecimiento JOIN usuario ON usuario.ID = jefe_establecimiento.ID";
+
+        Statement statement = conexionBBDD.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        int count = 0;
+        while (result.next()){
+            Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
+            jefeAux.setCiudad(result.getString("Ciudad"));
+            jefeAux.setName(result.getString("name"));
+            jefeAux.setApellido(result.getString("apellido"));
+            jefeAux.setCIF(result.getString("CIF"));
+            jefeAux.setEmail(result.getString("Email"));
+            jefeAux.setCodigo_Postal(result.getString("Codigo_Postal"));
+            jefeAux.setDireccion(result.getString("Direccion"));
+            jefeAux.setID(result.getInt("ID"));
+            jefeAux.setNombre_establecimiento(result.getString("Nombre_Establecimiento"));
+            jefeAux.setEstado(result.getString("estado"));
+            listaEstablecimientos.add(jefeAux);
+        }
+
+        return listaEstablecimientos;
     }
 }
