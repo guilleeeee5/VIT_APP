@@ -48,9 +48,12 @@ public class Gestion_Admin extends VerticalLayout {
         VerticalLayout vl1 = new VerticalLayout();
         VerticalLayout vl2 = new VerticalLayout();
         VerticalLayout vl3 = new VerticalLayout();
+        VerticalLayout vl4 = new VerticalLayout();
         HorizontalLayout hl1 = new HorizontalLayout();
         HorizontalLayout hl2 = new HorizontalLayout();
+        HorizontalLayout hl3 = new HorizontalLayout();
         VerticalLayout vlDialog = new VerticalLayout();
+
 
         Label etiqueta1 = new Label("Dirección");
         TextField texto1 = new TextField();
@@ -60,9 +63,17 @@ public class Gestion_Admin extends VerticalLayout {
         TextField texto3 = new TextField();
         Label etiqueta4 = new Label("CIF");
         TextField texto4 = new TextField();
+        texto4.setEnabled(false);
         Label etiqueta5 = new Label("Nombre Establecimiento");
         TextField texto5 = new TextField();
-
+        Label etiqueta6 = new Label("Nombre");
+        TextField texto6 = new TextField();
+        Label etiqueta7 = new Label("Apellido");
+        TextField texto7 = new TextField();
+        Label etiqueta8 = new Label("Estado");
+        TextField texto8 = new TextField();
+        Label etiqueta9 = new Label("Email");
+        TextField texto9 = new TextField();
         Button boton = new Button("Actualizar");
         Button boton2 = new Button("Cancelar");
         Button boton3 = new Button("Borrar");
@@ -72,12 +83,17 @@ public class Gestion_Admin extends VerticalLayout {
 
         vl1.add(etiqueta1, texto1, etiqueta2, texto2);
         vl2.add(etiqueta3, texto3, etiqueta4, texto4);
-        vl3.add(etiqueta5, texto5);
-        hl1.add(vl1, vl2, vl3);
+        vl3.add(etiqueta5, texto5, etiqueta6, texto6);
+        vl4.add(etiqueta7, texto7, etiqueta9, texto9);
+
+        hl1.add(vl1, vl2, vl3, vl4);
         hl1.setAlignItems(Alignment.CENTER);
-        hl2.add(boton, boton2, boton3);
+        hl2.add(etiqueta8, texto8);
+        hl2.setPadding(true);
         hl2.setAlignItems(Alignment.CENTER);
-        vlDialog.add(hl1, hl2);
+        hl3.add(boton, boton2, boton3);
+        hl3.setAlignItems(Alignment.CENTER);
+        vlDialog.add(hl1, hl2, hl3);
         dialog.add(vlDialog);
 
         // Generar la tabla con los campos arriba puestos.
@@ -112,6 +128,12 @@ public class Gestion_Admin extends VerticalLayout {
                 antiguojefeEstablecimiento.setCodigo_Postal(event.getItem().getCodigo_Postal());
                 antiguojefeEstablecimiento.setCif(event.getItem().getCif());
                 antiguojefeEstablecimiento.setNombre_establecimiento(event.getItem().getNombre_establecimiento());
+                antiguojefeEstablecimiento.setName(event.getItem().getName());
+                antiguojefeEstablecimiento.setApellido(event.getItem().getApellido());
+                antiguojefeEstablecimiento.setPassword(event.getItem().getPassword());
+                antiguojefeEstablecimiento.setEmail(event.getItem().getEmail());
+                antiguojefeEstablecimiento.setEstado(event.getItem().getEstado());
+                System.out.println(antiguojefeEstablecimiento);
             }
         });
         grid.addItemDoubleClickListener(event -> dialog.open());
@@ -124,6 +146,10 @@ public class Gestion_Admin extends VerticalLayout {
                 texto3.setValue(antiguojefeEstablecimiento.getCodigo_Postal());
                 texto4.setValue(antiguojefeEstablecimiento.getCif());
                 texto5.setValue(antiguojefeEstablecimiento.getNombre_establecimiento());
+                texto6.setValue(antiguojefeEstablecimiento.getName());
+                texto7.setValue(antiguojefeEstablecimiento.getApellido());
+                texto8.setValue(antiguojefeEstablecimiento.getEstado());
+                texto9.setValue(antiguojefeEstablecimiento.getEmail());
             }
         });
 
@@ -144,11 +170,19 @@ public class Gestion_Admin extends VerticalLayout {
                 String cod_postal = texto3.getValue();
                 String cif = texto4.getValue();
                 String nom_establecimiento = texto5.getValue();
+                String name = texto6.getValue();
+                String apellido = texto7.getValue();
+                String password = texto8.getValue();
+                String email = texto9.getValue();
                 Jefe_Establecimiento nuevo_establecimiento = new Jefe_Establecimiento();
                 nuevo_establecimiento.setDireccion(direccion);
                 nuevo_establecimiento.setCiudad(ciudad);
                 nuevo_establecimiento.setCodigo_Postal(cod_postal);
                 nuevo_establecimiento.setCif(cif);
+                nuevo_establecimiento.setName(name);
+                nuevo_establecimiento.setApellido(apellido);
+                nuevo_establecimiento.setPassword(password);
+                nuevo_establecimiento.setEmail(email);
                 nuevo_establecimiento.setNombre_establecimiento(nom_establecimiento);
 
                 if(antiguojefeEstablecimiento.toString().equals(nuevo_establecimiento.toString())){
@@ -172,6 +206,13 @@ public class Gestion_Admin extends VerticalLayout {
             }
         });
 
+
+        boton2.addClickListener(new ComponentEventListener<ClickEvent<Button>>() {
+            @Override
+            public void onComponentEvent(ClickEvent<Button> buttonClickEvent) {
+                dialog.close();
+            }
+        });
 
         boton3.addClickListener(new ComponentEventListener<ClickEvent<Button>>() {
             @Override

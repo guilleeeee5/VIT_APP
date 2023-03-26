@@ -54,7 +54,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        email = email;
+        this.email = email;
     }
 
     public int getID() {
@@ -63,5 +63,16 @@ public class User {
 
     public void setID(int ID) {
         this.ID = ID;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", ID=" + ID +
+                '}';
     }
 }

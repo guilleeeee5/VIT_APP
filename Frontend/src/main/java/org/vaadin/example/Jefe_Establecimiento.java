@@ -88,6 +88,7 @@ public class Jefe_Establecimiento extends User{
     @Override
     public String toString() {
         return "Jefe_Establecimiento{" +
+                super.toString() +
                 "direccion='" + direccion + '\'' +
                 ", ciudad='" + ciudad + '\'' +
                 ", codigo_Postal='" + codigo_Postal + '\'' +
