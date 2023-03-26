@@ -128,27 +128,27 @@ public class DataHanding {
         ArrayList<Jefe_Establecimiento> jefes = new ArrayList<Jefe_Establecimiento>();
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
-        PreparedStatement statement = conexionBBDD.prepareStatement(String.format("UPDATE jefe_establecimiento SET Direccion = %s, Ciudad = %s, Codigo_Postal = %s, Nombre_Establecimiento = %s, estado = %s WHERE CIF = %s", jefeNuevo.getDireccion(), jefeNuevo.getCiudad(), jefeNuevo.getCodigo_Postal(), jefeNuevo.getNombre_establecimiento(), jefeNuevo.getEstado(), jefeAntiguo.getCIF()));
-        statement.setString(1, jefeNuevo.getDireccion());
-        statement.setString(2, jefeNuevo.getCiudad());
-        statement.setString(3, jefeNuevo.getCodigo_Postal());
-        statement.setString(4, jefeNuevo.getNombre_establecimiento());
-        statement.setString(5, jefeAntiguo.getCIF());
-        statement.setString(5, jefeAntiguo.getEstado());
-        int rowsAffected = statement.executeUpdate();
-        if (rowsAffected > 0) {
-            PreparedStatement statement2 = conexionBBDD.prepareStatement(String.format("UPDATE usuario SET name = %s, apellido = %s, password = %s, Email = %s, estado = %s WHERE CIF = %s", jefeNuevo.getName(), jefeNuevo.getApellido(), jefeNuevo.getPassword(), jefeNuevo.getEstado(), jefeAntiguo.getCIF()));
-            statement2.setString(1, jefeNuevo.getName());
-            statement2.setString(2, jefeNuevo.getApellido());
-            statement2.setString(3, jefeNuevo.getPassword());
-            statement2.setString(4, jefeNuevo.getEmail());
-            statement2.setString(5, jefeAntiguo.getCIF());
-            statement2.executeUpdate();
-            ResultSet resultSet = statement.executeQuery("SELECT * from jefe_establecimiento");
+
+            // Si la actualización fue exitosa, actualizar la tabla usuario
+            PreparedStatement statement = conexionBBDD.prepareStatement("UPDATE usuario JOIN jefe_establecimiento ON (usuario.ID = jefe_establecimiento.ID) SET name = ?, apellido = ?, password = ?, Email = ?, estado = ?, Direccion = ?, Ciudad = ?, Codigo_Postal = ?, Nombre_Establecimiento = ? WHERE CIF = ?");
+            statement.setString(1, jefeNuevo.getName());
+            statement.setString(2, jefeNuevo.getApellido());
+            statement.setString(3, jefeNuevo.getPassword());
+            statement.setString(4, jefeNuevo.getEmail());
+            statement.setString(5, jefeNuevo.getEstado());
+            statement.setString(6, jefeNuevo.getDireccion());
+            statement.setString(7, jefeNuevo.getCiudad());
+            statement.setString(8, jefeNuevo.getCodigo_Postal());
+            statement.setString(9, jefeNuevo.getNombre_establecimiento());
+            statement.setString(10, jefeNuevo.getCIF());
+            statement.executeUpdate();
+
+            // Obtener la lista actualizada de jefes
+            ResultSet resultSet = statement.executeQuery("SELECT * from jefe_establecimiento JOIN usuario ON usuario.ID = jefe_establecimiento.ID");
             while (resultSet.next()) {
                 Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
                 jefeAux.setName(resultSet.getString("name"));
-                jefeAux.setApellido(resultSet.getString("apellido"));    
+                jefeAux.setApellido(resultSet.getString("apellido"));
                 jefeAux.setPassword(resultSet.getString("password"));
                 jefeAux.setEmail(resultSet.getString("Email"));
                 jefeAux.setDireccion(resultSet.getString("Direccion"));
@@ -159,9 +159,9 @@ public class DataHanding {
                 jefeAux.setEstado(resultSet.getString("estado"));
                 jefes.add(jefeAux);
             }
-        }
         return jefes;
     }
+
 
 
     public ArrayList<Jefe_Establecimiento> devolverEstablecimientos() throws SQLException, ClassNotFoundException {
