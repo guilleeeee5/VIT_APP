@@ -140,7 +140,7 @@ public class DataHanding {
             jefeAux.setCodigo_Postal(resultSet1.getString("Codigo_Postal"));
             jefeAux.setCIF(resultSet1.getString("CIF"));
             jefeAux.setNombre_establecimiento(resultSet1.getString("Nombre_Establecimiento"));
-
+            jefeAux.setEstado(resultSet1.getString("estado"));
             // Agregar el objeto Jefe_Establecimiento al ArrayList
             jefes.add(jefeAux);
         }
@@ -153,15 +153,16 @@ public class DataHanding {
         ArrayList<Jefe_Establecimiento> jefes = new ArrayList<Jefe_Establecimiento>();
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
-        PreparedStatement statement = conexionBBDD.prepareStatement("UPDATE jefe_establecimiento SET Direccion = ?, Ciudad = ?, Codigo_Postal = ?, Nombre_Establecimiento = ? WHERE CIF = ?");
+        PreparedStatement statement = conexionBBDD.prepareStatement("UPDATE jefe_establecimiento SET Direccion = ?, Ciudad = ?, Codigo_Postal = ?, Nombre_Establecimiento = ?, estado = ? WHERE CIF = ?");
         statement.setString(1, jefeNuevo.getDireccion());
         statement.setString(2, jefeNuevo.getCiudad());
         statement.setString(3, jefeNuevo.getCodigo_Postal());
         statement.setString(4, jefeNuevo.getNombre_establecimiento());
         statement.setString(5, jefeAntiguo.getCIF());
+        statement.setString(5, jefeAntiguo.getEstado());
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected > 0) {
-            PreparedStatement statement2 = conexionBBDD.prepareStatement("UPDATE usuario SET name = ?, apellido = ?, password = ?, Email = ? WHERE CIF = ?");
+            PreparedStatement statement2 = conexionBBDD.prepareStatement("UPDATE usuario SET name = ?, apellido = ?, password = ?, Email = ?, estado = ? WHERE CIF = ?");
             statement2.setString(1, jefeNuevo.getName());
             statement2.setString(2, jefeNuevo.getApellido());
             statement2.setString(3, jefeNuevo.getPassword());
@@ -180,6 +181,7 @@ public class DataHanding {
                 jefeAux.setCodigo_Postal(resultSet.getString("Codigo_Postal"));
                 jefeAux.setCIF(resultSet.getString("CIF"));
                 jefeAux.setNombre_establecimiento(resultSet.getString("Nombre_Establecimiento"));
+                jefeAux.setEstado(resultSet.getString("estado"));
                 jefes.add(jefeAux);
             }
         }
