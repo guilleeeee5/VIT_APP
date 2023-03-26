@@ -165,7 +165,7 @@ public class Gestion_Admin extends VerticalLayout {
                 String nom_establecimiento = texto5.getValue();
                 String name = texto6.getValue();
                 String apellido = texto7.getValue();
-                String password = texto8.getValue();
+                String estado = texto8.getValue();
                 String email = texto9.getValue();
                 Jefe_Establecimiento nuevo_establecimiento = new Jefe_Establecimiento();
                 nuevo_establecimiento.setDireccion(direccion);
@@ -174,7 +174,7 @@ public class Gestion_Admin extends VerticalLayout {
                 nuevo_establecimiento.setCif(cif);
                 nuevo_establecimiento.setName(name);
                 nuevo_establecimiento.setApellido(apellido);
-                nuevo_establecimiento.setPassword(password);
+                nuevo_establecimiento.setEstado(estado);
                 nuevo_establecimiento.setEmail(email);
                 nuevo_establecimiento.setNombre_establecimiento(nom_establecimiento);
 
