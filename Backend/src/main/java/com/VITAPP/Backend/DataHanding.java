@@ -173,7 +173,7 @@ public class DataHanding {
             while (resultSet.next()) {
                 Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
                 jefeAux.setName(resultSet.getString("name"));
-                jefeAux.setApellido(resultSet.getString("apellido"));
+                jefeAux.setApellido(resultSet.getString("apellido"));    
                 jefeAux.setPassword(resultSet.getString("password"));
                 jefeAux.setEmail(resultSet.getString("Email"));
                 jefeAux.setDireccion(resultSet.getString("Direccion"));
