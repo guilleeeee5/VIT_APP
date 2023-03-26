@@ -158,13 +158,6 @@ public class Gestion_Admin extends VerticalLayout {
             public void onComponentEvent(ClickEvent<Button> buttonClickEvent) {
                 ArrayList<Jefe_Establecimiento> listaEstablecimientosaux = new ArrayList<>();
                 ArrayList<Jefe_Establecimiento> listaEstablecimientosaux2 = new ArrayList<>();
-                try {
-                    listaEstablecimientosaux2 = DataService.obtenerListaEstablecimientos();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (URISyntaxException e) {
-                    throw new RuntimeException(e);
-                }
                 String direccion = texto1.getValue();
                 String ciudad = texto2.getValue();
                 String cod_postal = texto3.getValue();

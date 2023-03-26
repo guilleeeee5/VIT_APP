@@ -128,7 +128,7 @@ public class DataHanding {
         ArrayList<Jefe_Establecimiento> jefes = new ArrayList<Jefe_Establecimiento>();
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
-        PreparedStatement statement = conexionBBDD.prepareStatement("UPDATE jefe_establecimiento SET Direccion = ?, Ciudad = ?, Codigo_Postal = ?, Nombre_Establecimiento = ?, estado = ? WHERE CIF = ?");
+        PreparedStatement statement = conexionBBDD.prepareStatement(String.format("UPDATE jefe_establecimiento SET Direccion = %s, Ciudad = %s, Codigo_Postal = %s, Nombre_Establecimiento = %s, estado = %s WHERE CIF = %s", jefeNuevo.getDireccion(), jefeNuevo.getCiudad(), jefeNuevo.getCodigo_Postal(), jefeNuevo.getNombre_establecimiento(), jefeNuevo.getEstado(), jefeAntiguo.getCIF()));
         statement.setString(1, jefeNuevo.getDireccion());
         statement.setString(2, jefeNuevo.getCiudad());
         statement.setString(3, jefeNuevo.getCodigo_Postal());
@@ -137,7 +137,7 @@ public class DataHanding {
         statement.setString(5, jefeAntiguo.getEstado());
         int rowsAffected = statement.executeUpdate();
         if (rowsAffected > 0) {
-            PreparedStatement statement2 = conexionBBDD.prepareStatement("UPDATE usuario SET name = ?, apellido = ?, password = ?, Email = ?, estado = ? WHERE CIF = ?");
+            PreparedStatement statement2 = conexionBBDD.prepareStatement(String.format("UPDATE usuario SET name = %s, apellido = %s, password = %s, Email = %s, estado = %s WHERE CIF = %s", jefeNuevo.getName(), jefeNuevo.getApellido(), jefeNuevo.getPassword(), jefeNuevo.getEstado(), jefeAntiguo.getCIF()));
             statement2.setString(1, jefeNuevo.getName());
             statement2.setString(2, jefeNuevo.getApellido());
             statement2.setString(3, jefeNuevo.getPassword());
