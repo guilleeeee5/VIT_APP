@@ -10,6 +10,15 @@
     background-color: #0d6efd;
     color: white;
 }
+
+.btn_EmpezarInicio{
+    background-color: #0d6efd;
+    color: white;
+}
+/*Pagina Admin*/
+.tit_admin{
+    text-decoration: underline;
+}
 /*Pagina Registro JEFE*/
 
 /*Pagina Registro Invidente*/

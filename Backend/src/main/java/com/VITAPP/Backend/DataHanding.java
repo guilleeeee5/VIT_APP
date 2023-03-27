@@ -3,6 +3,7 @@ package com.VITAPP.Backend;
 
 import javax.xml.transform.Result;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DataHanding {
     public Discapacitado_VIsual comprobarDisc(String email, String password) throws ClassNotFoundException, SQLException {
@@ -114,5 +115,80 @@ public class DataHanding {
             return jefe_establecimiento;
         }
 
+    }
+
+    public void eliminarJefe(String cif) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
+        Statement statement = conexionBBDD.createStatement();
+        int rowsAffected = statement.executeUpdate(String.format("DELETE FROM jefe_establecimiento WHERE CIF = '%s'", cif));
+    }
+
+    public ArrayList<Jefe_Establecimiento> modificarJefe(Jefe_Establecimiento jefeAntiguo, Jefe_Establecimiento jefeNuevo) throws ClassNotFoundException, SQLException {
+        ArrayList<Jefe_Establecimiento> jefes = new ArrayList<Jefe_Establecimiento>();
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
+
+            // Si la actualización fue exitosa, actualizar la tabla usuario
+            PreparedStatement statement = conexionBBDD.prepareStatement("UPDATE usuario JOIN jefe_establecimiento ON (usuario.ID = jefe_establecimiento.ID) SET name = ?, apellido = ?, password = ?, Email = ?, estado = ?, Direccion = ?, Ciudad = ?, Codigo_Postal = ?, Nombre_Establecimiento = ? WHERE CIF = ?");
+            statement.setString(1, jefeNuevo.getName());
+            statement.setString(2, jefeNuevo.getApellido());
+            statement.setString(3, jefeNuevo.getPassword());
+            statement.setString(4, jefeNuevo.getEmail());
+            statement.setString(5, jefeNuevo.getEstado());
+            statement.setString(6, jefeNuevo.getDireccion());
+            statement.setString(7, jefeNuevo.getCiudad());
+            statement.setString(8, jefeNuevo.getCodigo_Postal());
+            statement.setString(9, jefeNuevo.getNombre_establecimiento());
+            statement.setString(10, jefeNuevo.getCIF());
+            statement.executeUpdate();
+
+            // Obtener la lista actualizada de jefes
+            ResultSet resultSet = statement.executeQuery("SELECT * from jefe_establecimiento JOIN usuario ON usuario.ID = jefe_establecimiento.ID");
+            while (resultSet.next()) {
+                Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
+                jefeAux.setName(resultSet.getString("name"));
+                jefeAux.setApellido(resultSet.getString("apellido"));
+                jefeAux.setPassword(resultSet.getString("password"));
+                jefeAux.setEmail(resultSet.getString("Email"));
+                jefeAux.setDireccion(resultSet.getString("Direccion"));
+                jefeAux.setCiudad(resultSet.getString("Ciudad"));
+                jefeAux.setCodigo_Postal(resultSet.getString("Codigo_Postal"));
+                jefeAux.setCIF(resultSet.getString("CIF"));
+                jefeAux.setNombre_establecimiento(resultSet.getString("Nombre_Establecimiento"));
+                jefeAux.setEstado(resultSet.getString("estado"));
+                jefes.add(jefeAux);
+            }
+        return jefes;
+    }
+
+
+
+    public ArrayList<Jefe_Establecimiento> devolverEstablecimientos() throws SQLException, ClassNotFoundException {
+        ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<Jefe_Establecimiento>();
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
+
+        String sql = "SELECT * from jefe_establecimiento JOIN usuario ON usuario.ID = jefe_establecimiento.ID";
+
+        Statement statement = conexionBBDD.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        int count = 0;
+        while (result.next()){
+            Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
+            jefeAux.setCiudad(result.getString("Ciudad"));
+            jefeAux.setName(result.getString("name"));
+            jefeAux.setApellido(result.getString("apellido"));
+            jefeAux.setCIF(result.getString("CIF"));
+            jefeAux.setEmail(result.getString("Email"));
+            jefeAux.setCodigo_Postal(result.getString("Codigo_Postal"));
+            jefeAux.setDireccion(result.getString("Direccion"));
+            jefeAux.setID(result.getInt("ID"));
+            jefeAux.setNombre_establecimiento(result.getString("Nombre_Establecimiento"));
+            jefeAux.setEstado(result.getString("estado"));
+            listaEstablecimientos.add(jefeAux);
+        }
+
+        return listaEstablecimientos;
     }
 }

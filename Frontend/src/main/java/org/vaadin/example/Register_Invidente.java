@@ -90,12 +90,9 @@ public class Register_Invidente extends VerticalLayout {
     private void register(String nombre, String apellido, String contrasena, String correo) {
         // Lógica de registro
         DataService data = new DataService();
-        Discapacitado_VIsual discapacitadoVIsual = new Discapacitado_VIsual();
+        Discapacitado_VIsual discapacitadoVIsual = new Discapacitado_VIsual(nombre, apellido, contrasena, correo);
 
-        discapacitadoVIsual.setName(nombre);
-        discapacitadoVIsual.setApellido(apellido);
-        discapacitadoVIsual.setPassword(contrasena);
-        discapacitadoVIsual.setEmail(correo);
+
         if(data.anhadirDiscapacitado(discapacitadoVIsual)){
             removeAll();
             LoginView login = new LoginView();
