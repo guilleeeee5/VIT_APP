@@ -8,6 +8,7 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.ItemDoubleClickEvent;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -44,6 +45,15 @@ public class Gestion_Admin extends VerticalLayout {
         dialog.setWidth("300");
         dialog.getElement().setAttribute("aria-label", "Mostrar/editar Establecimientos");
 
+        H1 tit = new H1("Gestión de Establecimientos");
+        tit.addClassName("tit_admin");
+
+        H3 tituloGrid = new H3("Lista de establecimientos");
+        StreamResource imageResource = new StreamResource("logo.png",
+                () -> getClass().getResourceAsStream("/images/logo.png"));
+
+        Image img = new Image(imageResource, "");
+        img.setWidth("400px");
 
         VerticalLayout vl1 = new VerticalLayout();
         VerticalLayout vl2 = new VerticalLayout();
@@ -236,7 +246,7 @@ public class Gestion_Admin extends VerticalLayout {
 
         this.setAlignItems(Alignment.CENTER);
         this.setHeightFull();
-        this.add(grid);
+        this.add(img,tit,tituloGrid,grid);
 
 
     }
