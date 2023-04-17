@@ -35,7 +35,7 @@ public class DataHanding {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
         Statement statement = conexionBBDD.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, jefe_establecimiento.Direccion, jefe_establecimiento.Ciudad, jefe_establecimiento.Codigo_Postal, jefe_establecimiento.Nombre_Establecimiento from usuario JOIN jefe_establecimiento ON usuario.ID = jefe_establecimiento.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, jefe_establecimiento.Direccion, jefe_establecimiento.Ciudad, jefe_establecimiento.Codigo_Postal, jefe_establecimiento.Nombre_Establecimiento, jefe_establecimiento.estado from usuario JOIN jefe_establecimiento ON usuario.ID = jefe_establecimiento.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
         while (resultSet.next())
         {
             String nombre = resultSet.getString("name");
@@ -45,6 +45,7 @@ public class DataHanding {
             String ciudad = resultSet.getString("Ciudad");
             String Codigo_Postal = resultSet.getString("Codigo_Postal");
             String Nombre_Establecimiento = resultSet.getString("Nombre_Establecimiento");
+            String estado = resultSet.getString("estado");
             jefeAux.setName(nombre);
             jefeAux.setApellido(apellido);
             jefeAux.setEmail(Email);
@@ -52,6 +53,7 @@ public class DataHanding {
             jefeAux.setCiudad(ciudad);
             jefeAux.setCodigo_Postal(Codigo_Postal);
             jefeAux.setNombre_establecimiento(Nombre_Establecimiento);
+            jefeAux.setEstado(estado);
         }
         conexionBBDD.close();
         return jefeAux;
