@@ -20,6 +20,7 @@ import com.vaadin.flow.component.upload.Receiver;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import javax.swing.*;
@@ -57,18 +58,12 @@ public class GestionJefe extends VerticalLayout {
         horizontalLayout2.setVisible(true);
         HorizontalLayout horizontalLayout4 = new HorizontalLayout();
         //Pestaña Estadisticas
-        //Creamos el gráfico
-        Estadisticas chart = new Estadisticas();
-        //Agregamos el gráfico al horizontalLayout
-        ImageIcon icon = new ImageIcon("../resources/images/Estadisticas.png");
-
-        // Crea un componente JLabel y le asigna la imagen cargada
-        JLabel label = new JLabel(icon);
 
         // Crea una ventana JFrame y agrega el componente JLabel
-        JFrame frame = new JFrame();
-        frame.getContentPane().add(label);
+        StreamResource imageResource = new StreamResource("Estadisticas.png",
+                () -> getClass().getResourceAsStream("/images/Estadisticas.png"));
 
+        Image img = new Image(imageResource, "");
 
 
         tabs.addSelectedChangeListener(new ComponentEventListener<Tabs.SelectedChangeEvent>() {
@@ -76,19 +71,18 @@ public class GestionJefe extends VerticalLayout {
             public void onComponentEvent(Tabs.SelectedChangeEvent event) {
                 if(event.getSelectedTab().getId().toString().equals("Optional[Inicio]")){
                     horizontalLayout2.setVisible(true);
-                    horizontalLayout4.setVisible(true);
-                    frame.setVisible(false);
+                    estadoImagen(jefe, horizontalLayout4, img);
+                    img.setVisible(false);
                 }
                 else{
                     horizontalLayout2.setVisible(false);
-                    horizontalLayout4.setVisible(false);
+                    estadoImagen(jefe, horizontalLayout4, img);
                     // Configura la ventana y la hace visible
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.pack();
+
                 }
             }
         });
-        this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2);
+        this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2, img);
 
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(buffer);
@@ -102,7 +96,7 @@ public class GestionJefe extends VerticalLayout {
         });
         this.add(horizontalLayout4);
         horizontalLayout4.add(upload);
-        estadoImagen(jefe, horizontalLayout4);
+
     }
     public String estadoTexto(Jefe_Establecimiento jefe) {
         String result = null;
@@ -112,7 +106,6 @@ public class GestionJefe extends VerticalLayout {
                 break;
             case "1":
                 result = "Ya están comprobados sus datos, suba el mapa de su establecimiento para poder diseñar el sistema VIT a su medida.";//upload map estadisticas no
-
                 break;
             case "2":
                 result = "Estamos analizando su mapa, gracias por su paciencia ";//ve el mapa
@@ -126,7 +119,7 @@ public class GestionJefe extends VerticalLayout {
         }
         return result;
     }
-    public void estadoImagen(Jefe_Establecimiento jefe, HorizontalLayout horizontalLayout) {
+    public void estadoImagen(Jefe_Establecimiento jefe, HorizontalLayout horizontalLayout, Image img) {
 
         switch (jefe.getEstado()) {
             case "0":
@@ -148,9 +141,9 @@ public class GestionJefe extends VerticalLayout {
             case "4":
                 //Ve mapa y estadísticas
                 horizontalLayout.setVisible(false);
+                img.setVisible(true);
                 break;
         }
-
     }
 }
 
