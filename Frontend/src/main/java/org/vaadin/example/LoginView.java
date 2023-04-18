@@ -80,6 +80,7 @@ public class LoginView extends VerticalLayout{
             //Un tipo de usuario para continuar
             if (!radioGroup.isEmpty()){
                 try {
+                    //Validamos el Log in si se rellenan los campos y se selecciona un tipo de usuario
                     boolean isValid = isValidLogin(email, password, userType);
                     if (isValid == false) {
                         Notification.show("El email o la contraseña son incorrectos.");
