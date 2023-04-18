@@ -2,12 +2,16 @@ package com.VITAPP.Backend;
 
 import org.yaml.snakeyaml.events.Event;
 
+import java.awt.image.BufferedImage;
+
 public class Jefe_Establecimiento extends User{
     private String Direccion;
     private String Ciudad;
     private String Codigo_Postal;
     private String CIF;
     private String Nombre_establecimiento;
+
+    private BufferedImage imagen;
 
     private String estado;
     public Jefe_Establecimiento() {
@@ -70,5 +74,12 @@ public class Jefe_Establecimiento extends User{
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    public BufferedImage getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(BufferedImage imagen) {
+        this.imagen = imagen;
     }
 }
