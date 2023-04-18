@@ -1,6 +1,11 @@
 package org.vaadin.example;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.charts.Chart;
+import com.vaadin.flow.component.charts.model.DataSeries;
+import com.vaadin.flow.component.charts.model.PlotOptionsColumn;
+import com.vaadin.flow.component.charts.model.XAxis;
+import com.vaadin.flow.component.charts.model.YAxis;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
@@ -18,6 +23,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
+import javax.swing.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -52,9 +58,32 @@ public class GestionJefe extends VerticalLayout {
         horizontalLayout2.setVisible(true);
         HorizontalLayout horizontalLayout4 = new HorizontalLayout();
         //Pestaña Estadisticas
-        PaginaEstadisticas paginaEstadisticas = new PaginaEstadisticas();
+        //Creamos el gráfico
+        Chart chart = new Chart();
+        chart.getConfiguration().setTitle("Ventas por Mes");
+        chart.getConfiguration().setSubTitle("Año 2023");
+        XAxis xaxis = new XAxis();
+        xaxis.setCategories("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        chart.getConfiguration().addxAxis(xaxis);
+        YAxis yaxis = new YAxis();
+        yaxis.setTitle("Ventas");
+        chart.getConfiguration().addyAxis(yaxis);
+        PlotOptionsColumn plot = new PlotOptionsColumn();
+        plot.setPointPadding(0.2);
+        plot.setEdgeWidth(0);
+        chart.getConfiguration().setPlotOptions(plot);
+        DataSeries series = new DataSeries();
+        series.setName("Ventas");
+        series.setData(2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000);
+        chart.getConfiguration().addSeries(series);
+        chart.setSizeFull();
+
+        //Agregamos el gráfico al horizontalLayout
         HorizontalLayout horizontalLayout5 = new HorizontalLayout();
-        //paginaEstadisticas.estadisticasView();
+        horizontalLayout5.add(chart);
+
+
+
         tabs.addSelectedChangeListener(new ComponentEventListener<Tabs.SelectedChangeEvent>() {
             @Override
             public void onComponentEvent(Tabs.SelectedChangeEvent event) {
