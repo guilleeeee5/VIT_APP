@@ -1,6 +1,8 @@
 package org.vaadin.example;
 
 
+import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
@@ -74,18 +76,31 @@ public class LoginView extends VerticalLayout{
             String email = event.getUsername();
             String password = event.getPassword();
             String userType = radioGroup.getValue();
-
-            try {
-                boolean isValid = isValidLogin(email, password, userType);
-                if (isValid == false) {
-                    Notification.show("El email o la contraseña son incorrectos.");
-                    loginForm.setError(true);
-                    i18nForm.setUsername("");
-                    i18nForm.setPassword("");
+            //Debemos realizar un control y ver si has seleccionado algún radiobutton, sino me salta un mensaje de que debo seleccionar
+            if (!radioGroup.isEmpty()){
+                try {
+                    boolean isValid = isValidLogin(email, password, userType);
+                    if (isValid == false) {
+                        Notification.show("El email o la contraseña son incorrectos.");
+                        loginForm.setError(true);
+                        i18nForm.setUsername("");
+                        i18nForm.setPassword("");
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } else {
+                // Mostrar un dialog si no hay elementos seleccionados en el RadioButtonGroup
+                Dialog dialog = new Dialog();
+                dialog.add(new Text("Para iniciar sesión, debe seleccionar un tipo de usuario"));
+                dialog.open();
+                // Habilitar el botón de Log in después de cerrar el Dialog
+                dialog.addDialogCloseActionListener(event1 -> {
+                    loginForm.setEnabled(true);
+                    dialog.close();
+                });
             }
+
         });
 
         // Agregar los componentes al formulario
