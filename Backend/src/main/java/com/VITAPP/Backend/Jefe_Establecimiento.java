@@ -2,6 +2,8 @@ package com.VITAPP.Backend;
 
 import org.yaml.snakeyaml.events.Event;
 
+import java.awt.image.BufferedImage;
+
 public class Jefe_Establecimiento extends User{
     private String Direccion;
     private String Ciudad;
@@ -9,12 +11,14 @@ public class Jefe_Establecimiento extends User{
     private String CIF;
     private String Nombre_establecimiento;
 
+    private BufferedImage imagen;
+
     private String estado;
     public Jefe_Establecimiento() {
 
     }
 
-    public Jefe_Establecimiento(int ID, String name, String apellido, String password, String email,  String direccion, String ciudad, String codigo_Postal, String CIF, String nombre_establecimiento, String estado) {
+    public Jefe_Establecimiento(int ID, String name, String apellido, String password, String email,  String direccion, String ciudad, String codigo_Postal, String CIF, String nombre_establecimiento, String estado, BufferedImage imagen) {
         super(ID, name, apellido, password, email);
         this.Direccion = direccion;
         this.Ciudad = ciudad;
@@ -22,6 +26,7 @@ public class Jefe_Establecimiento extends User{
         this.CIF = CIF;
         this.Nombre_establecimiento = nombre_establecimiento;
         this.estado = estado;
+        this.imagen = imagen;
     }
 
     public String getDireccion() {
@@ -70,5 +75,12 @@ public class Jefe_Establecimiento extends User{
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    public BufferedImage getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(BufferedImage imagen) {
+        this.imagen = imagen;
     }
 }

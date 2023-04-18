@@ -193,4 +193,15 @@ public class DataHanding {
 
         return listaEstablecimientos;
     }
+
+    public Jefe_Establecimiento guardarImagen(Jefe_Establecimiento jefe) throws SQLException, ClassNotFoundException{
+        if (jefe.getImagen() == null){
+            System.out.println("No he recibido nada");
+            return jefe;
+        }
+        else {
+            System.out.println("hola");
+            return jefe;
+        }
+    }
 }

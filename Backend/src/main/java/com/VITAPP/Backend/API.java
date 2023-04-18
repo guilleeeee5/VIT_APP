@@ -59,4 +59,10 @@ public class API {
         Jefe_Establecimiento jefeNuevo = jefesActualziar.get(1);
         return data.modificarJefe(jefeAntiguo, jefeNuevo);
     }
+
+    @PostMapping("/Imagen")
+    public Jefe_Establecimiento crearImagen(@RequestBody Jefe_Establecimiento jefe_establecimiento) throws SQLException, ClassNotFoundException {
+        DataHanding data = new DataHanding();
+        return data.guardarImagen(jefe_establecimiento);
+    }
 }
