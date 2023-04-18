@@ -122,6 +122,7 @@ public class DataHandingTest
 
         // Ejecución de la función y comprobación del resultado
         Jefe_Establecimiento jefeActual = Data.comprobarJefe(email, password);
+        //Si devuelve estos elementos como nulos ya comprobamos que lo ha realizado correctamente
         assertNull(jefeActual.getName());
         assertNull(jefeActual.getApellido());
         assertNull(jefeActual.getEmail());
@@ -132,6 +133,8 @@ public class DataHandingTest
         DataHanding Data = new DataHanding();
         Jefe_Establecimiento jefeVacio = new Jefe_Establecimiento(0, null, null, null, null, null, null, null, null, null, null, null);
         Jefe_Establecimiento jefeActual = Data.comprobarJefe("jefe@example.com", "password");
+        //Debemos comprobar atributo a atributo si ha devuelto un objeto nulo
+        //Esto es debido a que un assert Null no comprueba elemento a elemento si es nulo
         assertEquals(jefeVacio.getID(), jefeActual.getID());
         assertEquals(jefeVacio.getName(), jefeActual.getName());
         assertEquals(jefeVacio.getApellido(), jefeActual.getApellido());
@@ -149,22 +152,33 @@ public class DataHandingTest
     @Test
     public void testComprobarJefe() throws ClassNotFoundException, SQLException {
         // Preparación de la prueba
-        String email = "jefe@example.com";
-        String password = "password";
-
+        String email = "guille@guille.com";
+        String password = "guille";
+        //Comprobamos que dado una contraseña y email se nos devuelva correctamente el usuario
         Jefe_Establecimiento jefeEsperado = new Jefe_Establecimiento();
         DataHanding Data = new DataHanding();
-        jefeEsperado.setName("Juan");
-        jefeEsperado.setApellido("Pérez");
-        jefeEsperado.setEmail("jefe@example.com");
-        jefeEsperado.setDireccion("Calle Falsa, 123");
-        jefeEsperado.setCiudad("Madrid");
-        jefeEsperado.setCodigo_Postal("28001");
-        jefeEsperado.setNombre_establecimiento("Restaurante El Dorado");
-        jefeEsperado.setEstado("Activo");
+        jefeEsperado.setName("guille");
+        jefeEsperado.setApellido("ramirez");
+        jefeEsperado.setEmail("guille@guille.com");
+        jefeEsperado.setDireccion("calle guille, 33");
+        jefeEsperado.setCiudad("nanocity");
+        jefeEsperado.setCodigo_Postal("33");
+        jefeEsperado.setEstado("");
+        jefeEsperado.setNombre_establecimiento("aston martin");
 
         // Ejecución de la función y comprobación del resultado
         Jefe_Establecimiento jefeActual = Data.comprobarJefe(email, password);
-        assertEquals(jefeEsperado, jefeActual);
+        assertEquals(jefeEsperado.getID(), jefeActual.getID());
+        assertEquals(jefeEsperado.getName(), jefeActual.getName());
+        assertEquals(jefeEsperado.getApellido(), jefeActual.getApellido());
+        assertEquals(jefeEsperado.getPassword(), jefeActual.getPassword());
+        assertEquals(jefeEsperado.getEmail(), jefeActual.getEmail());
+        assertEquals(jefeEsperado.getDireccion(), jefeActual.getDireccion());
+        assertEquals(jefeEsperado.getCiudad(), jefeActual.getCiudad());
+        assertEquals(jefeEsperado.getCodigo_Postal(), jefeActual.getCodigo_Postal());
+        assertEquals(jefeEsperado.getCIF(), jefeActual.getCIF());
+        assertEquals(jefeEsperado.getNombre_establecimiento(), jefeActual.getNombre_establecimiento());
+        assertEquals(jefeEsperado.getEstado(), jefeActual.getEstado());
+        assertEquals(jefeEsperado.getImagen(), jefeActual.getImagen());
     }
 }
