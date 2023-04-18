@@ -2,8 +2,10 @@ package com.VITAPP.Backend;
 
 
 import javax.xml.transform.Result;
+import java.io.ByteArrayInputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class DataHanding {
     public Discapacitado_VIsual comprobarDisc(String email, String password) throws ClassNotFoundException, SQLException {
@@ -35,7 +37,7 @@ public class DataHanding {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
         Statement statement = conexionBBDD.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, jefe_establecimiento.Direccion, jefe_establecimiento.Ciudad, jefe_establecimiento.Codigo_Postal, jefe_establecimiento.Nombre_Establecimiento, jefe_establecimiento.estado from usuario JOIN jefe_establecimiento ON usuario.ID = jefe_establecimiento.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, jefe_establecimiento.Direccion, jefe_establecimiento.Ciudad, jefe_establecimiento.Codigo_Postal, jefe_establecimiento.Nombre_Establecimiento, jefe_establecimiento.estado, jefe_establecimiento.CIF from usuario JOIN jefe_establecimiento ON usuario.ID = jefe_establecimiento.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
         while (resultSet.next())
         {
             String nombre = resultSet.getString("name");
@@ -46,6 +48,7 @@ public class DataHanding {
             String Codigo_Postal = resultSet.getString("Codigo_Postal");
             String Nombre_Establecimiento = resultSet.getString("Nombre_Establecimiento");
             String estado = resultSet.getString("estado");
+            String cif = resultSet.getString("CIF");
             jefeAux.setName(nombre);
             jefeAux.setApellido(apellido);
             jefeAux.setEmail(Email);
@@ -54,6 +57,7 @@ public class DataHanding {
             jefeAux.setCodigo_Postal(Codigo_Postal);
             jefeAux.setNombre_establecimiento(Nombre_Establecimiento);
             jefeAux.setEstado(estado);
+            jefeAux.setCIF(cif);
         }
         conexionBBDD.close();
         return jefeAux;
@@ -194,14 +198,18 @@ public class DataHanding {
         return listaEstablecimientos;
     }
 
-    public Jefe_Establecimiento guardarImagen(Jefe_Establecimiento jefe) throws SQLException, ClassNotFoundException{
-        if (jefe.getImagen() == null){
-            System.out.println("No he recibido nada");
-            return jefe;
-        }
-        else {
-            System.out.println("hola");
-            return jefe;
-        }
+    public void guardarImagen(String imagen, String cif) throws SQLException, ClassNotFoundException{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
+        byte[] imagenBytes = Base64.getDecoder().decode(imagen);
+        String sql = String.format("UPDATE jefe_establecimiento SET imagen = ? WHERE CIF = '%s'", cif);
+
+        PreparedStatement ps = conexionBBDD.prepareStatement(sql);
+        ps.setBytes(1, imagenBytes);
+        ps.executeUpdate();
+
+        String sql2 = String.format("UPDATE jefe_establecimiento SET estado = 2 WHERE CIF = '%s'", cif);
+        PreparedStatement ps2 = conexionBBDD.prepareStatement(sql2);
+        int result1 = ps2.executeUpdate();
     }
 }

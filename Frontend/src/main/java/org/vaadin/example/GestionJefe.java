@@ -83,7 +83,6 @@ public class GestionJefe extends VerticalLayout {
             }
         });
         this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2);
-
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(buffer);
 

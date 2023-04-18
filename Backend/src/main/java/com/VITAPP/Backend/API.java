@@ -78,7 +78,9 @@ public class API {
         try {
             // Decodificar la imagen y almacenarla en la base de datos
             String imagenBase64 = Base64.getEncoder().encodeToString(imagenBytes);
-            // TODO: Almacenar la imagen en la base de datos utilizando el CIF del jefe de establecimiento
+
+            DataHanding dataHanding = new DataHanding();
+            dataHanding.guardarImagen(imagenBase64, cif);
 
             // Devolver una respuesta satisfactoria
             return ResponseEntity.ok("Imagen actualizada correctamente");
