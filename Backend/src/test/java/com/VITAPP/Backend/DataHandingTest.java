@@ -79,6 +79,37 @@ public class DataHandingTest
         assertNull(discapacitadoActual.getEmail());
         assertNull(discapacitadoActual.getEdificios());
     }
+    @Test
+    public void testComprobarDisc_EmptyPassword() throws ClassNotFoundException, SQLException {
+        // Preparación de la prueba
+        String email = "prueba@example.com";
+        String password = "";
+        DataHanding Data = new DataHanding();
+
+        // Ejecución de la función y comprobación del resultado
+        Discapacitado_VIsual discapacitadoActual = Data.comprobarDisc(email, password);
+        //Si devuelve estos elementos como nulos ya comprobamos que lo ha realizado correctamente
+        assertNull(discapacitadoActual.getName());
+        assertNull(discapacitadoActual.getApellido());
+        assertNull(discapacitadoActual.getEmail());
+        assertNull(discapacitadoActual.getPassword());;
+    }
+
+    @Test
+    public void testComprobarDisc_EmptyEmail() throws ClassNotFoundException, SQLException {
+        // Preparación de la prueba
+        String email = "";
+        String password = "password";
+        DataHanding Data = new DataHanding();
+
+        // Ejecución de la función y comprobación del resultado
+        Discapacitado_VIsual discapacitadoActual = Data.comprobarDisc(email, password);
+        //Si devuelve estos elementos como nulos ya comprobamos que lo ha realizado correctamente
+        assertNull(discapacitadoActual.getName());
+        assertNull(discapacitadoActual.getApellido());
+        assertNull(discapacitadoActual.getEmail());
+        assertNull(discapacitadoActual.getPassword());;
+    }
 
     @Test
     public void testComprobarDisc_NullEmailAndPassword() throws ClassNotFoundException, SQLException {
@@ -129,10 +160,43 @@ public class DataHandingTest
         assertNull(jefeActual.getPassword());;
     }
     @Test
+    public void testComprobarJefe_NullEmailAndPassword() throws ClassNotFoundException, SQLException {
+        //En este test comprobamos que al llamar a la función ComprobarJefe_ con un email y password nulos, lanza una excepción
+
+        // Preparación de la prueba
+        String email = null;
+        String password = null;
+
+        DataHanding Data = new DataHanding();
+
+        // Ejecución de la función y comprobación del resultado
+        Discapacitado_VIsual discapacitadoActual = Data.comprobarDisc(email, password);
+        assertNull(discapacitadoActual.getName());
+        assertNull(discapacitadoActual.getApellido());
+        assertNull(discapacitadoActual.getEmail());
+        assertNull(discapacitadoActual.getPassword());;
+    }
+    @Test
     public void testComprobarJefe_EmptyPassword() throws ClassNotFoundException, SQLException {
         // Preparación de la prueba
         String email = "prueba@example.com";
         String password = "";
+        DataHanding Data = new DataHanding();
+
+        // Ejecución de la función y comprobación del resultado
+        Jefe_Establecimiento jefeActual = Data.comprobarJefe(email, password);
+        //Si devuelve estos elementos como nulos ya comprobamos que lo ha realizado correctamente
+        assertNull(jefeActual.getName());
+        assertNull(jefeActual.getApellido());
+        assertNull(jefeActual.getEmail());
+        assertNull(jefeActual.getPassword());;
+    }
+
+    @Test
+    public void testComprobarJefe_EmptyEmail() throws ClassNotFoundException, SQLException {
+        // Preparación de la prueba
+        String email = "";
+        String password = "password";
         DataHanding Data = new DataHanding();
 
         // Ejecución de la función y comprobación del resultado
