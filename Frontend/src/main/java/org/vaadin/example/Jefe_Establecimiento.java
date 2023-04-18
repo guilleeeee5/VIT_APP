@@ -105,7 +105,7 @@ public class Jefe_Establecimiento extends User{
         String imagenBase64 = null;
 
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            ImageIO.write(imagen, "png", baos);
+            ImageIO.write(imagen, "jpeg", baos);
             imagenBase64 = Base64.getEncoder().encodeToString(baos.toByteArray());
         } catch (IOException e) {
             e.printStackTrace();

@@ -61,7 +61,8 @@ public class API {
     }
 
     @PostMapping("/Imagen")
-    public Jefe_Establecimiento crearImagen(@RequestBody Jefe_Establecimiento jefe_establecimiento) throws SQLException, ClassNotFoundException {
+    public Jefe_Establecimiento crearImagen(@RequestBody String json) throws SQLException, ClassNotFoundException {
+        Jefe_Establecimiento jefe_establecimiento = new Jefe_Establecimiento(json);
         DataHanding data = new DataHanding();
         return data.guardarImagen(jefe_establecimiento);
     }
