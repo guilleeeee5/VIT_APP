@@ -18,7 +18,7 @@ public class Jefe_Establecimiento extends User{
 
     }
 
-    public Jefe_Establecimiento(int ID, String name, String apellido, String password, String email,  String direccion, String ciudad, String codigo_Postal, String CIF, String nombre_establecimiento, String estado) {
+    public Jefe_Establecimiento(int ID, String name, String apellido, String password, String email,  String direccion, String ciudad, String codigo_Postal, String CIF, String nombre_establecimiento, String estado, BufferedImage imagen) {
         super(ID, name, apellido, password, email);
         this.Direccion = direccion;
         this.Ciudad = ciudad;
@@ -26,6 +26,7 @@ public class Jefe_Establecimiento extends User{
         this.CIF = CIF;
         this.Nombre_establecimiento = nombre_establecimiento;
         this.estado = estado;
+        this.imagen = imagen;
     }
 
     public String getDireccion() {
