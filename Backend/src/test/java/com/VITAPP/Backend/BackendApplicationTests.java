@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class BackendApplicationTests {
@@ -60,6 +61,41 @@ class BackendApplicationTests {
 		// Preparación de la prueba
 		String email = null;
 		String password = "password";
+		DataHanding Data = new DataHanding();
+
+		// Ejecución de la función y comprobación del resultado
+		Discapacitado_VIsual discapacitadoActual = Data.comprobarDisc(email, password);
+		assertNull(discapacitadoActual.getName());
+		assertNull(discapacitadoActual.getApellido());
+		assertNull(discapacitadoActual.getEmail());
+		assertNull(discapacitadoActual.getEdificios());
+	}
+
+	@Test
+	public void testComprobarDisc_NullPassword() throws ClassNotFoundException, SQLException {
+		//En este test comprobamos que al llamar a la función Comprobar Discapacitado con un password nulo, lanza una excepción
+
+		// Preparación de la prueba
+		String email = "prueba@example.com";
+		String password = null;
+		DataHanding Data = new DataHanding();
+
+		// Ejecución de la función y comprobación del resultado
+		Discapacitado_VIsual discapacitadoActual = Data.comprobarDisc(email, password);
+		assertNull(discapacitadoActual.getName());
+		assertNull(discapacitadoActual.getApellido());
+		assertNull(discapacitadoActual.getEmail());
+		assertNull(discapacitadoActual.getEdificios());
+	}
+
+	@Test
+	public void testComprobarDisc_NullEmailAndPassword() throws ClassNotFoundException, SQLException {
+		//En este test comprobamos que al llamar a la función Comprobar Discapacitado con un email y password nulos, lanza una excepción
+
+		// Preparación de la prueba
+		String email = null;
+		String password = null;
+
 		DataHanding Data = new DataHanding();
 
 		// Ejecución de la función y comprobación del resultado
