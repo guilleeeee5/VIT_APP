@@ -98,5 +98,73 @@ public class DataHandingTest
         assertNull(discapacitadoActual.getEdificios());
     }
     // Comenzamos los test del usuario Jefe de establecimiento
+    @Test
+    public void testComprobarJefe_NullEmail() throws ClassNotFoundException, SQLException {
+        // Preparación de la prueba
+        String email = null;
+        String password = "password";
+        DataHanding Data = new DataHanding();
 
+        // Ejecución de la función y comprobación del resultado
+        Jefe_Establecimiento jefeActual = Data.comprobarJefe(email, password);
+        assertNull(jefeActual.getName());
+        assertNull(jefeActual.getApellido());
+        assertNull(jefeActual.getEmail());
+        assertNull(jefeActual.getPassword());;
+    }
+
+    @Test
+    public void testComprobarJefe_EmptyPassword() throws ClassNotFoundException, SQLException {
+        // Preparación de la prueba
+        String email = "prueba@example.com";
+        String password = "";
+        DataHanding Data = new DataHanding();
+
+        // Ejecución de la función y comprobación del resultado
+        Jefe_Establecimiento jefeActual = Data.comprobarJefe(email, password);
+        assertNull(jefeActual.getName());
+        assertNull(jefeActual.getApellido());
+        assertNull(jefeActual.getEmail());
+        assertNull(jefeActual.getPassword());;
+    }
+    @Test
+    public void testComprobarJefe_NoResults() throws ClassNotFoundException, SQLException {
+        DataHanding Data = new DataHanding();
+        Jefe_Establecimiento jefeVacio = new Jefe_Establecimiento(0, null, null, null, null, null, null, null, null, null, null, null);
+        Jefe_Establecimiento jefeActual = Data.comprobarJefe("jefe@example.com", "password");
+        assertEquals(jefeVacio.getID(), jefeActual.getID());
+        assertEquals(jefeVacio.getName(), jefeActual.getName());
+        assertEquals(jefeVacio.getApellido(), jefeActual.getApellido());
+        assertEquals(jefeVacio.getPassword(), jefeActual.getPassword());
+        assertEquals(jefeVacio.getEmail(), jefeActual.getEmail());
+        assertEquals(jefeVacio.getDireccion(), jefeActual.getDireccion());
+        assertEquals(jefeVacio.getCiudad(), jefeActual.getCiudad());
+        assertEquals(jefeVacio.getCodigo_Postal(), jefeActual.getCodigo_Postal());
+        assertEquals(jefeVacio.getCIF(), jefeActual.getCIF());
+        assertEquals(jefeVacio.getNombre_establecimiento(), jefeActual.getNombre_establecimiento());
+        assertEquals(jefeVacio.getEstado(), jefeActual.getEstado());
+        assertEquals(jefeVacio.getImagen(), jefeActual.getImagen());
+    }
+
+    @Test
+    public void testComprobarJefe() throws ClassNotFoundException, SQLException {
+        // Preparación de la prueba
+        String email = "jefe@example.com";
+        String password = "password";
+
+        Jefe_Establecimiento jefeEsperado = new Jefe_Establecimiento();
+        DataHanding Data = new DataHanding();
+        jefeEsperado.setName("Juan");
+        jefeEsperado.setApellido("Pérez");
+        jefeEsperado.setEmail("jefe@example.com");
+        jefeEsperado.setDireccion("Calle Falsa, 123");
+        jefeEsperado.setCiudad("Madrid");
+        jefeEsperado.setCodigo_Postal("28001");
+        jefeEsperado.setNombre_establecimiento("Restaurante El Dorado");
+        jefeEsperado.setEstado("Activo");
+
+        // Ejecución de la función y comprobación del resultado
+        Jefe_Establecimiento jefeActual = Data.comprobarJefe(email, password);
+        assertEquals(jefeEsperado, jefeActual);
+    }
 }
