@@ -117,13 +117,19 @@ public class LoginView extends VerticalLayout{
         switch (tipo){
             case "Jefe de Establecimiento":
                 Jefe_Establecimiento jefe = new Jefe_Establecimiento();
+                Jefe_Establecimiento jefeNuevo = new Jefe_Establecimiento();
                 jefe.setPassword(password);
                 jefe.setEmail(mail);
                 //Peticiones a la BBDD
-                 if (data.comprobarJefeInicio(mail, password).getName() == null){
+                jefeNuevo = data.comprobarJefeInicio(mail, password);
+                 if (jefeNuevo.getName() == null){
                      result = false;
                  }else {
                      result = true;
+                     removeAll();
+                     GestionJefe paginaJefe = new GestionJefe();
+                     paginaJefe.gestionJefeView(jefeNuevo);
+                     add(paginaJefe);
                  }
                 break;
             case "Discapacitado Visual":
