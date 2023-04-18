@@ -1,32 +1,27 @@
 package org.vaadin.example;
 
-import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.ItemDoubleClickEvent;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
-import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.upload.Receiver;
+import com.vaadin.flow.component.upload.Upload;
+import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.component.button.Button; // importar la clase Button de Vaadin
-import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 
 @Route("gestionJefe")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
@@ -34,32 +29,74 @@ import java.util.ArrayList;
 public class GestionJefe extends VerticalLayout {
 
     public void gestionJefeView(Jefe_Establecimiento jefe){
+
         HorizontalLayout horizontalLayout = new HorizontalLayout();
-
+        HorizontalLayout horizontalLayout1 = new HorizontalLayout();
+        HorizontalLayout horizontalLayout2 = new HorizontalLayout();
+        HorizontalLayout horizontalLayout3 = new HorizontalLayout();
+        //Bienvenida
         H1 tit = new H1("Gestión de Jefe de Establecimiento");
-        Label bienvenida = new Label("Bienvenido, " + jefe.getName() + "su establecimiento es: " + jefe.getNombre_establecimiento());
-        horizontalLayout.add(tit, bienvenida);
 
+        H2 bienvenida = new H2("Bienvenido, " + jefe.getName() + " su establecimiento es: " + jefe.getNombre_establecimiento());
+        horizontalLayout.add(tit);
+        horizontalLayout1.add(bienvenida);
+        //Pestañas
         Tab inicio = new Tab("Inicio");
+        inicio.setId("Inicio");
         Tab estadisticas = new Tab("Estadisticas");
-
+        estadisticas.setId("Estadisticas");
+        Tabs tabs = new Tabs(inicio,estadisticas);
+        /*
         Tabs tabs = new Tabs(
                 inicio, estadisticas
-        );
+        );*/
         tabs.addThemeVariants(TabsVariant.LUMO_HIDE_SCROLL_BUTTONS);
-        
-        Label estado = new Label("Su establecimiento, " + jefe.getNombre_establecimiento() + "su establecimiento es: " + estado(jefe));
-        
+        //Mostramos estado
+        Label estado = new Label(estadoTexto(jefe));
 
+        horizontalLayout2.add(estado);
+        horizontalLayout2.setVisible(true);
+
+
+        HorizontalLayout horizontalLayout4 = new HorizontalLayout();
+        tabs.addSelectedChangeListener(new ComponentEventListener<Tabs.SelectedChangeEvent>() {
+            @Override
+            public void onComponentEvent(Tabs.SelectedChangeEvent event) {
+                if(event.getSelectedTab().getId().toString().equals("Optional[Inicio]")){
+                    horizontalLayout2.setVisible(true);
+                    //tabla2.setVisible(false);
+                }
+                else{
+                    horizontalLayout2.setVisible(false);
+                    //tabla2.setVisible(true);
+                }
+            }
+        });
+        this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2);
+
+        MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
+        Upload upload = new Upload(buffer);
+
+        upload.addSucceededListener(event -> {
+            String fileName = event.getFileName();
+            InputStream inputStream = buffer.getInputStream(fileName);
+
+            // Do something with the file data
+            // processFile(inputStream, fileName);
+        });
+        this.add(horizontalLayout4);
+        horizontalLayout4.add(upload);
+        estadoImagen(jefe, horizontalLayout4);
     }
-    public String estado(Jefe_Establecimiento jefe) {
+    public String estadoTexto(Jefe_Establecimiento jefe) {
         String result = null;
-        switch (jefe.getEstado()) { 
+        switch (jefe.getEstado()) {
             case "0":
                 result = "Estamos comprobando sus datos, gracias por su paciencia. ";//no ve nada
                 break;
             case "1":
                 result = "Ya están comprobados sus datos, suba el mapa de su establecimiento para poder diseñar el sistema VIT a su medida.";//upload map estadisticas no
+
                 break;
             case "2":
                 result = "Estamos analizando su mapa, gracias por su paciencia ";//ve el mapa
@@ -73,6 +110,31 @@ public class GestionJefe extends VerticalLayout {
         }
         return result;
     }
+    public void estadoImagen(Jefe_Establecimiento jefe, HorizontalLayout horizontalLayout) {
+
+        switch (jefe.getEstado()) {
+            case "0":
+                //todo a false
+                horizontalLayout.setVisible(false);
+                break;
+            case "1":
+                //upload map estadisticas no
+                horizontalLayout.setVisible(true);
+                break;
+            case "2":
+                ///ve el mapa
+                horizontalLayout.setVisible(false);
+                break;
+            case "3":
+                ///ve la imagen de un técnico
+                horizontalLayout.setVisible(false);
+                break;
+            case "4":
+                //Ve mapa y estadísticas
+                horizontalLayout.setVisible(false);
+                break;
+        }
+
     }
 }
 
