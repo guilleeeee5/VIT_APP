@@ -1,5 +1,7 @@
 package org.vaadin.example;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nimbusds.jose.shaded.json.JSONObject;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.notification.Notification;
@@ -18,9 +20,17 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.Base64;
 
 
 @Route("gestionJefe")
@@ -73,16 +83,39 @@ public class GestionJefe extends VerticalLayout {
             }
         });
         this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2);
-
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(buffer);
 
         upload.addSucceededListener(event -> {
-            String fileName = event.getFileName();
-            InputStream inputStream = buffer.getInputStream(fileName);
+            try {
+                String fileName = event.getFileName();
+                InputStream inputStream = buffer.getInputStream(fileName);
 
-            // Do something with the file data
-            // processFile(inputStream, fileName);
+                // Convertir la imagen a bytes
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                BufferedImage img = ImageIO.read(inputStream);
+                ImageIO.write(img, "jpg", baos);
+                byte[] imageBytes = baos.toByteArray();
+
+                // Obtener el cif del jefe de establecimiento
+                String cif = jefe.getCif();
+
+                // Hacer la petición PUT al back
+                HttpClient httpClient = HttpClient.newHttpClient();
+                String url = "http://localhost:8081/Imagen/" + cif;
+                HttpRequest httpRequest = HttpRequest.newBuilder()
+                        .uri(URI.create(url))
+                        .setHeader("Content-Type", "image/png")
+                        .PUT(HttpRequest.BodyPublishers.ofByteArray(imageBytes))
+                        .build();
+                HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+
+                // Hacer algo con la respuesta del back
+                System.out.println(response.body());
+
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
         });
         this.add(horizontalLayout4);
         horizontalLayout4.add(upload);

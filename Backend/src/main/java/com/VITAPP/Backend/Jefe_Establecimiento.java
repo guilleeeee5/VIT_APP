@@ -1,8 +1,11 @@
 package com.VITAPP.Backend;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.yaml.snakeyaml.events.Event;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Jefe_Establecimiento extends User{
     private String Direccion;
@@ -27,6 +30,18 @@ public class Jefe_Establecimiento extends User{
         this.Nombre_establecimiento = nombre_establecimiento;
         this.estado = estado;
         this.imagen = imagen;
+    }
+
+    public Jefe_Establecimiento(String json) {
+        // Parsear el JSON y asignar los valores a los atributos correspondientes
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            Jefe_Establecimiento jefe = objectMapper.readValue(json, Jefe_Establecimiento.class);
+            this.CIF = jefe.getCIF();
+            this.imagen = jefe.getImagen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getDireccion() {
@@ -83,4 +98,6 @@ public class Jefe_Establecimiento extends User{
     public void setImagen(BufferedImage imagen) {
         this.imagen = imagen;
     }
+
+
 }
