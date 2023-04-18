@@ -36,7 +36,6 @@ public class GestionJefe extends VerticalLayout {
         HorizontalLayout horizontalLayout3 = new HorizontalLayout();
         //Bienvenida
         H1 tit = new H1("Gestión de Jefe de Establecimiento");
-
         H2 bienvenida = new H2("Bienvenido, " + jefe.getName() + " su establecimiento es: " + jefe.getNombre_establecimiento());
         horizontalLayout.add(tit);
         horizontalLayout1.add(bienvenida);
@@ -46,33 +45,32 @@ public class GestionJefe extends VerticalLayout {
         Tab estadisticas = new Tab("Estadisticas");
         estadisticas.setId("Estadisticas");
         Tabs tabs = new Tabs(inicio,estadisticas);
-        /*
-        Tabs tabs = new Tabs(
-                inicio, estadisticas
-        );*/
         tabs.addThemeVariants(TabsVariant.LUMO_HIDE_SCROLL_BUTTONS);
         //Mostramos estado
         Label estado = new Label(estadoTexto(jefe));
-
         horizontalLayout2.add(estado);
         horizontalLayout2.setVisible(true);
-
-
         HorizontalLayout horizontalLayout4 = new HorizontalLayout();
+        //Pestaña Estadisticas
+        PaginaEstadisticas paginaEstadisticas = new PaginaEstadisticas();
+        HorizontalLayout horizontalLayout5 = new HorizontalLayout();
+        //paginaEstadisticas.estadisticasView();
         tabs.addSelectedChangeListener(new ComponentEventListener<Tabs.SelectedChangeEvent>() {
             @Override
             public void onComponentEvent(Tabs.SelectedChangeEvent event) {
                 if(event.getSelectedTab().getId().toString().equals("Optional[Inicio]")){
                     horizontalLayout2.setVisible(true);
-                    //tabla2.setVisible(false);
+                    horizontalLayout4.setVisible(true);
+                    horizontalLayout5.setVisible(false);
                 }
                 else{
                     horizontalLayout2.setVisible(false);
-                    //tabla2.setVisible(true);
+                    horizontalLayout4.setVisible(false);
+                    horizontalLayout5.setVisible(true);
                 }
             }
         });
-        this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2);
+        this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2, horizontalLayout5);
 
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(buffer);
