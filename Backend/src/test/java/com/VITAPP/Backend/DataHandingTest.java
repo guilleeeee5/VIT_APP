@@ -114,6 +114,21 @@ public class DataHandingTest
     }
 
     @Test
+    public void testComprobarJefe_NullPassword() throws ClassNotFoundException, SQLException {
+        // Preparación de la prueba
+        String email = "prueba@example.com";
+        String password = null;
+        DataHanding Data = new DataHanding();
+
+        // Ejecución de la función y comprobación del resultado
+        Jefe_Establecimiento jefeActual = Data.comprobarJefe(email, password);
+        //Si devuelve estos elementos como nulos ya comprobamos que lo ha realizado correctamente
+        assertNull(jefeActual.getName());
+        assertNull(jefeActual.getApellido());
+        assertNull(jefeActual.getEmail());
+        assertNull(jefeActual.getPassword());;
+    }
+    @Test
     public void testComprobarJefe_EmptyPassword() throws ClassNotFoundException, SQLException {
         // Preparación de la prueba
         String email = "prueba@example.com";
