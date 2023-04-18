@@ -1,6 +1,7 @@
 package org.vaadin.example;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nimbusds.jose.shaded.json.JSONObject;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.notification.Notification;
@@ -29,6 +30,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Base64;
 
 
 @Route("gestionJefe")
@@ -96,18 +98,21 @@ public class GestionJefe extends VerticalLayout {
                 ImageIO.write(img, "jpg", baos);
                 byte[] imageBytes = baos.toByteArray();
 
-                // Añadir la imagen al objeto Jefe_Establecimiento
-                jefe.setImagen(img);
+                // Obtener el cif del jefe de establecimiento
+                String cif = jefe.getCif();
 
-                // Hacer la petición POST al back
+                // Crear un objeto JSON con el cif y los bytes de la imagen
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("cif", cif);
+                jsonObject.put("imagen", Base64.getEncoder().encodeToString(imageBytes));
+
+                // Hacer la petición PUT al back
                 HttpClient httpClient = HttpClient.newHttpClient();
-                String url = "http://localhost:8081/Imagen";
-                ObjectMapper objectMapper = new ObjectMapper();
-                String json = objectMapper.writeValueAsString(jefe.toString());
+                String url = "http://localhost:8081/Imagen/" + cif;
                 HttpRequest httpRequest = HttpRequest.newBuilder()
                         .uri(URI.create(url))
                         .setHeader("Content-Type", "application/json")
-                        .POST(HttpRequest.BodyPublishers.ofString(json))
+                        .PUT(HttpRequest.BodyPublishers.ofString(jsonObject.toString()))
                         .build();
                 HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
