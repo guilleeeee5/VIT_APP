@@ -1,21 +1,16 @@
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
+package org.vaadin.example;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
-@CssImport(value="./styles/chart-panel.css")
-public class ChartView extends VerticalLayout {
+import javax.swing.*;
+import javax.swing.text.AbstractDocument;
 
+
+@CssImport("./styles/front.css")
+public class Estadisticas extends VerticalLayout {
+/*
     public ChartView() {
         // Crea un dataset con algunos datos
         CategoryDataset dataset = createDataset();
@@ -55,6 +50,6 @@ public class ChartView extends VerticalLayout {
                 true,
                 false);
         return chart;
-    }
+    }*/
 
 }

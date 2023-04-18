@@ -22,7 +22,6 @@ import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-
 import javax.swing.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -59,28 +58,16 @@ public class GestionJefe extends VerticalLayout {
         HorizontalLayout horizontalLayout4 = new HorizontalLayout();
         //Pestaña Estadisticas
         //Creamos el gráfico
-        Chart chart = new Chart();
-        chart.getConfiguration().setTitle("Ventas por Mes");
-        chart.getConfiguration().setSubTitle("Año 2023");
-        XAxis xaxis = new XAxis();
-        xaxis.setCategories("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
-        chart.getConfiguration().addxAxis(xaxis);
-        YAxis yaxis = new YAxis();
-        yaxis.setTitle("Ventas");
-        chart.getConfiguration().addyAxis(yaxis);
-        PlotOptionsColumn plot = new PlotOptionsColumn();
-        plot.setPointPadding(0.2);
-        plot.setEdgeWidth(0);
-        chart.getConfiguration().setPlotOptions(plot);
-        DataSeries series = new DataSeries();
-        series.setName("Ventas");
-        series.setData(2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000);
-        chart.getConfiguration().addSeries(series);
-        chart.setSizeFull();
-
+        Estadisticas chart = new Estadisticas();
         //Agregamos el gráfico al horizontalLayout
-        HorizontalLayout horizontalLayout5 = new HorizontalLayout();
-        horizontalLayout5.add(chart);
+        ImageIcon icon = new ImageIcon("../resources/images/Estadisticas.png");
+
+        // Crea un componente JLabel y le asigna la imagen cargada
+        JLabel label = new JLabel(icon);
+
+        // Crea una ventana JFrame y agrega el componente JLabel
+        JFrame frame = new JFrame();
+        frame.getContentPane().add(label);
 
 
 
@@ -90,16 +77,18 @@ public class GestionJefe extends VerticalLayout {
                 if(event.getSelectedTab().getId().toString().equals("Optional[Inicio]")){
                     horizontalLayout2.setVisible(true);
                     horizontalLayout4.setVisible(true);
-                    horizontalLayout5.setVisible(false);
+                    frame.setVisible(false);
                 }
                 else{
                     horizontalLayout2.setVisible(false);
                     horizontalLayout4.setVisible(false);
-                    horizontalLayout5.setVisible(true);
+                    // Configura la ventana y la hace visible
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.pack();
                 }
             }
         });
-        this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2, horizontalLayout5);
+        this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2);
 
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(buffer);
