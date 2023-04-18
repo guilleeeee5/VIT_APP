@@ -1,5 +1,6 @@
 package org.vaadin.example;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.notification.Notification;
@@ -18,9 +19,16 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 
 @Route("gestionJefe")
@@ -78,11 +86,37 @@ public class GestionJefe extends VerticalLayout {
         Upload upload = new Upload(buffer);
 
         upload.addSucceededListener(event -> {
-            String fileName = event.getFileName();
-            InputStream inputStream = buffer.getInputStream(fileName);
+            try {
+                String fileName = event.getFileName();
+                InputStream inputStream = buffer.getInputStream(fileName);
 
-            // Do something with the file data
-            // processFile(inputStream, fileName);
+                // Convertir la imagen a bytes
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                BufferedImage img = ImageIO.read(inputStream);
+                ImageIO.write(img, "jpg", baos);
+                byte[] imageBytes = baos.toByteArray();
+
+                // Añadir la imagen al objeto Jefe_Establecimiento
+                jefe.setImagen(img);
+
+                // Hacer la petición POST al back
+                HttpClient httpClient = HttpClient.newHttpClient();
+                String url = "http://localhost:8081/Imagen";
+                ObjectMapper objectMapper = new ObjectMapper();
+                String json = objectMapper.writeValueAsString(jefe.toString());
+                HttpRequest httpRequest = HttpRequest.newBuilder()
+                        .uri(URI.create(url))
+                        .setHeader("Content-Type", "application/json")
+                        .POST(HttpRequest.BodyPublishers.ofString(json))
+                        .build();
+                HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+
+                // Hacer algo con la respuesta del back
+                System.out.println(response.body());
+
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
         });
         this.add(horizontalLayout4);
         horizontalLayout4.add(upload);

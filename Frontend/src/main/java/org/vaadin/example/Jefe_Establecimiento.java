@@ -2,8 +2,10 @@ package org.vaadin.example;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 
 public class Jefe_Establecimiento extends User{
     private String direccion;
@@ -74,9 +76,11 @@ public class Jefe_Establecimiento extends User{
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    public void cargarImagen(String rutaArchivo) throws IOException {
-        this.imagen = ImageIO.read(new File(rutaArchivo));
+
+    public void setImagen(BufferedImage imagen) {
+        this.imagen = imagen;
     }
+
     public BufferedImage getImagen() {
         return imagen;
     }
@@ -97,14 +101,28 @@ public class Jefe_Establecimiento extends User{
 
     @Override
     public String toString() {
-        return "Jefe_Establecimiento{" +
-                super.toString() +
-                "direccion='" + direccion + '\'' +
-                ", ciudad='" + ciudad + '\'' +
-                ", codigo_Postal='" + codigo_Postal + '\'' +
-                ", cif='" + cif + '\'' +
-                ", nombre_establecimiento='" + nombre_establecimiento + '\'' +
-                ", estado='" + estado + '\'' +
-                '}';
+        BufferedImage imagen = getImagen(); // tu método para obtener la imagen
+        String imagenBase64 = null;
+
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            ImageIO.write(imagen, "png", baos);
+            imagenBase64 = Base64.getEncoder().encodeToString(baos.toByteArray());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "{\n" +
+                "\"name\": " + "\"" + getName() + "\"," + "\n" +
+                "\"apellido\": " + "\"" + getApellido()  + "\"," + "\n" +
+                "\"password\": " + "\"" + getPassword() + "\""  +  ",\n" +
+                "\"email\": " + "\"" + getEmail() + "\"" +",\n" +
+                "\"direccion\": " + "\"" + getDireccion() + "\"" + ",\n" +
+                "\"ciudad\": " + "\"" + getCiudad() + "\"" + ",\n" +
+                "\"codigo_Postal\": " + "\"" + getCodigo_Postal() + "\"" + ",\n" +
+                "\"cif\": " + "\"" + getCif() + "\"" + ",\n" +
+                "\"nombre_establecimiento\": " + "\"" + getNombre_establecimiento() + "\"" + ",\n" +
+                "\"estado\": " + "\"" + getEstado() + "\"" + ",\n" +
+                "\"imagen\": " + "\"" + imagenBase64 + "\"" + "\n" +
+                "}";
     }
 }
