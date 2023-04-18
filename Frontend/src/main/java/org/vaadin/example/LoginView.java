@@ -76,7 +76,8 @@ public class LoginView extends VerticalLayout{
             String email = event.getUsername();
             String password = event.getPassword();
             String userType = radioGroup.getValue();
-            //Debemos realizar un control y ver si has seleccionado algún radiobutton, sino me salta un mensaje de que debo seleccionar
+            //Debemos realizar un control y ver si has seleccionado algún radiobutton, si no salta un mensaje de que debo seleccionar
+            //Un tipo de usuario para continuar
             if (!radioGroup.isEmpty()){
                 try {
                     boolean isValid = isValidLogin(email, password, userType);
@@ -97,6 +98,7 @@ public class LoginView extends VerticalLayout{
                 // Habilitar el botón de Log in después de cerrar el Dialog
                 dialog.addDialogCloseActionListener(event1 -> {
                     loginForm.setEnabled(true);
+                    //Cerramos el dialog por si queda pillado
                     dialog.close();
                 });
             }
