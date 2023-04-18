@@ -1,11 +1,13 @@
 package com.VITAPP.Backend;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.crypto.Data;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 
 @RestController
 public class API {
@@ -60,10 +62,30 @@ public class API {
         return data.modificarJefe(jefeAntiguo, jefeNuevo);
     }
 
-    @PostMapping("/Imagen")
-    public Jefe_Establecimiento crearImagen(@RequestBody String json) throws SQLException, ClassNotFoundException {
-        Jefe_Establecimiento jefe_establecimiento = new Jefe_Establecimiento(json);
-        DataHanding data = new DataHanding();
-        return data.guardarImagen(jefe_establecimiento);
+    /*@PutMapping(value = "/Imagen/{cif}")
+    public ResponseEntity<String> actualizarImagen(@PathVariable String cif, @RequestBody Jefe_Establecimiento request) {
+        String imagenBase64 = request.getImagen().toString();
+        byte[] imagenBytes = Base64.getDecoder().decode(imagenBase64);
+
+        // Actualizar la imagen en la base de datos utilizando el cif del jefe de establecimiento
+        // ...
+
+        return ResponseEntity.ok("Imagen actualizada correctamente");
+
+    }*/
+    @PutMapping("/Imagen/{cif}")
+    public ResponseEntity<String> actualizarImagen(@PathVariable String cif, @RequestBody byte[] imagenBytes) {
+        try {
+            // Decodificar la imagen y almacenarla en la base de datos
+            String imagenBase64 = Base64.getEncoder().encodeToString(imagenBytes);
+            // TODO: Almacenar la imagen en la base de datos utilizando el CIF del jefe de establecimiento
+
+            // Devolver una respuesta satisfactoria
+            return ResponseEntity.ok("Imagen actualizada correctamente");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar la imagen");
+        }
     }
+
 }

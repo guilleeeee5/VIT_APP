@@ -101,18 +101,13 @@ public class GestionJefe extends VerticalLayout {
                 // Obtener el cif del jefe de establecimiento
                 String cif = jefe.getCif();
 
-                // Crear un objeto JSON con el cif y los bytes de la imagen
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("cif", cif);
-                jsonObject.put("imagen", Base64.getEncoder().encodeToString(imageBytes));
-
                 // Hacer la petición PUT al back
                 HttpClient httpClient = HttpClient.newHttpClient();
                 String url = "http://localhost:8081/Imagen/" + cif;
                 HttpRequest httpRequest = HttpRequest.newBuilder()
                         .uri(URI.create(url))
-                        .setHeader("Content-Type", "application/json")
-                        .PUT(HttpRequest.BodyPublishers.ofString(jsonObject.toString()))
+                        .setHeader("Content-Type", "image/png")
+                        .PUT(HttpRequest.BodyPublishers.ofByteArray(imageBytes))
                         .build();
                 HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 

@@ -37,16 +37,7 @@ public class Jefe_Establecimiento extends User{
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             Jefe_Establecimiento jefe = objectMapper.readValue(json, Jefe_Establecimiento.class);
-            this.setName(jefe.getName());
-            this.setApellido(jefe.getApellido());
-            this.setPassword(jefe.getPassword());
-            this.setEmail(jefe.getEmail());
-            this.Direccion = jefe.getDireccion();
-            this.Ciudad = jefe.getCiudad();
-            this.Codigo_Postal = jefe.getCodigo_Postal();
             this.CIF = jefe.getCIF();
-            this.Nombre_establecimiento = jefe.getNombre_establecimiento();
-            this.estado = jefe.getEstado();
             this.imagen = jefe.getImagen();
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,4 +98,6 @@ public class Jefe_Establecimiento extends User{
     public void setImagen(BufferedImage imagen) {
         this.imagen = imagen;
     }
+
+
 }
