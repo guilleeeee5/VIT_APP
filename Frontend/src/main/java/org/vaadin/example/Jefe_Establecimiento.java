@@ -1,13 +1,18 @@
 package org.vaadin.example;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class Jefe_Establecimiento extends User{
     private String direccion;
     private String ciudad;
     private String codigo_Postal;
     private String cif;
     private String nombre_establecimiento;
-
     private String estado;
+    private BufferedImage imagen;
     public Jefe_Establecimiento() {
 
     }
@@ -69,7 +74,12 @@ public class Jefe_Establecimiento extends User{
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
+    public void cargarImagen(String rutaArchivo) throws IOException {
+        this.imagen = ImageIO.read(new File(rutaArchivo));
+    }
+    public BufferedImage getImagen() {
+        return imagen;
+    }
     public String mostrarJson() {
         return "{\n" +
                 "\"name\": " + "\"" + getName() + "\"," + "\n" +
