@@ -233,6 +233,6 @@ public class DataService {
         String respuestaActual = new BasicResponseHandler().handleResponse(response);
         listaDevuelta = g.fromJson(respuestaActual, new TypeToken<ArrayList<Jefe_Establecimiento>>(){}.getType());
         return listaDevuelta;
-    }
+    } 
 
 }
