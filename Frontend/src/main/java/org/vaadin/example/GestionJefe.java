@@ -72,23 +72,7 @@ public class GestionJefe extends VerticalLayout {
 
         horizontalLayout2.add(estado);
         horizontalLayout2.setVisible(true);
-
-
-        HorizontalLayout horizontalLayout4 = new HorizontalLayout();
-        tabs.addSelectedChangeListener(new ComponentEventListener<Tabs.SelectedChangeEvent>() {
-            @Override
-            public void onComponentEvent(Tabs.SelectedChangeEvent event) {
-                if(event.getSelectedTab().getId().toString().equals("Optional[Inicio]")){
-                    horizontalLayout2.setVisible(true);
-                    //tabla2.setVisible(false);
-                }
-                else{
-                    horizontalLayout2.setVisible(false);
-                    //tabla2.setVisible(true);
-                }
-            }
-        });
-        this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2);
+        HorizontalLayout horizontalLayoutUpload = new HorizontalLayout();
 
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(buffer);
@@ -124,9 +108,145 @@ public class GestionJefe extends VerticalLayout {
                 e.printStackTrace();
             }
         });
-        this.add(horizontalLayout4);
-        horizontalLayout4.add(upload);
-        estadoImagen(jefe, horizontalLayout4);
+
+        horizontalLayoutUpload.add(upload);
+        horizontalLayoutUpload.setVisible(false);
+
+        //Imagenes
+        StreamResource imageResource = new StreamResource("Estadisticas.png",
+                () -> getClass().getResourceAsStream("/images/Estadisticas.png"));
+
+        Image imgEstadisticas = new Image(imageResource, "");
+        HorizontalLayout horizontalEstadisticas = new HorizontalLayout();
+        horizontalEstadisticas.add(imgEstadisticas);
+
+        StreamResource imageResource1 = new StreamResource("mecanico.png",
+                () -> getClass().getResourceAsStream("/images/mecanico.png"));
+
+        Image imgTecnico = new Image(imageResource1, "Pedri el mecanico va a tu establecimeinto");
+        HorizontalLayout horizontalTecnico = new HorizontalLayout();
+        Label pedriLabel = new Label("Pedri el mecanico va a tu establecimeinto");
+        horizontalTecnico.add(imgTecnico);
+        horizontalTecnico.add(pedriLabel);
+
+        StreamResource imageConfeti1 = new StreamResource("confeti.png",
+                () -> getClass().getResourceAsStream("/images/confeti.png"));
+
+        Image imageConfeti = new Image(imageConfeti1, "");
+        HorizontalLayout horizontalConfeti = new HorizontalLayout();
+        horizontalConfeti.add(imageConfeti);
+
+        horizontalLayout2.setVisible(true);//estado
+        horizontalEstadisticas.setVisible(false);
+        switch (jefe.getEstado()) {
+            case "0":
+                //todo a false
+                horizontalLayoutUpload.setVisible(false);
+                horizontalTecnico.setVisible(false);
+                horizontalConfeti.setVisible(false);
+                break;
+            case "1":
+                //upload map estadisticas no
+                horizontalConfeti.setVisible(false);
+                horizontalLayoutUpload.setVisible(true);
+                horizontalTecnico.setVisible(false);
+                break;
+            case "2":
+                horizontalConfeti.setVisible(false);
+                ///ve el mapa
+                horizontalLayoutUpload.setVisible(false);
+                horizontalTecnico.setVisible(false);
+                break;
+            case "3":
+                horizontalConfeti.setVisible(false);
+                ///ve la imagen de un técnico
+                horizontalLayoutUpload.setVisible(false);
+                horizontalTecnico.setVisible(true);
+                break;
+            case "4":
+                //Ve mapa y estadísticas
+                horizontalLayoutUpload.setVisible(false);
+                horizontalTecnico.setVisible(false);
+                horizontalConfeti.setVisible(true);
+                break;
+        }
+
+        tabs.addSelectedChangeListener(new ComponentEventListener<Tabs.SelectedChangeEvent>() {
+            @Override
+            public void onComponentEvent(Tabs.SelectedChangeEvent event) {
+
+                if(event.getSelectedTab().getId().toString().equals("Optional[Inicio]")){
+                    horizontalLayout2.setVisible(true);//estado
+                    horizontalEstadisticas.setVisible(false);
+
+                    switch (jefe.getEstado()) {
+                        case "0":
+                            //todo a false
+                            horizontalLayoutUpload.setVisible(false);
+                            horizontalTecnico.setVisible(false);
+                            horizontalConfeti.setVisible(false);
+                            break;
+                        case "1":
+                            //upload map estadisticas no
+                            horizontalConfeti.setVisible(false);
+                            horizontalLayoutUpload.setVisible(true);
+                            horizontalTecnico.setVisible(false);
+                            break;
+                        case "2":
+                            horizontalConfeti.setVisible(false);
+                            ///ve el mapa
+                            horizontalLayoutUpload.setVisible(false);
+                            horizontalTecnico.setVisible(false);
+                            break;
+                        case "3":
+                            horizontalConfeti.setVisible(false);
+                            ///ve la imagen de un técnico
+                            horizontalLayoutUpload.setVisible(false);
+                            horizontalTecnico.setVisible(true);
+
+
+                            break;
+                        case "4":
+                            //Ve mapa y estadísticas
+                            horizontalLayoutUpload.setVisible(false);
+                            horizontalTecnico.setVisible(false);
+                            horizontalConfeti.setVisible(true);
+                            break;
+                    }
+
+                }
+                else{
+                    horizontalLayout2.setVisible(false);//estado
+                    horizontalLayoutUpload.setVisible(false);//upload
+                    horizontalTecnico.setVisible(false);
+                    horizontalConfeti.setVisible(false);
+                    switch (jefe.getEstado()) {
+                        case "0":
+                            //todo a false
+                            horizontalEstadisticas.setVisible(false);
+                            break;
+                        case "1":
+                            //upload map estadisticas no
+                            horizontalEstadisticas.setVisible(false);
+                            break;
+                        case "2":
+                            horizontalEstadisticas.setVisible(false);
+                            break;
+                        case "3":
+                            horizontalEstadisticas.setVisible(false);
+                            break;
+                        case "4":
+                            //Ve mapa y estadísticas
+                            horizontalEstadisticas.setVisible(true);
+                            break;
+                    }
+
+
+                }
+            }
+        });
+
+        this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2, horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti);
     }
     public String estadoTexto(Jefe_Establecimiento jefe) {
         String result = null;
@@ -149,36 +269,6 @@ public class GestionJefe extends VerticalLayout {
                 break;
         }
         return result;
-    }
-    public void estadoImagen(Jefe_Establecimiento jefe, HorizontalLayout horizontalLayout) {
-        StreamResource imageResource = new StreamResource("Estadisticas.png",
-                () -> getClass().getResourceAsStream("/images/Estadisticas.png"));
-
-        Image img = new Image(imageResource, "");
-        switch (jefe.getEstado()) {
-            case "0":
-                //todo a false
-                horizontalLayout.setVisible(false);
-                break;
-            case "1":
-                //upload map estadisticas no
-                horizontalLayout.setVisible(true);
-                break;
-            case "2":
-                ///ve el mapa
-                horizontalLayout.setVisible(false);
-                break;
-            case "3":
-                ///ve la imagen de un técnico
-                horizontalLayout.setVisible(false);
-                break;
-            case "4":
-                //Ve mapa y estadísticas
-                horizontalLayout.setVisible(false);
-                img.setVisible(true);
-                break;
-        }
-
     }
 }
 
