@@ -387,7 +387,7 @@ public class DataHandingTest
     @Test
     public void testDevolverEstablecimientos() {
         try {
-            // Crea una conexión con la base de datos
+            // Creamos un test que verifique que al tener los establecimientos se deuelvan correctamente
             DataHanding Data = new DataHanding();
 
             ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<Jefe_Establecimiento>();
