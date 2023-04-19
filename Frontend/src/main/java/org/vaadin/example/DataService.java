@@ -235,14 +235,31 @@ public class DataService {
         return listaDevuelta;
     }
 
-    public static BufferedImage obtenerImagen(String cif) throws IOException, URISyntaxException, InterruptedException {
+    public static BufferedImage obtenerImagen(String cif) throws IOException, URISyntaxException {
         String url = urlPrefix + "/Imagen/" + cif;
         HttpRequest httpRequest = HttpRequest.newBuilder().uri(new URI(url)).GET().build();
-        HttpResponse<InputStream> respuesta = HttpClient.newBuilder().build().send(httpRequest, HttpResponse.BodyHandlers.ofInputStream());
+        HttpResponse<InputStream> respuesta = null;
+        try {
+            respuesta = HttpClient.newBuilder().build().send(httpRequest, HttpResponse.BodyHandlers.ofInputStream());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-        byte[] bytes = IOUtils.toByteArray(respuesta.body());
-        InputStream inputStream = new ByteArrayInputStream(bytes);
-        return ImageIO.read(inputStream);
+        BufferedImage imagen = null;
+        try (InputStream inputStream = respuesta.body()) {
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            int nRead;
+            byte[] data = new byte[1024];
+            while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+            buffer.flush();
+            byte[] bytes = buffer.toByteArray();
+            imagen = ImageIO.read(new ByteArrayInputStream(bytes));
+        }
+
+        return imagen;
     }
+
 
 }

@@ -87,7 +87,7 @@ public class GestionJefe extends VerticalLayout {
                 // Convertir la imagen a bytes
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 BufferedImage img = ImageIO.read(inputStream);
-                ImageIO.write(img, "jpg", baos);
+                ImageIO.write(img, "png", baos);
                 byte[] imageBytes = baos.toByteArray();
 
                 // Obtener el cif del jefe de establecimiento
@@ -144,11 +144,17 @@ public class GestionJefe extends VerticalLayout {
         DataService data = new DataService();
         HorizontalLayout layoutMapa = new HorizontalLayout();
         BufferedImage imagen = data.obtenerImagen(jefe.getCif());
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(imagen, "png", baos);
-        byte[] bytes = baos.toByteArray();
-        StreamResource resource = new StreamResource("image.png", () -> new ByteArrayInputStream(bytes));
-        Image image = new Image(resource, "Imagen");
+        StreamResource resource = new StreamResource("image.png", () -> {
+            try {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(imagen, "png", baos);
+                return new ByteArrayInputStream(baos.toByteArray());
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        });
+        Image image = new Image(resource, "Mapa");
         layoutMapa.add(image);
 
 
