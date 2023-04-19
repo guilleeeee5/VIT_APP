@@ -3,6 +3,11 @@ package org.vaadin.example;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.shaded.json.JSONObject;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.charts.Chart;
+import com.vaadin.flow.component.charts.model.DataSeries;
+import com.vaadin.flow.component.charts.model.PlotOptionsColumn;
+import com.vaadin.flow.component.charts.model.XAxis;
+import com.vaadin.flow.component.charts.model.YAxis;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
@@ -17,11 +22,10 @@ import com.vaadin.flow.component.upload.Receiver;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -83,6 +87,7 @@ public class GestionJefe extends VerticalLayout {
             }
         });
         this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2);
+
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(buffer);
 
@@ -144,7 +149,10 @@ public class GestionJefe extends VerticalLayout {
         return result;
     }
     public void estadoImagen(Jefe_Establecimiento jefe, HorizontalLayout horizontalLayout) {
+        StreamResource imageResource = new StreamResource("Estadisticas.png",
+                () -> getClass().getResourceAsStream("/images/Estadisticas.png"));
 
+        Image img = new Image(imageResource, "");
         switch (jefe.getEstado()) {
             case "0":
                 //todo a false
@@ -165,6 +173,7 @@ public class GestionJefe extends VerticalLayout {
             case "4":
                 //Ve mapa y estadísticas
                 horizontalLayout.setVisible(false);
+                img.setVisible(true);
                 break;
         }
 
