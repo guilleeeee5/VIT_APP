@@ -101,15 +101,6 @@ public class Jefe_Establecimiento extends User{
 
     @Override
     public String toString() {
-        BufferedImage imagen = getImagen(); // tu método para obtener la imagen
-        String imagenBase64 = null;
-
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            ImageIO.write(imagen, "jpeg", baos);
-            imagenBase64 = Base64.getEncoder().encodeToString(baos.toByteArray());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         return "{\n" +
                 "\"name\": " + "\"" + getName() + "\"," + "\n" +
@@ -121,8 +112,7 @@ public class Jefe_Establecimiento extends User{
                 "\"codigo_Postal\": " + "\"" + getCodigo_Postal() + "\"" + ",\n" +
                 "\"cif\": " + "\"" + getCif() + "\"" + ",\n" +
                 "\"nombre_establecimiento\": " + "\"" + getNombre_establecimiento() + "\"" + ",\n" +
-                "\"estado\": " + "\"" + getEstado() + "\"" + ",\n" +
-                "\"imagen\": " + "\"" + imagenBase64 + "\"" + "\n" +
+                "\"estado\": " + "\"" + getEstado() + "\"" + "\n" +
                 "}";
     }
 }
