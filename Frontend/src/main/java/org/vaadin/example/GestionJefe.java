@@ -123,21 +123,58 @@ public class GestionJefe extends VerticalLayout {
         StreamResource imageResource1 = new StreamResource("mecanico.png",
                 () -> getClass().getResourceAsStream("/images/mecanico.png"));
 
-        Image imgTecnico = new Image(imageResource, "");
+        Image imgTecnico = new Image(imageResource1, "");
         HorizontalLayout horizontalTecnico = new HorizontalLayout();
+        Label pedriLabel = new Label("Pedri el mecanico va a tu establecimeinto");
         horizontalTecnico.add(imgTecnico);
+        horizontalTecnico.add(pedriLabel);
 
         StreamResource imageConfeti1 = new StreamResource("confeti.png",
                 () -> getClass().getResourceAsStream("/images/confeti.png"));
 
-        Image imageConfeti = new Image(imageResource, "");
+        Image imageConfeti = new Image(imageConfeti1, "");
         HorizontalLayout horizontalConfeti = new HorizontalLayout();
         horizontalConfeti.add(imageConfeti);
 
+        horizontalLayout2.setVisible(true);//estado
+        horizontalEstadisticas.setVisible(false);
+        switch (jefe.getEstado()) {
+            case "0":
+                //todo a false
+                horizontalLayoutUpload.setVisible(false);
+                horizontalTecnico.setVisible(false);
+                horizontalConfeti.setVisible(false);
+                break;
+            case "1":
+                //upload map estadisticas no
+                horizontalConfeti.setVisible(false);
+                horizontalLayoutUpload.setVisible(true);
+                horizontalTecnico.setVisible(false);
+                break;
+            case "2":
+                horizontalConfeti.setVisible(false);
+                ///ve el mapa
+                horizontalLayoutUpload.setVisible(false);
+                horizontalTecnico.setVisible(false);
+                break;
+            case "3":
+                horizontalConfeti.setVisible(false);
+                ///ve la imagen de un técnico
+                horizontalLayoutUpload.setVisible(false);
+                horizontalTecnico.setVisible(true);
+                break;
+            case "4":
+                //Ve mapa y estadísticas
+                horizontalLayoutUpload.setVisible(false);
+                horizontalTecnico.setVisible(false);
+                horizontalConfeti.setVisible(true);
+                break;
+        }
 
         tabs.addSelectedChangeListener(new ComponentEventListener<Tabs.SelectedChangeEvent>() {
             @Override
             public void onComponentEvent(Tabs.SelectedChangeEvent event) {
+
                 if(event.getSelectedTab().getId().toString().equals("Optional[Inicio]")){
                     horizontalLayout2.setVisible(true);//estado
                     horizontalEstadisticas.setVisible(false);
@@ -166,6 +203,8 @@ public class GestionJefe extends VerticalLayout {
                             ///ve la imagen de un técnico
                             horizontalLayoutUpload.setVisible(false);
                             horizontalTecnico.setVisible(true);
+
+
                             break;
                         case "4":
                             //Ve mapa y estadísticas
