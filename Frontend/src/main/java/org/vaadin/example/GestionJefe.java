@@ -123,7 +123,7 @@ public class GestionJefe extends VerticalLayout {
         StreamResource imageResource1 = new StreamResource("mecanico.png",
                 () -> getClass().getResourceAsStream("/images/mecanico.png"));
 
-        Image imgTecnico = new Image(imageResource1, "");
+        Image imgTecnico = new Image(imageResource1, "Pedri el mecanico va a tu establecimeinto");
         HorizontalLayout horizontalTecnico = new HorizontalLayout();
         Label pedriLabel = new Label("Pedri el mecanico va a tu establecimeinto");
         horizontalTecnico.add(imgTecnico);
