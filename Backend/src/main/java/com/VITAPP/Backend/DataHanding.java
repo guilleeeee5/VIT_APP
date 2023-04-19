@@ -212,4 +212,24 @@ public class DataHanding {
         PreparedStatement ps2 = conexionBBDD.prepareStatement(sql2);
         int result1 = ps2.executeUpdate();
     }
+
+    public byte[] obtenerImagen(String cif) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://localhost:3307/vit_app_bbdd", "admin", "admin");
+        String sql = String.format("SELECT imagen FROM jefe_establecimiento WHERE cif = %s;", (cif));
+
+        Statement statement = conexionBBDD.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+
+
+        byte[] imagenBytes = new byte[0];
+        while (result.next()) {
+            Blob imagenBlob = result.getBlob("imagen");
+            imagenBytes = imagenBlob.getBytes(1, (int) imagenBlob.length());
+        }
+
+        return imagenBytes;
+    }
+
+
 }

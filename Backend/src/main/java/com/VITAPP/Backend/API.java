@@ -90,4 +90,15 @@ public class API {
         }
     }
 
+    @GetMapping("/Imagen/{cif}")
+    public byte[] actualizarImagen(@PathVariable String cif) throws SQLException, ClassNotFoundException {
+
+        DataHanding dataHanding = new DataHanding();
+        byte[] imagenBytes ;
+        imagenBytes = dataHanding.obtenerImagen(cif);
+
+        return imagenBytes;
+
+    }
+
 }
