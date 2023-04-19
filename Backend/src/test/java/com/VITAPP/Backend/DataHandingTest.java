@@ -260,4 +260,43 @@ public class DataHandingTest
         assertEquals(jefeEsperado.getEstado(), jefeActual.getEstado());
         assertEquals(jefeEsperado.getImagen(), jefeActual.getImagen());
     }
+
+    @Test
+    public void testComprobarAdminExistente() throws ClassNotFoundException, SQLException {
+        // Preparación de la prueba
+        String email = "info@nlcapacities.com";
+        String password = "admin";
+        //Comprobamos que dado una contraseña y email se nos devuelva correctamente el usuario
+        Admin adminEsperado = new Admin();
+        DataHanding Data = new DataHanding();
+        adminEsperado.setName("admin");
+        adminEsperado.setApellido("admin");
+        adminEsperado.setEmail("info@nlcpacities.com");
+
+        // Ejecución de la función y comprobación del resultado
+        Admin adminExistente = Data.comprobarAdmin(email, password);
+        assertEquals(adminExistente.getID(), adminEsperado.getID());
+        assertEquals(adminExistente.getName(), adminEsperado.getName());
+        assertEquals(adminExistente.getApellido(), adminEsperado.getApellido());
+        assertEquals(adminExistente.getPassword(), adminEsperado.getPassword());
+        assertEquals(adminExistente.getEmail(), adminEsperado.getEmail());
+    }
+
+    @Test
+    public void testComprobarAdminNoExistente() throws ClassNotFoundException, SQLException {
+        Admin adminEsperado = new Admin();
+        DataHanding Data = new DataHanding();
+        String email = "admin99@vitapp.com";
+        String password = "password123";
+        Admin admin1 = Data.comprobarAdmin(email, password);
+
+        assertNull(admin1.getName());
+        assertNull(admin1.getApellido());
+        assertNull(admin1.getEmail());
+        assertNull(admin1.getPassword());;
+
+
+    }
+
+    
 }
