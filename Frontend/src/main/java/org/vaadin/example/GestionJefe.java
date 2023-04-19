@@ -72,8 +72,6 @@ public class GestionJefe extends VerticalLayout {
 
         horizontalLayout2.add(estado);
         horizontalLayout2.setVisible(true);
-
-
         HorizontalLayout horizontalLayout4 = new HorizontalLayout();
         tabs.addSelectedChangeListener(new ComponentEventListener<Tabs.SelectedChangeEvent>() {
             @Override
@@ -154,7 +152,12 @@ public class GestionJefe extends VerticalLayout {
         StreamResource imageResource = new StreamResource("Estadisticas.png",
                 () -> getClass().getResourceAsStream("/images/Estadisticas.png"));
 
-        Image img = new Image(imageResource, "");
+        Image imgEstadisticas = new Image(imageResource, "");
+
+        StreamResource imageResource1 = new StreamResource("Estadisticas.png",
+                () -> getClass().getResourceAsStream("/images/mecanico.png"));
+
+        Image imgTecnico = new Image(imageResource, "");
         switch (jefe.getEstado()) {
             case "0":
                 //todo a false
@@ -171,11 +174,12 @@ public class GestionJefe extends VerticalLayout {
             case "3":
                 ///ve la imagen de un técnico
                 horizontalLayout.setVisible(false);
+                imgTecnico.setVisible(true);
                 break;
             case "4":
                 //Ve mapa y estadísticas
                 horizontalLayout.setVisible(false);
-                img.setVisible(true);
+                imgEstadisticas.setVisible(true);
                 break;
         }
 
