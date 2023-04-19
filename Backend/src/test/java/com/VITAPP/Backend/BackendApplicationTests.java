@@ -388,6 +388,7 @@ class BackendApplicationTests {
 	public void testDevolverEstablecimientos() {
 		try {
 			// Creamos un test que verifique que al tener los establecimientos se deuelvan correctamente
+			//Test Integrado
 			DataHanding Data = new DataHanding();
 
 			ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<Jefe_Establecimiento>();
