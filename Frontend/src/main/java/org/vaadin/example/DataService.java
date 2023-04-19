@@ -2,6 +2,7 @@ package org.vaadin.example;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpResponseException;
@@ -16,10 +17,9 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.net.*;
 import java.net.http.HttpClient;
@@ -233,6 +233,16 @@ public class DataService {
         String respuestaActual = new BasicResponseHandler().handleResponse(response);
         listaDevuelta = g.fromJson(respuestaActual, new TypeToken<ArrayList<Jefe_Establecimiento>>(){}.getType());
         return listaDevuelta;
-    } 
+    }
+
+    public static BufferedImage obtenerImagen(String cif) throws IOException, URISyntaxException, InterruptedException {
+        String url = urlPrefix + "/Imagen/" + cif;
+        HttpRequest httpRequest = HttpRequest.newBuilder().uri(new URI(url)).GET().build();
+        HttpResponse<InputStream> respuesta = HttpClient.newBuilder().build().send(httpRequest, HttpResponse.BodyHandlers.ofInputStream());
+
+        byte[] bytes = IOUtils.toByteArray(respuesta.body());
+        InputStream inputStream = new ByteArrayInputStream(bytes);
+        return ImageIO.read(inputStream);
+    }
 
 }
