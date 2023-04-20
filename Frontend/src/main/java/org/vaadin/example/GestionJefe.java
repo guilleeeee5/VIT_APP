@@ -67,6 +67,7 @@ public class GestionJefe extends VerticalLayout {
         H1 tit = new H1("Gestión de Jefe de Establecimiento");
         H2 bienvenida = new H2("Bienvenido, " + jefe.getName().toUpperCase() + " su establecimiento es: " + jefe.getNombre_establecimiento().toUpperCase());
 
+        //Añadimos los titulos
         horizontalTitulo.add(tit);
         horizontalBienvenida.add(bienvenida);
         //Pestañas
