@@ -48,16 +48,22 @@ public class GestionJefe extends VerticalLayout {
 
     public void gestionJefeView(Jefe_Establecimiento jefe) throws IOException, URISyntaxException, InterruptedException {
 
-        HorizontalLayout horizontalLayout = new HorizontalLayout();
-        HorizontalLayout horizontalLayout1 = new HorizontalLayout();
-        HorizontalLayout horizontalLayout2 = new HorizontalLayout();
-        HorizontalLayout horizontalLayout3 = new HorizontalLayout();
+        HorizontalLayout horizontalTitulo = new HorizontalLayout();
+        HorizontalLayout horizontalBienvenida = new HorizontalLayout();
+        HorizontalLayout horizontalEstado = new HorizontalLayout();
+        HorizontalLayout horizontalLayoutUpload = new HorizontalLayout();
+        HorizontalLayout horizontalEstadisticas = new HorizontalLayout();
+        HorizontalLayout horizontalTecnico = new HorizontalLayout();
+        HorizontalLayout horizontalConfeti = new HorizontalLayout();
+        // Crear un HorizontalLayout y agregar la imagen a él
+        HorizontalLayout layoutMapa = new HorizontalLayout();
+
         //Bienvenida
         H1 tit = new H1("Gestión de Jefe de Establecimiento");
 
         H2 bienvenida = new H2("Bienvenido, " + jefe.getName() + " su establecimiento es: " + jefe.getNombre_establecimiento());
-        horizontalLayout.add(tit);
-        horizontalLayout1.add(bienvenida);
+        horizontalTitulo.add(tit);
+        horizontalBienvenida.add(bienvenida);
         //Pestañas
         Tab inicio = new Tab("Inicio");
         inicio.setId("Inicio");
@@ -72,9 +78,9 @@ public class GestionJefe extends VerticalLayout {
         //Mostramos estado
         Label estado = new Label(estadoTexto(jefe));
 
-        horizontalLayout2.add(estado);
-        horizontalLayout2.setVisible(true);
-        HorizontalLayout horizontalLayoutUpload = new HorizontalLayout();
+        horizontalEstado.add(estado);
+        horizontalEstado.setVisible(true);
+
 
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(buffer);
@@ -124,15 +130,15 @@ public class GestionJefe extends VerticalLayout {
                 () -> getClass().getResourceAsStream("/images/Estadisticas.png"));
 
         Image imgEstadisticas = new Image(imageResource, "");
-        HorizontalLayout horizontalEstadisticas = new HorizontalLayout();
+
         horizontalEstadisticas.add(imgEstadisticas);
 
         StreamResource imageResource1 = new StreamResource("mecanico.png",
                 () -> getClass().getResourceAsStream("/images/mecanico.png"));
 
-        Image imgTecnico = new Image(imageResource1, "Pedri el mecanico va a tu establecimeinto");
-        HorizontalLayout horizontalTecnico = new HorizontalLayout();
-        Label pedriLabel = new Label("Pedri el mecanico va a tu establecimeinto");
+        Image imgTecnico = new Image(imageResource1, "");
+
+
         horizontalTecnico.add(imgTecnico);
         horizontalTecnico.add(pedriLabel);
 
@@ -140,15 +146,14 @@ public class GestionJefe extends VerticalLayout {
                 () -> getClass().getResourceAsStream("/images/confeti.png"));
 
         Image imageConfeti = new Image(imageConfeti1, "");
-        HorizontalLayout horizontalConfeti = new HorizontalLayout();
+
         horizontalConfeti.add(imageConfeti);
 
-        horizontalLayout2.setVisible(true);//estado
+        horizontalEstado.setVisible(true);//estado
         horizontalEstadisticas.setVisible(false);
         //imagen
         DataService data = new DataService();
-        // Crear un HorizontalLayout y agregar la imagen a él
-        HorizontalLayout layoutMapa = new HorizontalLayout();
+
         if(jefe.getEstado().equals("2")){
             // Obtener la imagen de la base de datos
             BufferedImage imagen = data.obtenerImagen(jefe.getCif());
@@ -213,7 +218,7 @@ public class GestionJefe extends VerticalLayout {
             public void onComponentEvent(Tabs.SelectedChangeEvent event) {
 
                 if(event.getSelectedTab().getId().toString().equals("Optional[Inicio]")){
-                    horizontalLayout2.setVisible(true);//estado
+                    horizontalEstado.setVisible(true);//estado
                     horizontalEstadisticas.setVisible(false);
 
                     switch (jefe.getEstado()) {
@@ -256,7 +261,7 @@ public class GestionJefe extends VerticalLayout {
 
                 }
                 else{
-                    horizontalLayout2.setVisible(false);//estado
+                    horizontalEstado.setVisible(false);//estado
                     horizontalLayoutUpload.setVisible(false);//upload
                     horizontalTecnico.setVisible(false);
                     horizontalConfeti.setVisible(false);
@@ -287,7 +292,7 @@ public class GestionJefe extends VerticalLayout {
             }
         });
 
-        this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2, horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti, layoutMapa);
+        this.add(horizontalTitulo,horizontalBienvenida, tabs, horizontalEstado, horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti, layoutMapa);
     }
     public String estadoTexto(Jefe_Establecimiento jefe) {
         String result = null;
@@ -310,6 +315,7 @@ public class GestionJefe extends VerticalLayout {
                 break;
         }
         return result;
+
     }
 }
 
