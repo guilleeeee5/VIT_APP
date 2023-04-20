@@ -78,7 +78,10 @@ public class GestionJefe extends VerticalLayout {
 
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(buffer);
-
+        upload.setAcceptedFileTypes("application/jpg", ".jpg");
+        int maxFileSizeInBytes = 10 * 1024 * 1024; // 10MB
+        upload.setMaxFileSize(maxFileSizeInBytes);
+        upload.setMaxFiles(1);
         upload.addSucceededListener(event -> {
             try {
                 String fileName = event.getFileName();
@@ -87,7 +90,7 @@ public class GestionJefe extends VerticalLayout {
                 // Convertir la imagen a bytes
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 BufferedImage img = ImageIO.read(inputStream);
-                ImageIO.write(img, "png", baos);
+                ImageIO.write(img, "jpg", baos);
                 byte[] imageBytes = baos.toByteArray();
 
                 // Obtener el cif del jefe de establecimiento
@@ -98,14 +101,16 @@ public class GestionJefe extends VerticalLayout {
                 String url = "http://localhost:8081/Imagen/" + cif;
                 HttpRequest httpRequest = HttpRequest.newBuilder()
                         .uri(URI.create(url))
-                        .setHeader("Content-Type", "image/png")
+                        .setHeader("Content-Type", "image/jpg")
                         .PUT(HttpRequest.BodyPublishers.ofByteArray(imageBytes))
                         .build();
                 HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
                 // Hacer algo con la respuesta del back
                 System.out.println(response.body());
-
+                DataService data2 = new DataService();
+                //Jefe_Establecimiento jefeAux = data2.comprobarJefeInicio(jefe.getEmail(), jefe.getPassword());
+                //gestionJefeView(jefeAux);
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -142,21 +147,28 @@ public class GestionJefe extends VerticalLayout {
         horizontalEstadisticas.setVisible(false);
         //imagen
         DataService data = new DataService();
+        // Crear un HorizontalLayout y agregar la imagen a él
         HorizontalLayout layoutMapa = new HorizontalLayout();
-        BufferedImage imagen = data.obtenerImagen(jefe.getCif());
-        StreamResource resource = new StreamResource("image.png", () -> {
-            try {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(imagen, "png", baos);
-                return new ByteArrayInputStream(baos.toByteArray());
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        });
-        Image image = new Image(resource, "Mapa");
-        layoutMapa.add(image);
-
+        if(jefe.getEstado().equals("2")){
+            // Obtener la imagen de la base de datos
+            BufferedImage imagen = data.obtenerImagen(jefe.getCif());
+            // Convertir la imagen en un objeto StreamResource
+            StreamResource resource = new StreamResource("image.jpg", () -> {
+                try {
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    ImageIO.write(imagen, "jpg", baos);
+                    return new ByteArrayInputStream(baos.toByteArray());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            });
+            // Crear un objeto Image de Vaadin a partir del objeto StreamResource
+            Image image = new Image(resource, "Imagen");
+            layoutMapa.add(image);
+        }
+        // Agregar el HorizontalLayout a algún contenedor de diseño de la interfaz de usuario
+        add(layoutMapa);
 
         switch (jefe.getEstado()) {
             case "0":

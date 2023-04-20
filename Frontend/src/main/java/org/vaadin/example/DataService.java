@@ -18,6 +18,8 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.lang.reflect.Array;
@@ -26,11 +28,12 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class DataService {
     private static final String urlPrefix = "http://localhost:8081";
 
-    public static Jefe_Establecimiento comprobarJefeInicio(@RequestParam String email,@RequestParam String pasword) throws IOException {
+    public static Jefe_Establecimiento comprobarJefeInicio(@RequestParam String email, @RequestParam String pasword) throws IOException {
 
         String query = String.format("email=%s&password=%s",
                 URLEncoder.encode(email, "UTF-8"),
@@ -52,11 +55,11 @@ public class DataService {
         in.close();
         Gson gson = new Gson();
 
-        jefeEstablecimientoAux = gson.fromJson(String.valueOf(response), new TypeToken<Jefe_Establecimiento>(){}.getType());
+        jefeEstablecimientoAux = gson.fromJson(String.valueOf(response), new TypeToken<Jefe_Establecimiento>() {
+        }.getType());
 
         // Imprimir la respuesta del backend
         System.out.println(response.toString());
-
 
         return jefeEstablecimientoAux;
     }
@@ -82,7 +85,8 @@ public class DataService {
         in.close();
         Gson gson = new Gson();
 
-        discAux = gson.fromJson(String.valueOf(response), new TypeToken<Discapacitado_VIsual>(){}.getType());
+        discAux = gson.fromJson(String.valueOf(response), new TypeToken<Discapacitado_VIsual>() {
+        }.getType());
 
         // Imprimir la respuesta del backend
         System.out.println(response.toString());
@@ -112,7 +116,8 @@ public class DataService {
         in.close();
         Gson gson = new Gson();
 
-        adminAux = gson.fromJson(String.valueOf(response), new TypeToken<Admin>(){}.getType());
+        adminAux = gson.fromJson(String.valueOf(response), new TypeToken<Admin>() {
+        }.getType());
 
         // Imprimir la respuesta del backend
         System.out.println(response.toString());
@@ -120,7 +125,8 @@ public class DataService {
 
         return adminAux;
     }
-    public static boolean anhadirDiscapacitado(@RequestBody Discapacitado_VIsual discapacitadoVIsual){
+
+    public static boolean anhadirDiscapacitado(@RequestBody Discapacitado_VIsual discapacitadoVIsual) {
         boolean result = false;
         Gson g = new Gson();
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -135,7 +141,8 @@ public class DataService {
             CloseableHttpResponse response = null;
             response = httpClient.execute(requestpuesta);
             String respuestaActual = new BasicResponseHandler().handleResponse(response);
-            discapacitadoVIsual = g.fromJson(respuestaActual, new TypeToken<Discapacitado_VIsual>(){}.getType());
+            discapacitadoVIsual = g.fromJson(respuestaActual, new TypeToken<Discapacitado_VIsual>() {
+            }.getType());
 
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
@@ -146,12 +153,13 @@ public class DataService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if(discapacitadoVIsual.getName() != null){
+        if (discapacitadoVIsual.getName() != null) {
             result = true;
         }
         return result;
     }
-    public static boolean anhadirJefe(@RequestBody Jefe_Establecimiento jefeEstablecimiento){
+
+    public static boolean anhadirJefe(@RequestBody Jefe_Establecimiento jefeEstablecimiento) {
         boolean result = false;
         Gson g = new Gson();
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -166,7 +174,8 @@ public class DataService {
             CloseableHttpResponse response = null;
             response = httpClient.execute(requestpuesta);
             String respuestaActual = new BasicResponseHandler().handleResponse(response);
-            jefeEstablecimiento = g.fromJson(respuestaActual, new TypeToken<Jefe_Establecimiento>(){}.getType());
+            jefeEstablecimiento = g.fromJson(respuestaActual, new TypeToken<Jefe_Establecimiento>() {
+            }.getType());
 
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
@@ -177,7 +186,7 @@ public class DataService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if(jefeEstablecimiento.getName() != null){
+        if (jefeEstablecimiento.getName() != null) {
             result = true;
         }
         return result;
@@ -194,7 +203,8 @@ public class DataService {
         try {
             respuesta = HttpClient.newBuilder().build().send(httpRequest, HttpResponse.BodyHandlers.ofString());
             resultado = respuesta.body();
-            jefito = gson.fromJson(resultado, new com.googlecode.gentyref.TypeToken<ArrayList<Jefe_Establecimiento>>(){}.getType());
+            jefito = gson.fromJson(resultado, new com.googlecode.gentyref.TypeToken<ArrayList<Jefe_Establecimiento>>() {
+            }.getType());
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -216,7 +226,8 @@ public class DataService {
         CloseableHttpResponse response = httpClient.execute(request);
         String respuestaActual = new BasicResponseHandler().handleResponse(response);
 
-        montarJSON = g.fromJson(respuestaActual, new TypeToken<ArrayList<Jefe_Establecimiento>>(){}.getType());
+        montarJSON = g.fromJson(respuestaActual, new TypeToken<ArrayList<Jefe_Establecimiento>>() {
+        }.getType());
 
         return montarJSON;
     }
@@ -226,12 +237,13 @@ public class DataService {
         Gson g = new Gson();
         ArrayList<Jefe_Establecimiento> listaDevuelta = new ArrayList<>();
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpDelete request = new HttpDelete(urlPrefix+"/Jefe_Establecimiento/" + cif);
+        HttpDelete request = new HttpDelete(urlPrefix + "/Jefe_Establecimiento/" + cif);
         request.setHeader("Content-Type", "application/json");
         request.setHeader("Accept", "application/json");
         CloseableHttpResponse response = httpClient.execute(request);
         String respuestaActual = new BasicResponseHandler().handleResponse(response);
-        listaDevuelta = g.fromJson(respuestaActual, new TypeToken<ArrayList<Jefe_Establecimiento>>(){}.getType());
+        listaDevuelta = g.fromJson(respuestaActual, new TypeToken<ArrayList<Jefe_Establecimiento>>() {
+        }.getType());
         return listaDevuelta;
     }
 
@@ -249,7 +261,7 @@ public class DataService {
         try (InputStream inputStream = respuesta.body()) {
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             int nRead;
-            byte[] data = new byte[1024];
+            byte[] data = new byte[102400];
             while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
                 buffer.write(data, 0, nRead);
             }
@@ -257,9 +269,6 @@ public class DataService {
             byte[] bytes = buffer.toByteArray();
             imagen = ImageIO.read(new ByteArrayInputStream(bytes));
         }
-
         return imagen;
     }
-
-
 }
