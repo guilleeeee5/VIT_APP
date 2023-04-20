@@ -133,6 +133,15 @@ public class Gestion_Admin extends VerticalLayout {
         grid.addItemDoubleClickListener(new ComponentEventListener<ItemDoubleClickEvent<Jefe_Establecimiento>>() {
             @Override
             public void onComponentEvent(ItemDoubleClickEvent<Jefe_Establecimiento> event) {
+                ArrayList <Jefe_Establecimiento> listaaux = new ArrayList<>();
+                try {
+                    listaaux = DataService.obtenerListaEstablecimientos();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                }
+
                 antiguojefeEstablecimiento.setDireccion(event.getItem().getDireccion());
                 antiguojefeEstablecimiento.setCiudad(event.getItem().getCiudad());
                 antiguojefeEstablecimiento.setCodigo_Postal(event.getItem().getCodigo_Postal());
@@ -140,10 +149,18 @@ public class Gestion_Admin extends VerticalLayout {
                 antiguojefeEstablecimiento.setNombre_establecimiento(event.getItem().getNombre_establecimiento());
                 antiguojefeEstablecimiento.setName(event.getItem().getName());
                 antiguojefeEstablecimiento.setApellido(event.getItem().getApellido());
-                antiguojefeEstablecimiento.setPassword(event.getItem().getPassword());
                 antiguojefeEstablecimiento.setEmail(event.getItem().getEmail());
                 antiguojefeEstablecimiento.setEstado(event.getItem().getEstado());
-                //System.out.println(antiguojefeEstablecimiento);
+
+                for (Jefe_Establecimiento jefe: listaaux
+                     ) {
+                    System.out.println(jefe.toString());
+                    if (antiguojefeEstablecimiento.getCif().equals(jefe.getCif())){
+                        antiguojefeEstablecimiento.setPassword(jefe.getPassword());
+                        System.out.println("Contraseña cambiada");
+                    }
+                }
+
             }
         });
         grid.addItemDoubleClickListener(event -> dialog.open());
@@ -186,8 +203,10 @@ public class Gestion_Admin extends VerticalLayout {
                 nuevo_establecimiento.setApellido(apellido);
                 nuevo_establecimiento.setEstado(estado);
                 nuevo_establecimiento.setEmail(email);
+                nuevo_establecimiento.setPassword(antiguojefeEstablecimiento.getPassword());
                 nuevo_establecimiento.setNombre_establecimiento(nom_establecimiento);
-
+                System.out.println(nuevo_establecimiento);
+                System.out.println(antiguojefeEstablecimiento);
                 if(antiguojefeEstablecimiento.toString().equals(nuevo_establecimiento.toString())){
                     System.out.printf("Es el mismo objeto");
                 }

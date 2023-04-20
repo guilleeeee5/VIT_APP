@@ -184,6 +184,7 @@ public class DataHanding {
             Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
             jefeAux.setCiudad(result.getString("Ciudad"));
             jefeAux.setName(result.getString("name"));
+            jefeAux.setPassword(result.getString("password"));
             jefeAux.setApellido(result.getString("apellido"));
             jefeAux.setCIF(result.getString("CIF"));
             jefeAux.setEmail(result.getString("Email"));
