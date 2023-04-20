@@ -47,7 +47,7 @@ import java.util.Base64;
 public class GestionJefe extends VerticalLayout {
 
     public void gestionJefeView(Jefe_Establecimiento jefe) throws IOException, URISyntaxException, InterruptedException {
-
+        //Creación de Layouts
         HorizontalLayout horizontalTitulo = new HorizontalLayout();
         HorizontalLayout horizontalBienvenida = new HorizontalLayout();
         HorizontalLayout horizontalEstado = new HorizontalLayout();
@@ -55,13 +55,18 @@ public class GestionJefe extends VerticalLayout {
         HorizontalLayout horizontalEstadisticas = new HorizontalLayout();
         HorizontalLayout horizontalTecnico = new HorizontalLayout();
         HorizontalLayout horizontalConfeti = new HorizontalLayout();
-        // Crear un HorizontalLayout y agregar la imagen a él
         HorizontalLayout layoutMapa = new HorizontalLayout();
 
         //Bienvenida
+        //Imagen VitApp
+        StreamResource iconoVitApp = new StreamResource("VitApp.png",
+                () -> getClass().getResourceAsStream("/images/icono_VITAPP.png"));
+        Image imagenVitApp = new Image(iconoVitApp, "");
+        imagenVitApp.setWidth("200px");
+        //Titulos principales
         H1 tit = new H1("Gestión de Jefe de Establecimiento");
+        H2 bienvenida = new H2("Bienvenido, " + jefe.getName().toUpperCase() + " su establecimiento es: " + jefe.getNombre_establecimiento().toUpperCase());
 
-        H2 bienvenida = new H2("Bienvenido, " + jefe.getName() + " su establecimiento es: " + jefe.getNombre_establecimiento());
         horizontalTitulo.add(tit);
         horizontalBienvenida.add(bienvenida);
         //Pestañas
@@ -75,13 +80,13 @@ public class GestionJefe extends VerticalLayout {
                 inicio, estadisticas
         );*/
         tabs.addThemeVariants(TabsVariant.LUMO_HIDE_SCROLL_BUTTONS);
+
         //Mostramos estado
         Label estado = new Label(estadoTexto(jefe));
-
         horizontalEstado.add(estado);
         horizontalEstado.setVisible(true);
 
-
+        //Configuracion del botón Upload imagen
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(buffer);
         upload.setAcceptedFileTypes("application/jpg", ".jpg");
@@ -122,33 +127,34 @@ public class GestionJefe extends VerticalLayout {
             }
         });
 
+        //Añadimos el objeto para subir la imagen
         horizontalLayoutUpload.add(upload);
         horizontalLayoutUpload.setVisible(false);
 
-        //Imagenes
+        //Imagen de estadistica
         StreamResource imageResource = new StreamResource("Estadisticas.png",
                 () -> getClass().getResourceAsStream("/images/Estadisticas.png"));
 
         Image imgEstadisticas = new Image(imageResource, "");
-
+        imgEstadisticas.setWidth("256px");
         horizontalEstadisticas.add(imgEstadisticas);
 
+        //Imagen de icono Mecánico
         StreamResource imageResource1 = new StreamResource("mecanico.png",
                 () -> getClass().getResourceAsStream("/images/mecanico.png"));
 
         Image imgTecnico = new Image(imageResource1, "");
-
-
+        imgTecnico.setWidth("256px");
         horizontalTecnico.add(imgTecnico);
-        horizontalTecnico.add(pedriLabel);
 
+        //Imagen de icono Confeti
         StreamResource imageConfeti1 = new StreamResource("confeti.png",
                 () -> getClass().getResourceAsStream("/images/confeti.png"));
 
         Image imageConfeti = new Image(imageConfeti1, "");
+        imageConfeti.setWidth("256px");
 
         horizontalConfeti.add(imageConfeti);
-
         horizontalEstado.setVisible(true);//estado
         horizontalEstadisticas.setVisible(false);
         //imagen
@@ -176,35 +182,35 @@ public class GestionJefe extends VerticalLayout {
         add(layoutMapa);
 
         switch (jefe.getEstado()) {
-            case "0":
+            case "0": //Se están revisando los datos del establecimiento
                 //todo a false
                 horizontalLayoutUpload.setVisible(false);
                 horizontalTecnico.setVisible(false);
                 horizontalConfeti.setVisible(false);
                 layoutMapa.setVisible(false);
                 break;
-            case "1":
+            case "1": //Ya se han confirmado los datos y permitimos subir el mapa
                 //upload map estadisticas no
                 horizontalConfeti.setVisible(false);
                 horizontalLayoutUpload.setVisible(true);
                 horizontalTecnico.setVisible(false);
                 layoutMapa.setVisible(false);
                 break;
-            case "2":
+            case "2": //Se está verificando el mapa
                 horizontalConfeti.setVisible(false);
                 ///ve el mapa
                 horizontalLayoutUpload.setVisible(false);
                 horizontalTecnico.setVisible(false);
                 layoutMapa.setVisible(true);
                 break;
-            case "3":
+            case "3": //Los técnicos están yendo al establecimiento
                 horizontalConfeti.setVisible(false);
                 ///ve la imagen de un técnico
                 horizontalLayoutUpload.setVisible(false);
                 horizontalTecnico.setVisible(true);
                 layoutMapa.setVisible(false);
                 break;
-            case "4":
+            case "4": //Se confirma que eres miembro de VIT y ves las estadísticas
                 //Ve mapa y estadísticas
                 horizontalLayoutUpload.setVisible(false);
                 horizontalTecnico.setVisible(false);
@@ -213,7 +219,9 @@ public class GestionJefe extends VerticalLayout {
                 break;
         }
 
+        //Se ejecuta cada vez que seleccionas una sección diferente
         tabs.addSelectedChangeListener(new ComponentEventListener<Tabs.SelectedChangeEvent>() {
+            //SI ESTÁS EN LA PESTAÑA DE INICIO
             @Override
             public void onComponentEvent(Tabs.SelectedChangeEvent event) {
 
@@ -222,20 +230,20 @@ public class GestionJefe extends VerticalLayout {
                     horizontalEstadisticas.setVisible(false);
 
                     switch (jefe.getEstado()) {
-                        case "0":
+                        case "0": //Se están revisando los datos del establecimiento
                             //todo a false
                             horizontalLayoutUpload.setVisible(false);
                             horizontalTecnico.setVisible(false);
                             horizontalConfeti.setVisible(false);
                             layoutMapa.setVisible(false);
                             break;
-                        case "1":
+                        case "1": //Ya se han confirmado los datos y permitimos subir el mapa
                             //upload map estadisticas no
                             horizontalConfeti.setVisible(false);
                             horizontalLayoutUpload.setVisible(true);
                             horizontalTecnico.setVisible(false);
                             break;
-                        case "2":
+                        case "2": //Se está verificando el mapa
                             horizontalConfeti.setVisible(false);
                             ///ve el mapa
                             horizontalLayoutUpload.setVisible(false);
@@ -243,14 +251,14 @@ public class GestionJefe extends VerticalLayout {
                             layoutMapa.setVisible(true);
                             layoutMapa.setVisible(true);
                             break;
-                        case "3":
+                        case "3": //Los técnicos están yendo al establecimiento
                             horizontalConfeti.setVisible(false);
                             ///ve la imagen de un técnico
                             horizontalLayoutUpload.setVisible(false);
                             horizontalTecnico.setVisible(true);
                             layoutMapa.setVisible(false);
                             break;
-                        case "4":
+                        case "4": //Se confirma que eres miembro de VIT y ves las estadísticas
                             //Ve mapa y estadísticas
                             horizontalLayoutUpload.setVisible(false);
                             horizontalTecnico.setVisible(false);
@@ -260,7 +268,7 @@ public class GestionJefe extends VerticalLayout {
                     }
 
                 }
-                else{
+                else{ //SI ESTÁS EN LA PESTAÑA DE ESTADÍSTICAS, SOLO VES LAS ESTADÍSTICAS CUANDO ERES MIEMBRO VIT
                     horizontalEstado.setVisible(false);//estado
                     horizontalLayoutUpload.setVisible(false);//upload
                     horizontalTecnico.setVisible(false);
@@ -292,8 +300,12 @@ public class GestionJefe extends VerticalLayout {
             }
         });
 
-        this.add(horizontalTitulo,horizontalBienvenida, tabs, horizontalEstado, horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti, layoutMapa);
+        this.add(imagenVitApp,horizontalTitulo,horizontalBienvenida, tabs, horizontalEstado, horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti, layoutMapa);
+        // Configurar layout
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
     }
+    //MÉTODO QUE VA CAMBIANDO EL TEXTO DE "ESTADO"
     public String estadoTexto(Jefe_Establecimiento jefe) {
         String result = null;
         switch (jefe.getEstado()) {
