@@ -236,7 +236,7 @@ public class GestionJefe extends VerticalLayout {
                             horizontalLayoutUpload.setVisible(false);
                             horizontalTecnico.setVisible(false);
                             layoutMapa.setVisible(true);
-                            layoutMapa.setVisible(false);
+                            layoutMapa.setVisible(true);
                             break;
                         case "3":
                             horizontalConfeti.setVisible(false);
