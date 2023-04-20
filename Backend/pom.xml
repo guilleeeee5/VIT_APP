@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.VIT-APP</groupId>
 	<artifactId>Backend</artifactId>
-	<version>0.2</version>
+	<version>0.3</version>
 	<name>Backend</name>
 	<description>Proyecto Backend para VIT_APP</description>
 	<properties>
@@ -26,6 +26,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

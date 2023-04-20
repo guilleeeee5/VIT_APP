@@ -143,7 +143,7 @@ public class Gestion_Admin extends VerticalLayout {
                 antiguojefeEstablecimiento.setPassword(event.getItem().getPassword());
                 antiguojefeEstablecimiento.setEmail(event.getItem().getEmail());
                 antiguojefeEstablecimiento.setEstado(event.getItem().getEstado());
-                System.out.println(antiguojefeEstablecimiento);
+                //System.out.println(antiguojefeEstablecimiento);
             }
         });
         grid.addItemDoubleClickListener(event -> dialog.open());

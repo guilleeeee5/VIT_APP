@@ -1,13 +1,20 @@
 package org.vaadin.example;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.Base64;
+
 public class Jefe_Establecimiento extends User{
     private String direccion;
     private String ciudad;
     private String codigo_Postal;
     private String cif;
     private String nombre_establecimiento;
-
     private String estado;
+    private BufferedImage imagen;
     public Jefe_Establecimiento() {
 
     }
@@ -70,6 +77,13 @@ public class Jefe_Establecimiento extends User{
         this.estado = estado;
     }
 
+    public void setImagen(BufferedImage imagen) {
+        this.imagen = imagen;
+    }
+
+    public BufferedImage getImagen() {
+        return imagen;
+    }
     public String mostrarJson() {
         return "{\n" +
                 "\"name\": " + "\"" + getName() + "\"," + "\n" +
@@ -87,14 +101,18 @@ public class Jefe_Establecimiento extends User{
 
     @Override
     public String toString() {
-        return "Jefe_Establecimiento{" +
-                super.toString() +
-                "direccion='" + direccion + '\'' +
-                ", ciudad='" + ciudad + '\'' +
-                ", codigo_Postal='" + codigo_Postal + '\'' +
-                ", cif='" + cif + '\'' +
-                ", nombre_establecimiento='" + nombre_establecimiento + '\'' +
-                ", estado='" + estado + '\'' +
-                '}';
+
+        return "{\n" +
+                "\"name\": " + "\"" + getName() + "\"," + "\n" +
+                "\"apellido\": " + "\"" + getApellido()  + "\"," + "\n" +
+                "\"password\": " + "\"" + getPassword() + "\""  +  ",\n" +
+                "\"email\": " + "\"" + getEmail() + "\"" +",\n" +
+                "\"direccion\": " + "\"" + getDireccion() + "\"" + ",\n" +
+                "\"ciudad\": " + "\"" + getCiudad() + "\"" + ",\n" +
+                "\"codigo_Postal\": " + "\"" + getCodigo_Postal() + "\"" + ",\n" +
+                "\"cif\": " + "\"" + getCif() + "\"" + ",\n" +
+                "\"nombre_establecimiento\": " + "\"" + getNombre_establecimiento() + "\"" + ",\n" +
+                "\"estado\": " + "\"" + getEstado() + "\"" + "\n" +
+                "}";
     }
 }
