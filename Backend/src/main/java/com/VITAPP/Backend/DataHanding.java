@@ -221,7 +221,6 @@ public class DataHanding {
         Statement statement = conexionBBDD.createStatement();
         ResultSet result = statement.executeQuery(sql);
 
-
         byte[] imagenBytes = new byte[0];
         while (result.next()) {
             Blob imagenBlob = result.getBlob("imagen");

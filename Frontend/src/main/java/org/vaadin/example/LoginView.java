@@ -17,6 +17,7 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 
 @Route("login-basic")
@@ -146,7 +147,13 @@ public class LoginView extends VerticalLayout{
                      result = true;
                      removeAll();
                      GestionJefe paginaJefe = new GestionJefe();
-                     paginaJefe.gestionJefeView(jefeNuevo);
+                     try {
+                         paginaJefe.gestionJefeView(jefeNuevo);
+                     } catch (URISyntaxException e) {
+                         throw new RuntimeException(e);
+                     } catch (InterruptedException e) {
+                         throw new RuntimeException(e);
+                     }
                      add(paginaJefe);
                  }
                 break;

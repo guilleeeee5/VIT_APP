@@ -27,12 +27,14 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -44,7 +46,7 @@ import java.util.Base64;
 @CssImport("./styles/front.css")
 public class GestionJefe extends VerticalLayout {
 
-    public void gestionJefeView(Jefe_Establecimiento jefe){
+    public void gestionJefeView(Jefe_Establecimiento jefe) throws IOException, URISyntaxException, InterruptedException {
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         HorizontalLayout horizontalLayout1 = new HorizontalLayout();
@@ -76,7 +78,10 @@ public class GestionJefe extends VerticalLayout {
 
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(buffer);
-
+        upload.setAcceptedFileTypes("application/jpg", ".jpg");
+        int maxFileSizeInBytes = 10 * 1024 * 1024; // 10MB
+        upload.setMaxFileSize(maxFileSizeInBytes);
+        upload.setMaxFiles(1);
         upload.addSucceededListener(event -> {
             try {
                 String fileName = event.getFileName();
@@ -96,14 +101,16 @@ public class GestionJefe extends VerticalLayout {
                 String url = "http://localhost:8081/Imagen/" + cif;
                 HttpRequest httpRequest = HttpRequest.newBuilder()
                         .uri(URI.create(url))
-                        .setHeader("Content-Type", "image/png")
+                        .setHeader("Content-Type", "image/jpg")
                         .PUT(HttpRequest.BodyPublishers.ofByteArray(imageBytes))
                         .build();
                 HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
                 // Hacer algo con la respuesta del back
                 System.out.println(response.body());
-
+                DataService data2 = new DataService();
+                //Jefe_Establecimiento jefeAux = data2.comprobarJefeInicio(jefe.getEmail(), jefe.getPassword());
+                //gestionJefeView(jefeAux);
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -138,36 +145,66 @@ public class GestionJefe extends VerticalLayout {
 
         horizontalLayout2.setVisible(true);//estado
         horizontalEstadisticas.setVisible(false);
+        //imagen
+        DataService data = new DataService();
+        // Crear un HorizontalLayout y agregar la imagen a él
+        HorizontalLayout layoutMapa = new HorizontalLayout();
+        if(jefe.getEstado().equals("2")){
+            // Obtener la imagen de la base de datos
+            BufferedImage imagen = data.obtenerImagen(jefe.getCif());
+            // Convertir la imagen en un objeto StreamResource
+            StreamResource resource = new StreamResource("image.jpg", () -> {
+                try {
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    ImageIO.write(imagen, "jpg", baos);
+                    return new ByteArrayInputStream(baos.toByteArray());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            });
+            // Crear un objeto Image de Vaadin a partir del objeto StreamResource
+            Image image = new Image(resource, "Imagen");
+            layoutMapa.add(image);
+        }
+        // Agregar el HorizontalLayout a algún contenedor de diseño de la interfaz de usuario
+        add(layoutMapa);
+
         switch (jefe.getEstado()) {
             case "0":
                 //todo a false
                 horizontalLayoutUpload.setVisible(false);
                 horizontalTecnico.setVisible(false);
                 horizontalConfeti.setVisible(false);
+                layoutMapa.setVisible(false);
                 break;
             case "1":
                 //upload map estadisticas no
                 horizontalConfeti.setVisible(false);
                 horizontalLayoutUpload.setVisible(true);
                 horizontalTecnico.setVisible(false);
+                layoutMapa.setVisible(false);
                 break;
             case "2":
                 horizontalConfeti.setVisible(false);
                 ///ve el mapa
                 horizontalLayoutUpload.setVisible(false);
                 horizontalTecnico.setVisible(false);
+                layoutMapa.setVisible(true);
                 break;
             case "3":
                 horizontalConfeti.setVisible(false);
                 ///ve la imagen de un técnico
                 horizontalLayoutUpload.setVisible(false);
                 horizontalTecnico.setVisible(true);
+                layoutMapa.setVisible(false);
                 break;
             case "4":
                 //Ve mapa y estadísticas
                 horizontalLayoutUpload.setVisible(false);
                 horizontalTecnico.setVisible(false);
                 horizontalConfeti.setVisible(true);
+                layoutMapa.setVisible(false);
                 break;
         }
 
@@ -185,6 +222,7 @@ public class GestionJefe extends VerticalLayout {
                             horizontalLayoutUpload.setVisible(false);
                             horizontalTecnico.setVisible(false);
                             horizontalConfeti.setVisible(false);
+                            layoutMapa.setVisible(false);
                             break;
                         case "1":
                             //upload map estadisticas no
@@ -197,20 +235,22 @@ public class GestionJefe extends VerticalLayout {
                             ///ve el mapa
                             horizontalLayoutUpload.setVisible(false);
                             horizontalTecnico.setVisible(false);
+                            layoutMapa.setVisible(true);
+                            layoutMapa.setVisible(false);
                             break;
                         case "3":
                             horizontalConfeti.setVisible(false);
                             ///ve la imagen de un técnico
                             horizontalLayoutUpload.setVisible(false);
                             horizontalTecnico.setVisible(true);
-
-
+                            layoutMapa.setVisible(false);
                             break;
                         case "4":
                             //Ve mapa y estadísticas
                             horizontalLayoutUpload.setVisible(false);
                             horizontalTecnico.setVisible(false);
                             horizontalConfeti.setVisible(true);
+                            layoutMapa.setVisible(false);
                             break;
                     }
 
@@ -220,6 +260,7 @@ public class GestionJefe extends VerticalLayout {
                     horizontalLayoutUpload.setVisible(false);//upload
                     horizontalTecnico.setVisible(false);
                     horizontalConfeti.setVisible(false);
+                    layoutMapa.setVisible(false);
                     switch (jefe.getEstado()) {
                         case "0":
                             //todo a false
@@ -246,7 +287,7 @@ public class GestionJefe extends VerticalLayout {
             }
         });
 
-        this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2, horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti);
+        this.add(horizontalLayout,horizontalLayout1, tabs, horizontalLayout2, horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti, layoutMapa);
     }
     public String estadoTexto(Jefe_Establecimiento jefe) {
         String result = null;
@@ -255,11 +296,11 @@ public class GestionJefe extends VerticalLayout {
                 result = "Estamos comprobando sus datos, gracias por su paciencia. ";//no ve nada
                 break;
             case "1":
-                result = "Ya están comprobados sus datos, suba el mapa de su establecimiento para poder diseñar el sistema VIT a su medida.";//upload map estadisticas no
+                result = "Ya están comprobados sus datos, suba el mapa de su establecimiento para poder diseñar el sistema VIT a su medida. ";//upload map estadisticas no
 
                 break;
             case "2":
-                result = "Estamos analizando su mapa, gracias por su paciencia ";//ve el mapa
+                result = "Estamos analizando su mapa, gracias por su paciencia, si tienes algún problema o duda con el mapa que ves en pantalla no dudes en contactarnos vía correo. ";//ve el mapa
                 break;
             case "3":
                 result = "Los técnicos están de camino a su establecimineto.";//ve la imagen de un técnico
