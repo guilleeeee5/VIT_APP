@@ -5,8 +5,8 @@
     <!-- Vaadin project from https://github.com/vaadin/skeleton-starter-flow-spring -->
     <groupId>com.example</groupId>
     <artifactId>spring-skeleton</artifactId>
-    <name>Project base for Spring Boot and Vaadin Flow</name>
-    <version>0.2</version>
+    <name>Project for VITapp</name>
+    <version>0.3</version>
     <packaging>jar</packaging>
 
     <properties>
