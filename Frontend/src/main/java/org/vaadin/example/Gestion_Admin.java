@@ -80,8 +80,6 @@ public class Gestion_Admin extends VerticalLayout {
         TextField texto6 = new TextField();
         Label etiqueta7 = new Label("Apellido");
         TextField texto7 = new TextField();
-        //Label etiqueta8 = new Label("Estado");
-        //TextField texto8 = new TextField();
         ComboBox<String> comboEstado = new ComboBox<>("Estado");
         comboEstado.setItems("0","1","2","3","4");
         Label etiqueta9 = new Label("Email");
