@@ -80,8 +80,10 @@ public class Gestion_Admin extends VerticalLayout {
         TextField texto6 = new TextField();
         Label etiqueta7 = new Label("Apellido");
         TextField texto7 = new TextField();
-        Label etiqueta8 = new Label("Estado");
-        TextField texto8 = new TextField();
+        //Label etiqueta8 = new Label("Estado");
+        //TextField texto8 = new TextField();
+        ComboBox<String> comboEstado = new ComboBox<>("Estado");
+        comboEstado.setItems("0","1","2","3","4");
         Label etiqueta9 = new Label("Email");
         TextField texto9 = new TextField();
         Button boton = new Button("Actualizar");
@@ -98,7 +100,7 @@ public class Gestion_Admin extends VerticalLayout {
 
         hl1.add(vl1, vl2, vl3, vl4);
         hl1.setAlignItems(Alignment.CENTER);
-        hl2.add(etiqueta8, texto8);
+        hl2.add(comboEstado);
         hl2.setPadding(true);
         hl2.setAlignItems(Alignment.CENTER);
         hl3.add(boton, boton2, boton3);
@@ -175,7 +177,7 @@ public class Gestion_Admin extends VerticalLayout {
                 texto5.setValue(antiguojefeEstablecimiento.getNombre_establecimiento());
                 texto6.setValue(antiguojefeEstablecimiento.getName());
                 texto7.setValue(antiguojefeEstablecimiento.getApellido());
-                texto8.setValue(antiguojefeEstablecimiento.getEstado());
+                comboEstado.setValue(antiguojefeEstablecimiento.getEstado());
                 texto9.setValue(antiguojefeEstablecimiento.getEmail());
             }
         });
@@ -192,7 +194,7 @@ public class Gestion_Admin extends VerticalLayout {
                 String nom_establecimiento = texto5.getValue();
                 String name = texto6.getValue();
                 String apellido = texto7.getValue();
-                String estado = texto8.getValue();
+                String estado = comboEstado.getValue();
                 String email = texto9.getValue();
                 Jefe_Establecimiento nuevo_establecimiento = new Jefe_Establecimiento();
                 nuevo_establecimiento.setDireccion(direccion);
