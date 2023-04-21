@@ -47,13 +47,25 @@ public class Gestion_Admin extends VerticalLayout {
 
         H1 tit = new H1("Gestión de Establecimientos");
         tit.addClassName("tit_admin");
+        H3 listaEstados = new H3("LISTA DE ESTADOS");
+
+        //Creamos la lista donde se detallan los distintos tipos de estado
+        VerticalLayout vLEstados = new VerticalLayout();
+        Label estado0 = new Label("0 -> Se están comprobando los datos del registro de Jefe Establecimiento.");
+        Label estado1 = new Label("\n"+"1 -> Ya están comprobados sus datos, se pide al Jefe que suba el mapa de su establecimiento para poder diseñar el sistema VIT a su medida.");
+        Label estado2 = new Label("\n"+"2 -> Se está analizando el mapa del Jefe.");
+        Label estado3 = new Label("\n"+"3 -> Los técnicos están de camino al establecimiento.");
+        Label estado4 = new Label("\n"+ "4 -> YA ERES VIT! Gracias por confiar en nosotros.");
+        vLEstados.add(estado0, estado1, estado2, estado3, estado4);
+        vLEstados.setClassName("lista_estados");
+        vLEstados.setAlignItems(Alignment.CENTER);//Alineamos los elementos al centro
 
         H3 tituloGrid = new H3("Lista de establecimientos");
         StreamResource imageResource = new StreamResource("logo.png",
-                () -> getClass().getResourceAsStream("/images/logo.png"));
+                () -> getClass().getResourceAsStream("/images/icono_VITAPP.png"));
 
         Image img = new Image(imageResource, "");
-        img.setWidth("400px");
+        img.setWidth("200px");
 
         VerticalLayout vl1 = new VerticalLayout();
         VerticalLayout vl2 = new VerticalLayout();
@@ -80,8 +92,8 @@ public class Gestion_Admin extends VerticalLayout {
         TextField texto6 = new TextField();
         Label etiqueta7 = new Label("Apellido");
         TextField texto7 = new TextField();
-        Label etiqueta8 = new Label("Estado");
-        TextField texto8 = new TextField();
+        ComboBox<String> comboEstado = new ComboBox<>("Estado");
+        comboEstado.setItems("0","1","2","3","4");
         Label etiqueta9 = new Label("Email");
         TextField texto9 = new TextField();
         Button boton = new Button("Actualizar");
@@ -98,7 +110,7 @@ public class Gestion_Admin extends VerticalLayout {
 
         hl1.add(vl1, vl2, vl3, vl4);
         hl1.setAlignItems(Alignment.CENTER);
-        hl2.add(etiqueta8, texto8);
+        hl2.add(comboEstado);
         hl2.setPadding(true);
         hl2.setAlignItems(Alignment.CENTER);
         hl3.add(boton, boton2, boton3);
@@ -175,7 +187,7 @@ public class Gestion_Admin extends VerticalLayout {
                 texto5.setValue(antiguojefeEstablecimiento.getNombre_establecimiento());
                 texto6.setValue(antiguojefeEstablecimiento.getName());
                 texto7.setValue(antiguojefeEstablecimiento.getApellido());
-                texto8.setValue(antiguojefeEstablecimiento.getEstado());
+                comboEstado.setValue(antiguojefeEstablecimiento.getEstado());
                 texto9.setValue(antiguojefeEstablecimiento.getEmail());
             }
         });
@@ -192,7 +204,7 @@ public class Gestion_Admin extends VerticalLayout {
                 String nom_establecimiento = texto5.getValue();
                 String name = texto6.getValue();
                 String apellido = texto7.getValue();
-                String estado = texto8.getValue();
+                String estado = comboEstado.getValue();
                 String email = texto9.getValue();
                 Jefe_Establecimiento nuevo_establecimiento = new Jefe_Establecimiento();
                 nuevo_establecimiento.setDireccion(direccion);
@@ -265,7 +277,7 @@ public class Gestion_Admin extends VerticalLayout {
 
         this.setAlignItems(Alignment.CENTER);
         this.setHeightFull();
-        this.add(img,tit,tituloGrid,grid);
+        this.add(img,tit, listaEstados, vLEstados, tituloGrid,grid);
 
 
     }
