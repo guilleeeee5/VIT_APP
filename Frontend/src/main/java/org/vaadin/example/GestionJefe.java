@@ -321,7 +321,7 @@ public class GestionJefe extends VerticalLayout {
                 result = "Estamos analizando su mapa, gracias por su paciencia, si tienes algún problema o duda con el mapa que ves en pantalla no dudes en contactarnos vía correo. ";//ve el mapa
                 break;
             case "3":
-                result = "Los técnicos están de camino a su establecimineto.";//ve la imagen de un técnico
+                result = "Los técnicos están de camino a su establecimiento.";//ve la imagen de un técnico
                 break;
             case "4":
                 result = "YA ERES VIT! Gracias por confiar en nosotros.";//ve mapa y estadísticas

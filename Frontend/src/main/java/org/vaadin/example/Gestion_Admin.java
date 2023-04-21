@@ -49,19 +49,23 @@ public class Gestion_Admin extends VerticalLayout {
         tit.addClassName("tit_admin");
         H3 listaEstados = new H3("LISTA DE ESTADOS");
 
-        HorizontalLayout hLEstados = new HorizontalLayout();
-        Label estado0 = new Label("0 -> Se están comprobando los datos del registro de Jefe Establecimiento. ");
-        Label estado1 = new Label("Dirección");
-        Label estado2 = new Label("Dirección");
-        Label estado3 = new Label("Dirección");
-        Label estado4 = new Label("Dirección");
+        //Creamos la lista donde se detallan los distintos tipos de estado
+        VerticalLayout vLEstados = new VerticalLayout();
+        Label estado0 = new Label("0 -> Se están comprobando los datos del registro de Jefe Establecimiento.");
+        Label estado1 = new Label("\n"+"1 -> Ya están comprobados sus datos, se pide al Jefe que suba el mapa de su establecimiento para poder diseñar el sistema VIT a su medida.");
+        Label estado2 = new Label("\n"+"2 -> Se está analizando el mapa del Jefe.");
+        Label estado3 = new Label("\n"+"3 -> Los técnicos están de camino al establecimiento.");
+        Label estado4 = new Label("\n"+ "4 -> YA ERES VIT! Gracias por confiar en nosotros.");
+        vLEstados.add(estado0, estado1, estado2, estado3, estado4);
+        vLEstados.setClassName("lista_estados");
+        vLEstados.setAlignItems(Alignment.CENTER);//Alineamos los elementos al centro
 
         H3 tituloGrid = new H3("Lista de establecimientos");
         StreamResource imageResource = new StreamResource("logo.png",
                 () -> getClass().getResourceAsStream("/images/icono_VITAPP.png"));
 
         Image img = new Image(imageResource, "");
-        img.setWidth("300px");
+        img.setWidth("200px");
 
         VerticalLayout vl1 = new VerticalLayout();
         VerticalLayout vl2 = new VerticalLayout();
@@ -273,7 +277,7 @@ public class Gestion_Admin extends VerticalLayout {
 
         this.setAlignItems(Alignment.CENTER);
         this.setHeightFull();
-        this.add(img,tit,tituloGrid,grid);
+        this.add(img,tit, listaEstados, vLEstados, tituloGrid,grid);
 
 
     }
