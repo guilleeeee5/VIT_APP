@@ -47,13 +47,21 @@ public class Gestion_Admin extends VerticalLayout {
 
         H1 tit = new H1("Gestión de Establecimientos");
         tit.addClassName("tit_admin");
+        H3 listaEstados = new H3("LISTA DE ESTADOS");
+
+        HorizontalLayout hLEstados = new HorizontalLayout();
+        Label estado0 = new Label("0 -> Se están comprobando los datos del registro de Jefe Establecimiento. ");
+        Label estado1 = new Label("Dirección");
+        Label estado2 = new Label("Dirección");
+        Label estado3 = new Label("Dirección");
+        Label estado4 = new Label("Dirección");
 
         H3 tituloGrid = new H3("Lista de establecimientos");
         StreamResource imageResource = new StreamResource("logo.png",
-                () -> getClass().getResourceAsStream("/images/logo.png"));
+                () -> getClass().getResourceAsStream("/images/icono_VITAPP.png"));
 
         Image img = new Image(imageResource, "");
-        img.setWidth("400px");
+        img.setWidth("300px");
 
         VerticalLayout vl1 = new VerticalLayout();
         VerticalLayout vl2 = new VerticalLayout();
