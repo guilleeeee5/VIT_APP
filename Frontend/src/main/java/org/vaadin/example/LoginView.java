@@ -145,6 +145,8 @@ public class LoginView extends VerticalLayout{
                  if (jefeNuevo.getName() == null){
                      result = false;
                  }else {
+                     jefeNuevo.setEmail(mail);
+                     jefeNuevo.setPassword(password);
                      result = true;
                      removeAll();
                      GestionJefe paginaJefe = new GestionJefe();

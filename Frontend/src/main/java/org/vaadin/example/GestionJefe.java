@@ -3,6 +3,7 @@ package org.vaadin.example;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.shaded.json.JSONObject;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.charts.Chart;
 import com.vaadin.flow.component.charts.model.DataSeries;
@@ -23,6 +24,7 @@ import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.component.upload.Receiver;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
+import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.Theme;
@@ -61,9 +63,11 @@ public class GestionJefe extends VerticalLayout {
         HorizontalLayout layoutMapa = new HorizontalLayout();
 
         Button atrasButton = new Button("Atras");
+        Button reloadButton = new Button("Refrescar");
+        reloadButton.addClassName("btn_reload");
         atrasButton.addClassName("btn_atras");
-        horizontalbtnAtras.add(atrasButton);
-        horizontalbtnAtras.setAlignItems(FlexComponent.Alignment.END);
+        horizontalbtnAtras.add(reloadButton,atrasButton);
+        horizontalbtnAtras.setAlignItems(Alignment.END);
         //Bienvenida
         //Imagen VitApp
         StreamResource iconoVitApp = new StreamResource("VitApp.png",
@@ -318,6 +322,27 @@ public class GestionJefe extends VerticalLayout {
             removeAll();
             LV.LoginBasic();
             add(LV);
+        });
+        reloadButton.addClickListener(e -> {
+            GestionJefe gJ = new GestionJefe();
+            Jefe_Establecimiento jefeNuevo = new Jefe_Establecimiento();
+            try {
+                jefeNuevo = data.comprobarJefeInicio(jefe.getEmail(), jefe.getPassword());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            removeAll();
+            try {
+                gJ.gestionJefeView(jefeNuevo);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (URISyntaxException ex) {
+                throw new RuntimeException(ex);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+            add(gJ);
+
         });
     }
     //MÉTODO QUE VA CAMBIANDO EL TEXTO DE "ESTADO"
