@@ -3,6 +3,7 @@ package org.vaadin.example;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.shaded.json.JSONObject;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.charts.Chart;
 import com.vaadin.flow.component.charts.model.DataSeries;
 import com.vaadin.flow.component.charts.model.PlotOptionsColumn;
@@ -11,6 +12,7 @@ import com.vaadin.flow.component.charts.model.YAxis;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -48,6 +50,7 @@ public class GestionJefe extends VerticalLayout {
 
     public void gestionJefeView(Jefe_Establecimiento jefe) throws IOException, URISyntaxException, InterruptedException {
         //Creación de Layouts
+        HorizontalLayout horizontalbtnAtras = new HorizontalLayout();
         HorizontalLayout horizontalTitulo = new HorizontalLayout();
         HorizontalLayout horizontalBienvenida = new HorizontalLayout();
         HorizontalLayout horizontalEstado = new HorizontalLayout();
@@ -57,6 +60,10 @@ public class GestionJefe extends VerticalLayout {
         HorizontalLayout horizontalConfeti = new HorizontalLayout();
         HorizontalLayout layoutMapa = new HorizontalLayout();
 
+        Button atrasButton = new Button("Atras");
+        atrasButton.addClassName("btn_atras");
+        horizontalbtnAtras.add(atrasButton);
+        horizontalbtnAtras.setAlignItems(FlexComponent.Alignment.END);
         //Bienvenida
         //Imagen VitApp
         StreamResource iconoVitApp = new StreamResource("VitApp.png",
@@ -302,10 +309,16 @@ public class GestionJefe extends VerticalLayout {
             }
         });
 
-        this.add(imagenVitApp,horizontalTitulo,horizontalBienvenida, tabs, horizontalEstado, horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti, layoutMapa);
+        this.add(horizontalbtnAtras,imagenVitApp,horizontalTitulo,horizontalBienvenida, tabs, horizontalEstado, horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti, layoutMapa);
         // Configurar layout
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
+        atrasButton.addClickListener(event -> {
+            LoginView LV = new LoginView();
+            removeAll();
+            LV.LoginBasic();
+            add(LV);
+        });
     }
     //MÉTODO QUE VA CAMBIANDO EL TEXTO DE "ESTADO"
     public String estadoTexto(Jefe_Establecimiento jefe) {

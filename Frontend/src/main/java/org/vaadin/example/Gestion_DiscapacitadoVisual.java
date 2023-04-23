@@ -1,8 +1,11 @@
 package org.vaadin.example;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.StreamResource;
@@ -18,6 +21,12 @@ import java.net.URISyntaxException;
 public class Gestion_DiscapacitadoVisual extends VerticalLayout {
 
     public void gestion_DiscapacitadoView() {
+        //Creación de Layouts
+        HorizontalLayout horizontalbtnAtras = new HorizontalLayout();
+        Button atrasButton = new Button("Atras");
+        atrasButton.addClassName("btn_atras");
+        horizontalbtnAtras.add(atrasButton);
+        horizontalbtnAtras.setAlignItems(FlexComponent.Alignment.END);
         //Imagen del icono App
         StreamResource imageResource = new StreamResource("logo.png",
                 () -> getClass().getResourceAsStream("/images/icono_VITAPP.png"));
@@ -47,7 +56,7 @@ public class Gestion_DiscapacitadoVisual extends VerticalLayout {
         }
         grid.setItems(listaEstablecimientos);*/
 
-        add(img,tit,grid);
+        add(horizontalbtnAtras,img,tit,grid);
 
     }
 }
