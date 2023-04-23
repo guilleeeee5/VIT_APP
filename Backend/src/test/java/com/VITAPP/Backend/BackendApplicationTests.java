@@ -251,8 +251,9 @@ class BackendApplicationTests {
 		jefeEsperado.setDireccion("calle guille, 33");
 		jefeEsperado.setCiudad("nanocity");
 		jefeEsperado.setCodigo_Postal("33");
-		jefeEsperado.setEstado("");
+		jefeEsperado.setEstado("0");
 		jefeEsperado.setNombre_establecimiento("aston martin");
+		jefeEsperado.setCIF("33");
 
 		// Ejecución de la función y comprobación del resultado
 		Jefe_Establecimiento jefeActual = Data.comprobarJefe(email, password);
