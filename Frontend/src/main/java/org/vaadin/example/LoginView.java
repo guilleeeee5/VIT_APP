@@ -34,9 +34,10 @@ public class LoginView extends VerticalLayout{
         VL.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         add(VL);
         StreamResource imageResource = new StreamResource("logo.png",
-                () -> getClass().getResourceAsStream("/images/logo.png"));
+                () -> getClass().getResourceAsStream("/images/icono_VITAPP.png"));
 
         Image img = new Image(imageResource, "");
+        img.setWidth("200px");
         VL.add(img);
         Pregunta_Registro PR = new Pregunta_Registro();
 

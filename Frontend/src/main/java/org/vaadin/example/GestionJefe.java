@@ -137,7 +137,7 @@ public class GestionJefe extends VerticalLayout {
                 () -> getClass().getResourceAsStream("/images/Estadisticas.png"));
 
         Image imgEstadisticas = new Image(imageResource, "");
-        imgEstadisticas.setWidth("256px");
+
         horizontalEstadisticas.add(imgEstadisticas);
 
         //Imagen de icono Mecánico
@@ -177,6 +177,7 @@ public class GestionJefe extends VerticalLayout {
             });
             // Crear un objeto Image de Vaadin a partir del objeto StreamResource
             Image image = new Image(resource, "Imagen");
+            image.setWidth("700px");
             layoutMapa.add(image);
         }
         // Agregar el HorizontalLayout a algún contenedor de diseño de la interfaz de usuario
