@@ -24,7 +24,7 @@ import java.io.File;
 
 @Theme(value = Lumo.class, variant = Lumo.DARK)
 @Route("Register-Jefe")
-public class Register_Jefe_establecimiento extends Div
+public class Register_Jefe_establecimiento extends VerticalLayout
 {
     public void build()
     {
@@ -56,9 +56,10 @@ public class Register_Jefe_establecimiento extends Div
         atrasButton.addClassName("btn_atras");
 
         StreamResource imageResource = new StreamResource("logo.png",
-                () -> getClass().getResourceAsStream("/images/logo.png"));
+                () -> getClass().getResourceAsStream("/images/icono_VITAPP.png"));
 
         Image img = new Image(imageResource, "");
+        img.setWidth("200px");
         add(img);
 
 
@@ -80,11 +81,10 @@ public class Register_Jefe_establecimiento extends Div
         HorizontalB.add(registerButton, atrasButton);
 
         // Agregar componentes al layout vertical
-        Vertical.add(title, Horizontal, contrasena, confirmarContrasena,correo, nombreEstablecimiento ,Horizontal1,CP,cif, HorizontalB);
-        Vertical.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+        add(title, Horizontal, contrasena, confirmarContrasena,correo, nombreEstablecimiento ,Horizontal1,CP,cif, HorizontalB);
+        setAlignItems(FlexComponent.Alignment.CENTER);
+        setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
 
-        add(Vertical);
-        //layout.addComponent(Vertical);
         // Configurar acciones de los componentes
         registerButton.addClickListener(event -> {
             if(contrasena.getValue().equals(confirmarContrasena.getValue()) && correo.isInvalid() == false){

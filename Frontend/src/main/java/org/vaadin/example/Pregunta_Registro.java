@@ -29,9 +29,10 @@ public class Pregunta_Registro extends VerticalLayout {
         HorizontalLayout horizontalLayout = new HorizontalLayout();
 
         StreamResource imageResource = new StreamResource("logo.png",
-                () -> getClass().getResourceAsStream("/images/logo.png"));
+                () -> getClass().getResourceAsStream("/images/icono_VITAPP.png"));
 
         Image img = new Image(imageResource, "");
+        img.setWidth("200px");
 
 
         // Configurar componentes

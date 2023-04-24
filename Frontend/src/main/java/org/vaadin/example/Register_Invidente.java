@@ -37,9 +37,10 @@ public class Register_Invidente extends VerticalLayout {
         atrasButton.addClassName("btn_atras");
 
         StreamResource imageResource = new StreamResource("logo.png",
-                () -> getClass().getResourceAsStream("/images/logo.png"));
+                () -> getClass().getResourceAsStream("/images/icono_VITAPP.png"));
 
         Image img = new Image(imageResource, "");
+        img.setWidth("200px");
         add(img);
 
 
@@ -55,10 +56,11 @@ public class Register_Invidente extends VerticalLayout {
         HorizontalB.add(registerButton, atrasButton);
 
         // Agregar componentes al layout vertical
-        Vertical.add(title, Horizontal, contrasena, confirmarContrasena,correo,Horizontal1, HorizontalB);
-        Vertical.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
 
-        add(Vertical);
+
+        add(title, Horizontal, contrasena, confirmarContrasena,correo,Horizontal1, HorizontalB);
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
 
         // Configurar acciones de los componentes
         registerButton.addClickListener(event -> {
