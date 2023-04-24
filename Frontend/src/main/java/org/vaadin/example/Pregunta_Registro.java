@@ -70,6 +70,7 @@ public class Pregunta_Registro extends VerticalLayout {
             LV.LoginBasic();
             add(LV);
         });
+        
         // Agregar componentes al layout vertical
         horizontalLayout.add(utilizarVit,descargarVit);
         horizontalLayout.setAlignSelf(FlexComponent.Alignment.CENTER);

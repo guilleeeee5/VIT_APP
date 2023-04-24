@@ -62,6 +62,7 @@ public class Register_Invidente extends VerticalLayout {
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
 
+
         // Configurar acciones de los componentes
         registerButton.addClickListener(event -> {
             if(contrasena.getValue().equals(confirmarContrasena.getValue()) && correo.isInvalid() == false){

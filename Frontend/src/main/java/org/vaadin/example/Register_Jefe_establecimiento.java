@@ -85,6 +85,7 @@ public class Register_Jefe_establecimiento extends VerticalLayout
         setAlignItems(FlexComponent.Alignment.CENTER);
         setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
 
+
         // Configurar acciones de los componentes
         registerButton.addClickListener(event -> {
             if(contrasena.getValue().equals(confirmarContrasena.getValue()) && correo.isInvalid() == false){
