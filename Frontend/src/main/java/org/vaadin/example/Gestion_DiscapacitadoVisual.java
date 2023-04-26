@@ -56,7 +56,15 @@ public class Gestion_DiscapacitadoVisual extends VerticalLayout {
         }
         grid.setItems(listaEstablecimientos);*/
 
-        add(horizontalbtnAtras,img,tit,grid);
-
+        this.add(horizontalbtnAtras,img,tit,grid);
+        // Configurar layout
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
+        atrasButton.addClickListener(event -> {
+            LoginView LV = new LoginView();
+            removeAll();
+            LV.LoginBasic();
+            add(LV);
+        });
     }
 }

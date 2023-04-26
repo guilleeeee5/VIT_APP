@@ -169,6 +169,10 @@ public class LoginView extends VerticalLayout{
                     result = false;
                 }else {
                     result = true;
+                    removeAll();
+                    Gestion_DiscapacitadoVisual Gdis = new Gestion_DiscapacitadoVisual();
+                    Gdis.gestion_DiscapacitadoView();
+                    add(Gdis);
                 }
                 break;
 
