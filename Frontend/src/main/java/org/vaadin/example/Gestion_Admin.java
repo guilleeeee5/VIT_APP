@@ -35,7 +35,14 @@ import java.util.ArrayList;
 @CssImport("./styles/front.css")
 public class Gestion_Admin extends VerticalLayout {
 
-    public void gestionAdminView(){
+    public void gestionAdminView(Admin administrador){
+        HorizontalLayout horizontalbtnAtras = new HorizontalLayout();
+        Button atrasButton = new Button("Atras");
+        atrasButton.addClassName("btn_atras");
+        Button reloadButton = new Button("Refrescar");
+        reloadButton.addClassName("btn_reload");
+        horizontalbtnAtras.add(reloadButton,atrasButton);
+        horizontalbtnAtras.setAlignItems(Alignment.END);
         ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<>();
         Jefe_Establecimiento antiguojefeEstablecimiento = new Jefe_Establecimiento();
 
@@ -274,11 +281,31 @@ public class Gestion_Admin extends VerticalLayout {
 
 
 
-
+        DataService data = new DataService();
         this.setAlignItems(Alignment.CENTER);
         this.setHeightFull();
-        this.add(img,tit, listaEstados, vLEstados, tituloGrid,grid);
+        this.add(horizontalbtnAtras,img,tit, listaEstados, vLEstados, tituloGrid,grid);
 
+        atrasButton.addClickListener(event -> {
+            LoginView LV = new LoginView();
+            removeAll();
+            LV.LoginBasic();
+            add(LV);
+        });
+        reloadButton.addClickListener(e -> {
+            Gestion_Admin gA = new Gestion_Admin();
+            Admin adminNew = new Admin();
+            try {
+                adminNew = data.comprobarAdminInicio(administrador.getEmail(), administrador.getPassword());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            removeAll();
 
+            gA.gestionAdminView(adminNew);
+
+            add(gA);
+
+        });
     }
 }

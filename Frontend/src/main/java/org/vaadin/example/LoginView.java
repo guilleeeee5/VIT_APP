@@ -169,21 +169,29 @@ public class LoginView extends VerticalLayout{
                     result = false;
                 }else {
                     result = true;
+                    removeAll();
+                    Gestion_DiscapacitadoVisual Gdis = new Gestion_DiscapacitadoVisual();
+                    Gdis.gestion_DiscapacitadoView();
+                    add(Gdis);
                 }
                 break;
 
             case "Administrador":
                 Admin admin = new Admin();
+                Admin admin_new = new Admin();
                 admin.setPassword(password);
                 admin.setEmail(mail);
                 //Peticiones a la BBDD
-                if (data.comprobarAdminInicio(mail, password).getName() == null){
+                admin_new = data.comprobarAdminInicio(mail, password);
+                if (admin_new.getName() == null){
                     result = false;
                 }else {
+                    admin_new.setEmail(mail);
+                    admin_new.setPassword(password);
                     result = true;
                     removeAll();
                     Gestion_Admin Gadmin = new Gestion_Admin();
-                    Gadmin.gestionAdminView();
+                    Gadmin.gestionAdminView(admin_new);
                     add(Gadmin);
                 }
                 break;
