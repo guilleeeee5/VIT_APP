@@ -293,24 +293,18 @@ public class Gestion_Admin extends VerticalLayout {
             add(LV);
         });
         reloadButton.addClickListener(e -> {
-            GestionJefe gJ = new GestionJefe();
-            Jefe_Establecimiento jefeNuevo = new Jefe_Establecimiento();
+            Gestion_Admin gA = new Gestion_Admin();
+            Admin adminNew = new Admin();
             try {
-                jefeNuevo = data.comprobarAdminInicio(admin.getEmail(), jefe.getPassword());
+                adminNew = data.comprobarAdminInicio(administrador.getEmail(), administrador.getPassword());
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
             removeAll();
-            try {
-                gJ.gestionJefeView(jefeNuevo);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (URISyntaxException ex) {
-                throw new RuntimeException(ex);
-            } catch (InterruptedException ex) {
-                throw new RuntimeException(ex);
-            }
-            add(gJ);
+
+            gA.gestionAdminView(adminNew);
+
+            add(gA);
 
         });
     }
