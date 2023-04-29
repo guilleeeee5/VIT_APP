@@ -7,10 +7,7 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.ItemDoubleClickEvent;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -22,9 +19,13 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 
+import javax.imageio.ImageIO;
 import javax.management.Notification;
 import javax.swing.*;
 import javax.xml.crypto.Data;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -196,6 +197,39 @@ public class Gestion_Admin extends VerticalLayout {
                 texto7.setValue(antiguojefeEstablecimiento.getApellido());
                 comboEstado.setValue(antiguojefeEstablecimiento.getEstado());
                 texto9.setValue(antiguojefeEstablecimiento.getEmail());
+            }
+        });
+
+        grid.addItemDoubleClickListener(new ComponentEventListener<ItemDoubleClickEvent<Jefe_Establecimiento>>() {
+            @Override
+            public void onComponentEvent(ItemDoubleClickEvent<Jefe_Establecimiento> event) {
+                BufferedImage imagen = null;
+                try {
+                    imagen = DataService.obtenerImagen(event.getItem().getCif());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+// Crear un objeto StreamResource que contiene los datos de la imagen
+                BufferedImage finalImagen = imagen;
+                StreamResource resource = new StreamResource("imagen.jpg", () -> {
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(finalImagen, "jpg", bos);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return new ByteArrayInputStream(bos.toByteArray());
+                });
+
+                Anchor botonDescarga = new Anchor(resource, "Descargar imagen");
+                botonDescarga.getElement().setAttribute("download", true);
+                botonDescarga.getElement().getStyle().set("padding", "10px");
+
+                hl3.add(botonDescarga);
             }
         });
 
