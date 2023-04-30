@@ -231,5 +231,28 @@ public class DataHanding {
         return imagenBytes;
     }
 
+    public ArrayList<Discapacitado_VIsual> sitiosvisitados() throws ClassNotFoundException, SQLException {
+        ArrayList<Discapacitado_VIsual> lista = new ArrayList<Discapacitado_VIsual>();
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
+        String sql = "SELECT Nombre, Email, Apellido, edificio FROM discapacitado_visual";
+        Statement statement = conexionBBDD.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        int count = 0;
+        while (result.next()) {
+            Discapacitado_VIsual discapacitadoVIsual = new Discapacitado_VIsual();
+            String nombre = result.getString("Nombre");
+            String email = result.getString("Email");
+            String apellido = result.getString("Apellido");
+            String edificio = result.getString("edificio");
+            discapacitadoVIsual.setName(nombre);
+            discapacitadoVIsual.setEmail(email);
+            discapacitadoVIsual.setApellido(apellido);
+            discapacitadoVIsual.setEdificio(edificio);
+            lista.add(discapacitadoVIsual);
+        }
+        return lista;
+    }
+
 
 }

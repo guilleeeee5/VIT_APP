@@ -1,6 +1,8 @@
 package org.vaadin.example;
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.FocusNotifier;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -35,7 +37,7 @@ import java.util.ArrayList;
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
 @CssImport("./styles/front.css")
 public class Gestion_Admin extends VerticalLayout {
-
+    private Anchor botonDescarga;
     public void gestionAdminView(Admin administrador){
         HorizontalLayout horizontalbtnAtras = new HorizontalLayout();
         Button atrasButton = new Button("Atras");
@@ -107,6 +109,11 @@ public class Gestion_Admin extends VerticalLayout {
         Button boton = new Button("Actualizar");
         Button boton2 = new Button("Cancelar");
         Button boton3 = new Button("Borrar");
+
+        botonDescarga = new Anchor();
+        botonDescarga.getElement().setAttribute("download", true);
+        botonDescarga.getElement().getStyle().set("padding", "10px");
+
         boton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         boton2.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
         boton3.addThemeVariants(ButtonVariant.LUMO_ERROR);
@@ -121,7 +128,7 @@ public class Gestion_Admin extends VerticalLayout {
         hl2.add(comboEstado);
         hl2.setPadding(true);
         hl2.setAlignItems(Alignment.CENTER);
-        hl3.add(boton, boton2, boton3);
+        hl3.add(boton, boton2, boton3, botonDescarga);
         hl3.setAlignItems(Alignment.CENTER);
         vlDialog.add(hl1, hl2, hl3);
         dialog.add(vlDialog);
@@ -215,7 +222,7 @@ public class Gestion_Admin extends VerticalLayout {
 
 // Crear un objeto StreamResource que contiene los datos de la imagen
                 BufferedImage finalImagen = imagen;
-                StreamResource resource = new StreamResource("imagen.jpg", () -> {
+                StreamResource resource = new StreamResource("mapa"+ antiguojefeEstablecimiento.getCif()+".jpg", () -> {
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
                     try {
                         ImageIO.write(finalImagen, "jpg", bos);
@@ -225,13 +232,13 @@ public class Gestion_Admin extends VerticalLayout {
                     return new ByteArrayInputStream(bos.toByteArray());
                 });
 
-                Anchor botonDescarga = new Anchor(resource, "Descargar imagen");
-                botonDescarga.getElement().setAttribute("download", true);
-                botonDescarga.getElement().getStyle().set("padding", "10px");
+                botonDescarga.setHref(resource);
+                botonDescarga.setText("Descargar imagen");
 
-                hl3.add(botonDescarga);
+
             }
         });
+
 
         boton.addClickListener(new ComponentEventListener<ClickEvent<Button>>() {
             @Override

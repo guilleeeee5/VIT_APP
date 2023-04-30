@@ -14,13 +14,17 @@ import com.vaadin.flow.theme.lumo.Lumo;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 @Route("gestion_DiscapacitadoVisual")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
 @CssImport("./styles/front.css")
 public class Gestion_DiscapacitadoVisual extends VerticalLayout {
 
-    public void gestion_DiscapacitadoView() {
+    public void gestion_DiscapacitadoView(Discapacitado_VIsual discapacitado) {
+
+        ArrayList<Discapacitado_VIsual> listaDiscapacitado = new ArrayList<>();
+
         //Creación de Layouts
         HorizontalLayout horizontalbtnAtras = new HorizontalLayout();
         Button atrasButton = new Button("Atras");
@@ -35,28 +39,25 @@ public class Gestion_DiscapacitadoVisual extends VerticalLayout {
         img.setWidth("200px");
 
         //Título de la página
-        H1 tit = new H1("Establecimientos visitados");
+        H1 tit = new H1("Establecimientos visitados por: "+ discapacitado.getName());
         tit.addClassName("tit_admin");
 
         // Generar la tabla con los campos arriba puestos.
-        Grid<Discapacitado_VIsual> grid = new Grid<>(Discapacitado_VIsual.class, false);
-        grid.addColumn(Discapacitado_VIsual::getName).setHeader("Nombre");
-        grid.addColumn(Discapacitado_VIsual::getApellido).setHeader("Apellido");
-        grid.addColumn(Discapacitado_VIsual::getEmail).setHeader("Email");
-        grid.addColumn(Discapacitado_VIsual::getEdificios).setHeader("Edificios");
-        grid.addColumn(Discapacitado_VIsual::getMapa).setHeader("Mapas");
+        Grid<Discapacitado_VIsual> grid2 = new Grid<>(Discapacitado_VIsual.class, false);
+        grid2.addColumn(Discapacitado_VIsual::getName).setHeader("Nombre");
+        grid2.addColumn(Discapacitado_VIsual::getApellido).setHeader("Apellido");
+        grid2.addColumn(Discapacitado_VIsual::getEmail).setHeader("Email");
+        grid2.addColumn(Discapacitado_VIsual::getEdificios).setHeader("Edificios");
 
         //Rellenno el arrayilst, con los datos recibidos
-        /*try {
-            listaEstablecimientos = DataService.obtenerListaEstablecimientos();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (URISyntaxException e) {
+        try {
+            listaDiscapacitado = DataService.sitiosVisitados();
+        }  catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        grid.setItems(listaEstablecimientos);*/
+        grid2.setItems(listaDiscapacitado);
 
-        this.add(horizontalbtnAtras,img,tit,grid);
+        this.add(horizontalbtnAtras,img,tit,grid2);
         // Configurar layout
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);

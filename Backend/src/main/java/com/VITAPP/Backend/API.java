@@ -35,6 +35,13 @@ public class API {
 
     }
 
+    @GetMapping("/gestionSitios")
+    public ArrayList<Discapacitado_VIsual> get_sitios() throws SQLException, ClassNotFoundException{
+        DataHanding data = new DataHanding();
+        return data.sitiosvisitados();
+
+    }
+
     @PostMapping("/Discapacitado_Visual_Registro")
     public Discapacitado_VIsual crearRegistroDiscapacitado(@RequestBody Discapacitado_VIsual discapacitado_visual) throws SQLException, ClassNotFoundException {
         DataHanding data = new DataHanding();

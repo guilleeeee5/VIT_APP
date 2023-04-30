@@ -168,10 +168,12 @@ public class LoginView extends VerticalLayout{
                 if (data.comprobarDiscInicio(mail, password).getName() == null){
                     result = false;
                 }else {
+                    discapacitadoVIsual = data.comprobarDiscInicio(mail, password);
                     result = true;
                     removeAll();
                     Gestion_DiscapacitadoVisual Gdis = new Gestion_DiscapacitadoVisual();
-                    Gdis.gestion_DiscapacitadoView();
+                    System.out.println(discapacitadoVIsual);
+                    Gdis.gestion_DiscapacitadoView(discapacitadoVIsual);
                     add(Gdis);
                 }
                 break;

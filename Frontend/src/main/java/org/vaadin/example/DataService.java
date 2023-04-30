@@ -2,8 +2,6 @@ package org.vaadin.example;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.apache.commons.compress.utils.IOUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -14,21 +12,16 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class DataService {
     private static final String urlPrefix = "http://localhost:8081";
@@ -89,7 +82,7 @@ public class DataService {
         }.getType());
 
         // Imprimir la respuesta del backend
-        System.out.println(response.toString());
+        System.out.println("Respuesta: "+ discAux.toString());
 
 
         return discAux;
@@ -270,5 +263,26 @@ public class DataService {
             imagen = ImageIO.read(new ByteArrayInputStream(bytes));
         }
         return imagen;
+    }
+
+    public static ArrayList<Discapacitado_VIsual> sitiosVisitados() throws URISyntaxException {
+        ArrayList<Discapacitado_VIsual> discapacitado_vIsuals = new ArrayList<>();
+        HttpRequest httpRequest = HttpRequest.newBuilder().uri(new URI(urlPrefix + "/gestionSitios")).GET().build();
+        Gson gson = new Gson();
+        String resultado = null;
+        HttpResponse<String> respuesta = null;
+
+        try {
+            respuesta = HttpClient.newBuilder().build().send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            resultado = respuesta.body();
+            discapacitado_vIsuals = gson.fromJson(resultado, new com.googlecode.gentyref.TypeToken<ArrayList<Discapacitado_VIsual>>() {
+            }.getType());
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return discapacitado_vIsuals;
     }
 }
