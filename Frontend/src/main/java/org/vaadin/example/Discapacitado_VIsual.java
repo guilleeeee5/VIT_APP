@@ -1,13 +1,21 @@
 package org.vaadin.example;
 
+import java.sql.Date;
+
 public class Discapacitado_VIsual extends User{
     private String edificio;
     private int mapa;
 
-    public Discapacitado_VIsual(String name, String apellido, String password, String email, int ID, String edificios, int mapa) {
+    private Date fechaentrada;
+
+    private Date fechasalida;
+
+    public Discapacitado_VIsual(String name, String apellido, String password, String email, int ID, String edificios, int mapa, Date fechaentrada, Date fechasalida) {
         super(name, apellido, password, email, ID);
-        this.edificio = edificio;
+        this.edificio = edificios;
         this.mapa = mapa;
+        this.fechaentrada = fechaentrada;
+        this.fechasalida = fechasalida;
     }
 
     public Discapacitado_VIsual() {
@@ -15,6 +23,22 @@ public class Discapacitado_VIsual extends User{
 
     public Discapacitado_VIsual(String nombre, String apellido, String contrasena, String correo) {
         super(nombre, apellido, contrasena, correo);
+    }
+
+    public Date getFechaentrada() {
+        return fechaentrada;
+    }
+
+    public void setFechaentrada(Date fechaentrada) {
+        this.fechaentrada = fechaentrada;
+    }
+
+    public Date getFechasalida() {
+        return fechasalida;
+    }
+
+    public void setFechasalida(Date fechasalida) {
+        this.fechasalida = fechasalida;
     }
 
     public String getEdificios() {
@@ -39,6 +63,8 @@ public class Discapacitado_VIsual extends User{
                 "\"apellido\": " + "\"" + getApellido()  + "\"," + "\n" +
                 "\"password\": " + "\"" + getPassword()  + "\"" +  ",\n" +
                 "\"email\": "+ "\"" + getEmail() + "\"" + "\n" +
+                "\"fechaentrada\": "+ "\"" + getFechaentrada() + "\"" + "\n" +
+                "\"fechasalida\": "+ "\"" + getFechasalida() + "\"" + "\n" +
                 "}";
     }
 }

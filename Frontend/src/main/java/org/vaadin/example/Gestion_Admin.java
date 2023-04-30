@@ -1,16 +1,15 @@
 package org.vaadin.example;
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.FocusNotifier;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.ItemDoubleClickEvent;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -22,9 +21,13 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 
+import javax.imageio.ImageIO;
 import javax.management.Notification;
 import javax.swing.*;
 import javax.xml.crypto.Data;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -34,7 +37,7 @@ import java.util.ArrayList;
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
 @CssImport("./styles/front.css")
 public class Gestion_Admin extends VerticalLayout {
-
+    private Anchor botonDescarga;
     public void gestionAdminView(Admin administrador){
         HorizontalLayout horizontalbtnAtras = new HorizontalLayout();
         Button atrasButton = new Button("Atras");
@@ -106,6 +109,11 @@ public class Gestion_Admin extends VerticalLayout {
         Button boton = new Button("Actualizar");
         Button boton2 = new Button("Cancelar");
         Button boton3 = new Button("Borrar");
+
+        botonDescarga = new Anchor();
+        botonDescarga.getElement().setAttribute("download", true);
+        botonDescarga.getElement().getStyle().set("padding", "10px");
+
         boton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         boton2.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
         boton3.addThemeVariants(ButtonVariant.LUMO_ERROR);
@@ -120,7 +128,7 @@ public class Gestion_Admin extends VerticalLayout {
         hl2.add(comboEstado);
         hl2.setPadding(true);
         hl2.setAlignItems(Alignment.CENTER);
-        hl3.add(boton, boton2, boton3);
+        hl3.add(boton, boton2, boton3, botonDescarga);
         hl3.setAlignItems(Alignment.CENTER);
         vlDialog.add(hl1, hl2, hl3);
         dialog.add(vlDialog);
@@ -198,6 +206,39 @@ public class Gestion_Admin extends VerticalLayout {
                 texto9.setValue(antiguojefeEstablecimiento.getEmail());
             }
         });
+
+        grid.addItemDoubleClickListener(new ComponentEventListener<ItemDoubleClickEvent<Jefe_Establecimiento>>() {
+            @Override
+            public void onComponentEvent(ItemDoubleClickEvent<Jefe_Establecimiento> event) {
+                BufferedImage imagen = null;
+                try {
+                    imagen = DataService.obtenerImagen(event.getItem().getCif());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+// Crear un objeto StreamResource que contiene los datos de la imagen
+                BufferedImage finalImagen = imagen;
+                StreamResource resource = new StreamResource("mapa"+ antiguojefeEstablecimiento.getCif()+".jpg", () -> {
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(finalImagen, "jpg", bos);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return new ByteArrayInputStream(bos.toByteArray());
+                });
+
+                botonDescarga.setHref(resource);
+                botonDescarga.setText("Descargar imagen");
+
+
+            }
+        });
+
 
         boton.addClickListener(new ComponentEventListener<ClickEvent<Button>>() {
             @Override
