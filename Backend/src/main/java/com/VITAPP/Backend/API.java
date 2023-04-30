@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.xml.crypto.Data;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -13,7 +14,7 @@ import java.util.Base64;
 public class API {
     //Inicio de sesion
     @GetMapping("/Discapacitado_Visual")
-    public Discapacitado_VIsual iniciarSesionDisc(@RequestParam String email,@RequestParam String password) throws SQLException, ClassNotFoundException {
+    public Discapacitado_VIsual iniciarSesionDisc(@RequestParam String email,@RequestParam String password) throws SQLException, ClassNotFoundException, ParseException {
         DataHanding data = new DataHanding();
         return data.comprobarDisc(email, password);
     }
@@ -36,7 +37,7 @@ public class API {
     }
 
     @GetMapping("/gestionSitios")
-    public ArrayList<Discapacitado_VIsual> get_sitios() throws SQLException, ClassNotFoundException{
+    public ArrayList<Discapacitado_VIsual> get_sitios() throws SQLException, ClassNotFoundException, ParseException {
         DataHanding data = new DataHanding();
         return data.sitiosvisitados();
 

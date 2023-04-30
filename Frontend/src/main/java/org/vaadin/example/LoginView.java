@@ -172,7 +172,6 @@ public class LoginView extends VerticalLayout{
                     result = true;
                     removeAll();
                     Gestion_DiscapacitadoVisual Gdis = new Gestion_DiscapacitadoVisual();
-                    System.out.println(discapacitadoVIsual);
                     Gdis.gestion_DiscapacitadoView(discapacitadoVIsual);
                     add(Gdis);
                 }

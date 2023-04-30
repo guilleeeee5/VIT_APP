@@ -82,7 +82,7 @@ public class DataService {
         }.getType());
 
         // Imprimir la respuesta del backend
-        System.out.println("Respuesta: "+ discAux.toString());
+        System.out.println(response.toString());
 
 
         return discAux;

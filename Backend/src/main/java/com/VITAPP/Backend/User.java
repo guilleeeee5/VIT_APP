@@ -65,7 +65,6 @@ public class User {
                 ", apellido='" + apellido + '\'' +
                 ", password='" + password + '\'' +
                 ", Email='" + Email + '\'' +
-                ", ID=" + ID +
-                '}';
+                ", ID=" + ID + ", ";
     }
 }

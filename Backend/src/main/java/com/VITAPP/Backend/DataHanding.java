@@ -1,14 +1,16 @@
 package com.VITAPP.Backend;
 
 
-import javax.xml.transform.Result;
-import java.io.ByteArrayInputStream;
+
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 
 public class DataHanding {
-    public Discapacitado_VIsual comprobarDisc(String email, String password) throws ClassNotFoundException, SQLException {
+    public Discapacitado_VIsual comprobarDisc(String email, String password) throws ClassNotFoundException, SQLException, ParseException {
         Discapacitado_VIsual discapacitadAUX = new Discapacitado_VIsual();
         //Consulta BBDD
         Class.forName("com.mysql.jdbc.Driver");
@@ -66,7 +68,7 @@ public class DataHanding {
         Admin adminAux = new Admin();
         //Consulta BBDD
         Class.forName("com.mysql.jdbc.Driver");
-        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");;
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
         Statement statement = conexionBBDD.createStatement();
         ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido from usuario JOIN admin ON usuario.ID = admin.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
         while (resultSet.next())
@@ -131,7 +133,7 @@ public class DataHanding {
     }
 
     public ArrayList<Jefe_Establecimiento> modificarJefe(Jefe_Establecimiento jefeAntiguo, Jefe_Establecimiento jefeNuevo) throws ClassNotFoundException, SQLException {
-        ArrayList<Jefe_Establecimiento> jefes = new ArrayList<Jefe_Establecimiento>();
+        ArrayList<Jefe_Establecimiento> jefes = new ArrayList<>();
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
 
@@ -171,7 +173,7 @@ public class DataHanding {
 
 
     public ArrayList<Jefe_Establecimiento> devolverEstablecimientos() throws SQLException, ClassNotFoundException {
-        ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<Jefe_Establecimiento>();
+        ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<>();
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
 
@@ -231,24 +233,31 @@ public class DataHanding {
         return imagenBytes;
     }
 
-    public ArrayList<Discapacitado_VIsual> sitiosvisitados() throws ClassNotFoundException, SQLException {
-        ArrayList<Discapacitado_VIsual> lista = new ArrayList<Discapacitado_VIsual>();
+    public ArrayList<Discapacitado_VIsual> sitiosvisitados() throws ClassNotFoundException, SQLException, ParseException {
+        ArrayList<Discapacitado_VIsual> lista = new ArrayList<>();
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
-        String sql = "SELECT Nombre, Email, Apellido, edificio FROM discapacitado_visual";
+        String sql = "SELECT Nombre, Email, Apellido, edificio, DATE_FORMAT(fechaentrada, '%Y-%m-%d') AS fechaentrada, DATE_FORMAT(fechasalida, '%Y-%m-%d') AS fechasalida FROM discapacitado_visual\n";
         Statement statement = conexionBBDD.createStatement();
         ResultSet result = statement.executeQuery(sql);
-        int count = 0;
         while (result.next()) {
             Discapacitado_VIsual discapacitadoVIsual = new Discapacitado_VIsual();
             String nombre = result.getString("Nombre");
             String email = result.getString("Email");
             String apellido = result.getString("Apellido");
             String edificio = result.getString("edificio");
+            String fechaentradaStr = result.getString("fechaentrada");
+            String fechasalidaStr = result.getString("fechasalida");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaentrada = dateFormat.parse(fechaentradaStr);
+            Date fechasalida = dateFormat.parse(fechasalidaStr);
             discapacitadoVIsual.setName(nombre);
             discapacitadoVIsual.setEmail(email);
             discapacitadoVIsual.setApellido(apellido);
             discapacitadoVIsual.setEdificio(edificio);
+            discapacitadoVIsual.setFechaentrada(fechaentrada);
+            discapacitadoVIsual.setFechasalida(fechasalida);
+            System.out.println(discapacitadoVIsual);
             lista.add(discapacitadoVIsual);
         }
         return lista;
