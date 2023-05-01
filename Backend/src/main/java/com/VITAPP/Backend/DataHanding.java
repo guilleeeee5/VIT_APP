@@ -237,7 +237,8 @@ public class DataHanding {
         ArrayList<Discapacitado_VIsual> lista = new ArrayList<>();
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
-        String sql = "SELECT Nombre, Email, Apellido, edificio, DATE_FORMAT(fechaentrada, '%Y-%m-%d') AS fechaentrada, DATE_FORMAT(fechasalida, '%Y-%m-%d') AS fechasalida FROM discapacitado_visual\n";
+        /*String sql = "SELECT Nombre, Email, Apellido, edificio, mapa, fechaentrada, fechasalida FROM discapacitado_visual";*/
+        String sql = "SELECT * FROM discapacitado_visual";
         Statement statement = conexionBBDD.createStatement();
         ResultSet result = statement.executeQuery(sql);
         while (result.next()) {
@@ -246,11 +247,13 @@ public class DataHanding {
             String email = result.getString("Email");
             String apellido = result.getString("Apellido");
             String edificio = result.getString("edificio");
-            String fechaentradaStr = result.getString("fechaentrada");
+            String fechaentrada = result.getString("fechaentrada");
+            String fechasalida = result.getString("fechasalida");
+            /*String fechaentradaStr = result.getString("fechaentrada");
             String fechasalidaStr = result.getString("fechasalida");
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date fechaentrada = dateFormat.parse(fechaentradaStr);
-            Date fechasalida = dateFormat.parse(fechasalidaStr);
+            Date fechasalida = dateFormat.parse(fechasalidaStr);*/
             discapacitadoVIsual.setName(nombre);
             discapacitadoVIsual.setEmail(email);
             discapacitadoVIsual.setApellido(apellido);
