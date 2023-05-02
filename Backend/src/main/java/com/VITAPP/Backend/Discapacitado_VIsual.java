@@ -47,9 +47,9 @@ public class Discapacitado_VIsual extends User{
     @Override
     public String toString() {
         return super.toString() +
-                "edificio='" + edificio  +
-                ", fechaentrada=" + fechaentrada +
-                ", fechasalida=" + fechasalida +
+                "edificio='" + edificio + '\'' +
+                ", fechaentrada='" + fechaentrada + '\'' +
+                ", fechasalida='" + fechasalida + '\'' +
                 '}';
     }
 }

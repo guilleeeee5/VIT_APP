@@ -54,8 +54,8 @@ public class Discapacitado_VIsual extends User{
                 "\"name\": " + "\"" + getName() + "\"," + "\n" +
                 "\"apellido\": " + "\"" + getApellido()  + "\"," + "\n" +
                 "\"password\": " + "\"" + getPassword()  + "\"" +  ",\n" +
-                "\"email\": "+ "\"" + getEmail() + "\"" + "\n" +
-                "\"fechaentrada\": "+ "\"" + getFechaentrada() + "\"" + "\n" +
+                "\"email\": "+ "\"" + getEmail() + "\"" + ",\n" +
+                "\"fechaentrada\": "+ "\"" + getFechaentrada() + "\"" + ",\n" +
                 "\"fechasalida\": "+ "\"" + getFechasalida() + "\"" + "\n" +
                 "}";
     }
