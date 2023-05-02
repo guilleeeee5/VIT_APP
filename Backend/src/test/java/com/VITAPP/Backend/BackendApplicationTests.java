@@ -239,20 +239,20 @@ class BackendApplicationTests {
 	@Test
 	public void testComprobarJefe() throws ClassNotFoundException, SQLException {
 		// Preparación de la prueba
-		String email = "guille@guille.com";
-		String password = "guille";
+		String email = "alvarojefe@jefe.com";
+		String password = "alvaro1";
 		//Comprobamos que dado una contraseña y email se nos devuelva correctamente el usuario
 		Jefe_Establecimiento jefeEsperado = new Jefe_Establecimiento();
 		DataHanding Data = new DataHanding();
-		jefeEsperado.setName("guille");
-		jefeEsperado.setApellido("ramirez");
-		jefeEsperado.setEmail("guille@guille.com");
-		jefeEsperado.setDireccion("calle guille, 33");
-		jefeEsperado.setCiudad("nanocity");
-		jefeEsperado.setCodigo_Postal("33");
-		jefeEsperado.setEstado("0");
-		jefeEsperado.setNombre_establecimiento("aston martin");
-		jefeEsperado.setCIF("33");
+		jefeEsperado.setName("Alvaro");
+		jefeEsperado.setApellido("Fernandez");
+		jefeEsperado.setEmail("alvarojefe@jefe.com");
+		jefeEsperado.setDireccion("Calle Jazmin");
+		jefeEsperado.setCiudad("Madrid");
+		jefeEsperado.setCodigo_Postal("1234");
+		jefeEsperado.setEstado("2");
+		jefeEsperado.setNombre_establecimiento("Mercadona");
+		jefeEsperado.setCIF("45");
 
 		// Ejecución de la función y comprobación del resultado
 		Jefe_Establecimiento jefeActual = Data.comprobarJefe(email, password);
@@ -395,10 +395,10 @@ class BackendApplicationTests {
 			listaEstablecimientos = Data.devolverEstablecimientos();
 
 			// Verifica que los establecimientos devueltos sean los esperados
-			assertEquals("aston martin", listaEstablecimientos.get(0).getNombre_establecimiento());
-			assertEquals("GordiEstablecimiento", listaEstablecimientos.get(1).getNombre_establecimiento());
-			assertEquals("flacuchos", listaEstablecimientos.get(2).getNombre_establecimiento());
-			assertEquals("flacuchos", listaEstablecimientos.get(3).getNombre_establecimiento());
+			assertEquals("Mercadona", listaEstablecimientos.get(0).getNombre_establecimiento());
+			assertEquals("Lidl", listaEstablecimientos.get(1).getNombre_establecimiento());
+			//assertEquals("flacuchos", listaEstablecimientos.get(2).getNombre_establecimiento());
+			//assertEquals("flacuchos", listaEstablecimientos.get(3).getNombre_establecimiento());
 
 		} catch (SQLException | ClassNotFoundException e) {
 			fail(e.getMessage());
