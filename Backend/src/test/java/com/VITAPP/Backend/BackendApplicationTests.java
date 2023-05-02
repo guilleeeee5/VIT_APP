@@ -397,8 +397,7 @@ class BackendApplicationTests {
 			// Verifica que los establecimientos devueltos sean los esperados
 			assertEquals("Mercadona", listaEstablecimientos.get(0).getNombre_establecimiento());
 			assertEquals("Lidl", listaEstablecimientos.get(1).getNombre_establecimiento());
-			//assertEquals("flacuchos", listaEstablecimientos.get(2).getNombre_establecimiento());
-			//assertEquals("flacuchos", listaEstablecimientos.get(3).getNombre_establecimiento());
+			
 
 		} catch (SQLException | ClassNotFoundException e) {
 			fail(e.getMessage());
