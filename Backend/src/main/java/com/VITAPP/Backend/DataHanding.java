@@ -16,7 +16,7 @@ public class DataHanding {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
         Statement statement = conexionBBDD.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, discapacitado_visual.edificio, discapacitado_visual.mapa from usuario JOIN discapacitado_visual ON usuario.ID = discapacitado_visual.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, discapacitado_visual.edificio from usuario JOIN discapacitado_visual ON usuario.ID = discapacitado_visual.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
         while (resultSet.next())
         {
             String nombre = resultSet.getString("name");
@@ -88,15 +88,16 @@ public class DataHanding {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
         Statement statement = conexionBBDD.createStatement();
+        System.out.println(discapacitado_vIsual.getEmail());
         ResultSet resultSet = statement.executeQuery(String.format("SELECT * from discapacitado_visual JOIN usuario ON usuario.ID = discapacitado_visual.ID AND usuario.Email = '%s'", discapacitado_vIsual.getEmail()));
-        if(!resultSet.next()){
+        if(resultSet.next()){
             conexionBBDD.close();
             return discapacitado_vIsualaux;
         }
         else{
             Statement statement1 = conexionBBDD.createStatement();
             int insertado1 = statement1.executeUpdate(String.format("INSERT INTO usuario (name, apellido, Email, password) VALUES ('%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getEmail(), discapacitado_vIsual.getPassword()));
-            int insertado2 = statement1.executeUpdate("INSERT INTO discapacitado_visual (ID) VALUES (LAST_INSERT_ID());");
+            int insertado2 = statement1.executeUpdate(String.format("INSERT INTO discapacitado_visual (ID, Nombre, Apellido, Password, Email) VALUES (LAST_INSERT_ID(), '%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getPassword(), discapacitado_vIsual.getEmail()));
             conexionBBDD.close();
             return discapacitado_vIsual;
         }
@@ -237,7 +238,8 @@ public class DataHanding {
         ArrayList<Discapacitado_VIsual> lista = new ArrayList<>();
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
-        String sql = "SELECT Nombre, Email, Apellido, edificio, DATE_FORMAT(fechaentrada, '%Y-%m-%d') AS fechaentrada, DATE_FORMAT(fechasalida, '%Y-%m-%d') AS fechasalida FROM discapacitado_visual\n";
+        /*String sql = "SELECT Nombre, Email, Apellido, edificio, mapa, fechaentrada, fechasalida FROM discapacitado_visual";*/
+        String sql = "SELECT Nombre, Apellido, Email, edificio, fechaentrada, fechasalida FROM discapacitado_visual";
         Statement statement = conexionBBDD.createStatement();
         ResultSet result = statement.executeQuery(sql);
         while (result.next()) {
@@ -246,11 +248,13 @@ public class DataHanding {
             String email = result.getString("Email");
             String apellido = result.getString("Apellido");
             String edificio = result.getString("edificio");
-            String fechaentradaStr = result.getString("fechaentrada");
+            String fechaentrada = result.getString("fechaentrada");
+            String fechasalida = result.getString("fechasalida");
+            /*String fechaentradaStr = result.getString("fechaentrada");
             String fechasalidaStr = result.getString("fechasalida");
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date fechaentrada = dateFormat.parse(fechaentradaStr);
-            Date fechasalida = dateFormat.parse(fechasalidaStr);
+            Date fechasalida = dateFormat.parse(fechasalidaStr);*/
             discapacitadoVIsual.setName(nombre);
             discapacitadoVIsual.setEmail(email);
             discapacitadoVIsual.setApellido(apellido);

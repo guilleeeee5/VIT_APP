@@ -48,6 +48,9 @@ public class Gestion_DiscapacitadoVisual extends VerticalLayout {
         grid2.addColumn(Discapacitado_VIsual::getApellido).setHeader("Apellido");
         grid2.addColumn(Discapacitado_VIsual::getEmail).setHeader("Email");
         grid2.addColumn(Discapacitado_VIsual::getEdificios).setHeader("Edificios");
+        grid2.addColumn(Discapacitado_VIsual::getFechaentrada).setHeader("Fecha entrada");
+        grid2.addColumn(Discapacitado_VIsual::getFechasalida).setHeader("Fecha salida");
+
 
         //Rellenno el arrayilst, con los datos recibidos
         try {
@@ -56,6 +59,7 @@ public class Gestion_DiscapacitadoVisual extends VerticalLayout {
             throw new RuntimeException(e);
         }
         grid2.setItems(listaDiscapacitado);
+
 
         this.add(horizontalbtnAtras,img,tit,grid2);
         // Configurar layout
