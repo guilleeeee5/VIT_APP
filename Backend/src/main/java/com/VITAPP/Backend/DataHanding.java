@@ -97,7 +97,7 @@ public class DataHanding {
         else{
             Statement statement1 = conexionBBDD.createStatement();
             int insertado1 = statement1.executeUpdate(String.format("INSERT INTO usuario (name, apellido, Email, password) VALUES ('%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getEmail(), discapacitado_vIsual.getPassword()));
-            int insertado2 = statement1.executeUpdate(String.format("INSERT INTO discapacitado_visual (ID, Nombre, Apellido, Password, Email) VALUES (LAST_INSERT_ID(), '%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getEmail(), discapacitado_vIsual.getPassword()));
+            int insertado2 = statement1.executeUpdate(String.format("INSERT INTO discapacitado_visual (ID, Nombre, Apellido, Password, Email) VALUES (LAST_INSERT_ID(), '%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getPassword(), discapacitado_vIsual.getEmail()));
             conexionBBDD.close();
             return discapacitado_vIsual;
         }
