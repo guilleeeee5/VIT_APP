@@ -4,17 +4,15 @@ import java.util.Date;
 
 public class Discapacitado_VIsual extends User{
     private String edificio;
-    private int mapa;
 
     //private Date fechaentrada;
     private String fechaentrada;
     //private Date fechasalida;
     private String fechasalida;
 
-    public Discapacitado_VIsual(int ID, String name, String apellido, String password, String Email,  String edificio, int mapa, String fechaentrada, String fechasalida) {
+    public Discapacitado_VIsual(int ID, String name, String apellido, String password, String Email,  String edificio, String fechaentrada, String fechasalida) {
         super(ID, name, apellido, password, Email);
         this.edificio = edificio;
-        this.mapa = mapa;
         this.fechaentrada = fechaentrada;
         this.fechasalida = fechasalida;
     }
@@ -46,19 +44,10 @@ public class Discapacitado_VIsual extends User{
         this.edificio = edificio;
     }
 
-    public int getMapa() {
-        return mapa;
-    }
-
-    public void setMapa(int mapa) {
-        this.mapa = mapa;
-    }
-
     @Override
     public String toString() {
         return super.toString() +
                 "edificio='" + edificio  +
-                ", mapa=" + mapa +
                 ", fechaentrada=" + fechaentrada +
                 ", fechasalida=" + fechasalida +
                 '}';

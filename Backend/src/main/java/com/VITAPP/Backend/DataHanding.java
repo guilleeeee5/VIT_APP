@@ -238,7 +238,7 @@ public class DataHanding {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
         /*String sql = "SELECT Nombre, Email, Apellido, edificio, mapa, fechaentrada, fechasalida FROM discapacitado_visual";*/
-        String sql = "SELECT * FROM discapacitado_visual";
+        String sql = "SELECT Nombre, Apellido, Email, edificio, fechaentrada, fechasalida FROM discapacitado_visual";
         Statement statement = conexionBBDD.createStatement();
         ResultSet result = statement.executeQuery(sql);
         while (result.next()) {
