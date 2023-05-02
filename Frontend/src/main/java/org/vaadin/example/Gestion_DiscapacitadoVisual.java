@@ -48,7 +48,6 @@ public class Gestion_DiscapacitadoVisual extends VerticalLayout {
         grid2.addColumn(Discapacitado_VIsual::getApellido).setHeader("Apellido");
         grid2.addColumn(Discapacitado_VIsual::getEmail).setHeader("Email");
         grid2.addColumn(Discapacitado_VIsual::getEdificios).setHeader("Edificios");
-        grid2.addColumn(Discapacitado_VIsual::getMapa).setHeader("Mapa");
         grid2.addColumn(Discapacitado_VIsual::getFechaentrada).setHeader("Fecha entrada");
         grid2.addColumn(Discapacitado_VIsual::getFechasalida).setHeader("Fecha salida");
 

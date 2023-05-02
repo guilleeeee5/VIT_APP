@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class Discapacitado_VIsual extends User{
     private String edificio;
-    private int mapa;
 
     //private Date fechaentrada;
     private String fechaentrada;
@@ -12,10 +11,9 @@ public class Discapacitado_VIsual extends User{
     //private Date fechasalida;
     private String fechasalida;
 
-    public Discapacitado_VIsual(String name, String apellido, String password, String email, int ID, String edificios, int mapa, String fechaentrada, String fechasalida) {
+    public Discapacitado_VIsual(String name, String apellido, String password, String email, int ID, String edificios, String fechaentrada, String fechasalida) {
         super(name, apellido, password, email, ID);
         this.edificio = edificios;
-        this.mapa = mapa;
         this.fechaentrada = fechaentrada;
         this.fechasalida = fechasalida;
     }
@@ -49,14 +47,6 @@ public class Discapacitado_VIsual extends User{
 
     public void setEdificios(String edificios) {
         this.edificio = edificio;
-    }
-
-    public int getMapa() {
-        return mapa;
-    }
-
-    public void setMapa(int mapa) {
-        this.mapa = mapa;
     }
 
     public String mostrarJson() {
