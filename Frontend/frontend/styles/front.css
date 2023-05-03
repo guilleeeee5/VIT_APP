@@ -3,12 +3,21 @@
     background-color: darkred;
     color: white;
 }
+.btn_reload{
+    background-color: forestgreen;
+    color: white;
+}
 /*Pagina Login*/
 
 /*Pagina Pregunta*/
 .btn_registro{
     background-color: #0d6efd;
     color: white;
+}
+/*Pagina GestionAdmin*/
+.lista_estados{
+    font-weight: bold;
+    color: #0d6efd;
 }
 
 .btn_EmpezarInicio{

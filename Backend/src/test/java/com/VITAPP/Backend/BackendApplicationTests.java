@@ -20,8 +20,7 @@ class BackendApplicationTests {
 
 	// Comenzamos creando test para verificar el usuario Discapacitado Visual
 	@Test
-	public void testComprobarDisc() throws ClassNotFoundException, SQLException
-	{
+	public void testComprobarDisc() throws ClassNotFoundException, SQLException, ParseException {
 		//En este test comprobamos que al llamar a la funcion Comprobar Discapacitado ese usuario no existe
 		//Y la funcion devuelve un usuario que no se corresponde al insertado
 		// Preparación de la prueba
@@ -42,7 +41,7 @@ class BackendApplicationTests {
 
 	// Prueba de la función comprobarDisc cuando la consulta no devuelve resultados.
 	@Test
-	public void testComprobarDisc_NoResults() throws ClassNotFoundException, SQLException {
+	public void testComprobarDisc_NoResults() throws ClassNotFoundException, SQLException, ParseException {
 		// Preparación de la prueba
 		String email = "prueba@example.com";
 		String password = "password";
@@ -58,7 +57,7 @@ class BackendApplicationTests {
 
 	// Prueba de la función comprobarDisc cuando se proporciona una dirección de correo electrónico nula.
 	@Test
-	public void testComprobarDisc_NullEmail() throws ClassNotFoundException, SQLException {
+	public void testComprobarDisc_NullEmail() throws ClassNotFoundException, SQLException, ParseException {
 		// Preparación de la prueba
 		String email = null;
 		String password = "password";
@@ -73,7 +72,7 @@ class BackendApplicationTests {
 	}
 
 	@Test
-	public void testComprobarDisc_NullPassword() throws ClassNotFoundException, SQLException {
+	public void testComprobarDisc_NullPassword() throws ClassNotFoundException, SQLException, ParseException {
 		//En este test comprobamos que al llamar a la función Comprobar Discapacitado con un password nulo, lanza una excepción
 
 		// Preparación de la prueba
@@ -89,7 +88,7 @@ class BackendApplicationTests {
 		assertNull(discapacitadoActual.getEdificios());
 	}
 	@Test
-	public void testComprobarDisc_EmptyPassword() throws ClassNotFoundException, SQLException {
+	public void testComprobarDisc_EmptyPassword() throws ClassNotFoundException, SQLException, ParseException {
 		// Preparación de la prueba
 		String email = "prueba@example.com";
 		String password = "";
@@ -105,7 +104,7 @@ class BackendApplicationTests {
 	}
 
 	@Test
-	public void testComprobarDisc_EmptyEmail() throws ClassNotFoundException, SQLException {
+	public void testComprobarDisc_EmptyEmail() throws ClassNotFoundException, SQLException, ParseException {
 		// Preparación de la prueba
 		String email = "";
 		String password = "password";
@@ -121,7 +120,7 @@ class BackendApplicationTests {
 	}
 
 	@Test
-	public void testComprobarDisc_NullEmailAndPassword() throws ClassNotFoundException, SQLException {
+	public void testComprobarDisc_NullEmailAndPassword() throws ClassNotFoundException, SQLException, ParseException {
 		//En este test comprobamos que al llamar a la función Comprobar Discapacitado con un email y password nulos, lanza una excepción
 
 		// Preparación de la prueba
@@ -169,7 +168,7 @@ class BackendApplicationTests {
 		assertNull(jefeActual.getPassword());;
 	}
 	@Test
-	public void testComprobarJefe_NullEmailAndPassword() throws ClassNotFoundException, SQLException {
+	public void testComprobarJefe_NullEmailAndPassword() throws ClassNotFoundException, SQLException, ParseException {
 		//En este test comprobamos que al llamar a la función ComprobarJefe_ con un email y password nulos, lanza una excepción
 
 		// Preparación de la prueba
@@ -240,19 +239,20 @@ class BackendApplicationTests {
 	@Test
 	public void testComprobarJefe() throws ClassNotFoundException, SQLException {
 		// Preparación de la prueba
-		String email = "guille@guille.com";
-		String password = "guille";
+		String email = "alvarojefe@jefe.com";
+		String password = "alvaro1";
 		//Comprobamos que dado una contraseña y email se nos devuelva correctamente el usuario
 		Jefe_Establecimiento jefeEsperado = new Jefe_Establecimiento();
 		DataHanding Data = new DataHanding();
-		jefeEsperado.setName("guille");
-		jefeEsperado.setApellido("ramirez");
-		jefeEsperado.setEmail("guille@guille.com");
-		jefeEsperado.setDireccion("calle guille, 33");
-		jefeEsperado.setCiudad("nanocity");
-		jefeEsperado.setCodigo_Postal("33");
-		jefeEsperado.setEstado("");
-		jefeEsperado.setNombre_establecimiento("aston martin");
+		jefeEsperado.setName("Alvaro");
+		jefeEsperado.setApellido("Fernandez");
+		jefeEsperado.setEmail("alvarojefe@jefe.com");
+		jefeEsperado.setDireccion("Calle Jazmin");
+		jefeEsperado.setCiudad("Madrid");
+		jefeEsperado.setCodigo_Postal("1234");
+		jefeEsperado.setEstado("2");
+		jefeEsperado.setNombre_establecimiento("Mercadona");
+		jefeEsperado.setCIF("45");
 
 		// Ejecución de la función y comprobación del resultado
 		Jefe_Establecimiento jefeActual = Data.comprobarJefe(email, password);
@@ -395,10 +395,9 @@ class BackendApplicationTests {
 			listaEstablecimientos = Data.devolverEstablecimientos();
 
 			// Verifica que los establecimientos devueltos sean los esperados
-			assertEquals("aston martin", listaEstablecimientos.get(0).getNombre_establecimiento());
-			assertEquals("GordiEstablecimiento", listaEstablecimientos.get(1).getNombre_establecimiento());
-			assertEquals("flacuchos", listaEstablecimientos.get(2).getNombre_establecimiento());
-			assertEquals("flacuchos", listaEstablecimientos.get(3).getNombre_establecimiento());
+			assertEquals("Mercadona", listaEstablecimientos.get(0).getNombre_establecimiento());
+			assertEquals("Lidl", listaEstablecimientos.get(1).getNombre_establecimiento());
+
 
 		} catch (SQLException | ClassNotFoundException e) {
 			fail(e.getMessage());

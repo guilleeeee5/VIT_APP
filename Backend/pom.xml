@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.VIT-APP</groupId>
 	<artifactId>Backend</artifactId>
-	<version>0.3</version>
+	<version>0.4</version>
 	<name>Backend</name>
 	<description>Proyecto Backend para VIT_APP</description>
 	<properties>
@@ -31,7 +31,11 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.32</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -31,10 +31,10 @@ public class Pagina_Inicio extends VerticalLayout{
 
         //Creamos los objetos de las imagenes
         StreamResource imageResource = new StreamResource("logo.png",
-                () -> getClass().getResourceAsStream("/images/logo.png"));
+                () -> getClass().getResourceAsStream("/images/icono_VITAPP.png"));
 
         Image img = new Image(imageResource, "");
-        img.setWidth("250px");
+        img.setWidth("200px");
 
         StreamResource imgInvidente = new StreamResource("logo.png",
                 () -> getClass().getResourceAsStream("/images/guiaInvidente.png"));

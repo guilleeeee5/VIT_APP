@@ -34,9 +34,10 @@ public class LoginView extends VerticalLayout{
         VL.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         add(VL);
         StreamResource imageResource = new StreamResource("logo.png",
-                () -> getClass().getResourceAsStream("/images/logo.png"));
+                () -> getClass().getResourceAsStream("/images/icono_VITAPP.png"));
 
         Image img = new Image(imageResource, "");
+        img.setWidth("200px");
         VL.add(img);
         Pregunta_Registro PR = new Pregunta_Registro();
 
@@ -144,6 +145,8 @@ public class LoginView extends VerticalLayout{
                  if (jefeNuevo.getName() == null){
                      result = false;
                  }else {
+                     jefeNuevo.setEmail(mail);
+                     jefeNuevo.setPassword(password);
                      result = true;
                      removeAll();
                      GestionJefe paginaJefe = new GestionJefe();
@@ -165,22 +168,31 @@ public class LoginView extends VerticalLayout{
                 if (data.comprobarDiscInicio(mail, password).getName() == null){
                     result = false;
                 }else {
+                    discapacitadoVIsual = data.comprobarDiscInicio(mail, password);
                     result = true;
+                    removeAll();
+                    Gestion_DiscapacitadoVisual Gdis = new Gestion_DiscapacitadoVisual();
+                    Gdis.gestion_DiscapacitadoView(discapacitadoVIsual);
+                    add(Gdis);
                 }
                 break;
 
             case "Administrador":
                 Admin admin = new Admin();
+                Admin admin_new = new Admin();
                 admin.setPassword(password);
                 admin.setEmail(mail);
                 //Peticiones a la BBDD
-                if (data.comprobarAdminInicio(mail, password).getName() == null){
+                admin_new = data.comprobarAdminInicio(mail, password);
+                if (admin_new.getName() == null){
                     result = false;
                 }else {
+                    admin_new.setEmail(mail);
+                    admin_new.setPassword(password);
                     result = true;
                     removeAll();
                     Gestion_Admin Gadmin = new Gestion_Admin();
-                    Gadmin.gestionAdminView();
+                    Gadmin.gestionAdminView(admin_new);
                     add(Gadmin);
                 }
                 break;

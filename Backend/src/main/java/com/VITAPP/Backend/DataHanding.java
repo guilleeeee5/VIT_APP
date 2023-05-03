@@ -1,20 +1,22 @@
 package com.VITAPP.Backend;
 
 
-import javax.xml.transform.Result;
-import java.io.ByteArrayInputStream;
+
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 
 public class DataHanding {
-    public Discapacitado_VIsual comprobarDisc(String email, String password) throws ClassNotFoundException, SQLException {
+    public Discapacitado_VIsual comprobarDisc(String email, String password) throws ClassNotFoundException, SQLException, ParseException {
         Discapacitado_VIsual discapacitadAUX = new Discapacitado_VIsual();
         //Consulta BBDD
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
         Statement statement = conexionBBDD.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, discapacitado_visual.edificio, Discapacitado_Visual.mapa from usuario JOIN discapacitado_visual ON usuario.ID = discapacitado_visual.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, discapacitado_visual.edificio from usuario JOIN discapacitado_visual ON usuario.ID = discapacitado_visual.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
         while (resultSet.next())
         {
             String nombre = resultSet.getString("name");
@@ -66,7 +68,7 @@ public class DataHanding {
         Admin adminAux = new Admin();
         //Consulta BBDD
         Class.forName("com.mysql.jdbc.Driver");
-        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");;
+        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
         Statement statement = conexionBBDD.createStatement();
         ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido from usuario JOIN admin ON usuario.ID = admin.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
         while (resultSet.next())
@@ -86,15 +88,16 @@ public class DataHanding {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
         Statement statement = conexionBBDD.createStatement();
+        System.out.println(discapacitado_vIsual.getEmail());
         ResultSet resultSet = statement.executeQuery(String.format("SELECT * from discapacitado_visual JOIN usuario ON usuario.ID = discapacitado_visual.ID AND usuario.Email = '%s'", discapacitado_vIsual.getEmail()));
-        if(!resultSet.next()){
+        if(resultSet.next()){
             conexionBBDD.close();
             return discapacitado_vIsualaux;
         }
         else{
             Statement statement1 = conexionBBDD.createStatement();
             int insertado1 = statement1.executeUpdate(String.format("INSERT INTO usuario (name, apellido, Email, password) VALUES ('%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getEmail(), discapacitado_vIsual.getPassword()));
-            int insertado2 = statement1.executeUpdate("INSERT INTO discapacitado_visual (ID) VALUES (LAST_INSERT_ID());");
+            int insertado2 = statement1.executeUpdate(String.format("INSERT INTO discapacitado_visual (ID, Nombre, Apellido, Password, Email) VALUES (LAST_INSERT_ID(), '%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getPassword(), discapacitado_vIsual.getEmail()));
             conexionBBDD.close();
             return discapacitado_vIsual;
         }
@@ -131,7 +134,7 @@ public class DataHanding {
     }
 
     public ArrayList<Jefe_Establecimiento> modificarJefe(Jefe_Establecimiento jefeAntiguo, Jefe_Establecimiento jefeNuevo) throws ClassNotFoundException, SQLException {
-        ArrayList<Jefe_Establecimiento> jefes = new ArrayList<Jefe_Establecimiento>();
+        ArrayList<Jefe_Establecimiento> jefes = new ArrayList<>();
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
 
@@ -171,7 +174,7 @@ public class DataHanding {
 
 
     public ArrayList<Jefe_Establecimiento> devolverEstablecimientos() throws SQLException, ClassNotFoundException {
-        ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<Jefe_Establecimiento>();
+        ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<>();
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
 
@@ -184,6 +187,7 @@ public class DataHanding {
             Jefe_Establecimiento jefeAux = new Jefe_Establecimiento();
             jefeAux.setCiudad(result.getString("Ciudad"));
             jefeAux.setName(result.getString("name"));
+            jefeAux.setPassword(result.getString("password"));
             jefeAux.setApellido(result.getString("apellido"));
             jefeAux.setCIF(result.getString("CIF"));
             jefeAux.setEmail(result.getString("Email"));
@@ -229,6 +233,7 @@ public class DataHanding {
 
         return imagenBytes;
     }
+
 
 
 }

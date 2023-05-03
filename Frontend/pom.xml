@@ -6,7 +6,7 @@
     <groupId>com.example</groupId>
     <artifactId>spring-skeleton</artifactId>
     <name>Project for VITapp</name>
-    <version>0.3</version>
+    <version>0.4</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -126,6 +126,11 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.32</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -163,11 +168,7 @@
             <artifactId>surefire-booter</artifactId>
             <version>2.22.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.jfree</groupId>
-            <artifactId>jfreechart-fx</artifactId>
-            <version>1.0.14</version>
-        </dependency>
+
 
     </dependencies>
 

@@ -1,16 +1,15 @@
 package org.vaadin.example;
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.FocusNotifier;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.ItemDoubleClickEvent;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -22,9 +21,13 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 
+import javax.imageio.ImageIO;
 import javax.management.Notification;
 import javax.swing.*;
 import javax.xml.crypto.Data;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -34,8 +37,15 @@ import java.util.ArrayList;
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
 @CssImport("./styles/front.css")
 public class Gestion_Admin extends VerticalLayout {
-
-    public void gestionAdminView(){
+    private Anchor botonDescarga;
+    public void gestionAdminView(Admin administrador){
+        HorizontalLayout horizontalbtnAtras = new HorizontalLayout();
+        Button atrasButton = new Button("Atras");
+        atrasButton.addClassName("btn_atras");
+        Button reloadButton = new Button("Refrescar");
+        reloadButton.addClassName("btn_reload");
+        horizontalbtnAtras.add(reloadButton,atrasButton);
+        horizontalbtnAtras.setAlignItems(Alignment.END);
         ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<>();
         Jefe_Establecimiento antiguojefeEstablecimiento = new Jefe_Establecimiento();
 
@@ -47,13 +57,25 @@ public class Gestion_Admin extends VerticalLayout {
 
         H1 tit = new H1("Gestión de Establecimientos");
         tit.addClassName("tit_admin");
+        H3 listaEstados = new H3("LISTA DE ESTADOS");
+
+        //Creamos la lista donde se detallan los distintos tipos de estado
+        VerticalLayout vLEstados = new VerticalLayout();
+        Label estado0 = new Label("0 -> Se están comprobando los datos del registro de Jefe Establecimiento.");
+        Label estado1 = new Label("\n"+"1 -> Ya están comprobados sus datos, se pide al Jefe que suba el mapa de su establecimiento para poder diseñar el sistema VIT a su medida.");
+        Label estado2 = new Label("\n"+"2 -> Se está analizando el mapa del Jefe.");
+        Label estado3 = new Label("\n"+"3 -> Los técnicos están de camino al establecimiento.");
+        Label estado4 = new Label("\n"+ "4 -> YA ERES VIT! Gracias por confiar en nosotros.");
+        vLEstados.add(estado0, estado1, estado2, estado3, estado4);
+        vLEstados.setClassName("lista_estados");
+        vLEstados.setAlignItems(Alignment.CENTER);//Alineamos los elementos al centro
 
         H3 tituloGrid = new H3("Lista de establecimientos");
         StreamResource imageResource = new StreamResource("logo.png",
-                () -> getClass().getResourceAsStream("/images/logo.png"));
+                () -> getClass().getResourceAsStream("/images/icono_VITAPP.png"));
 
         Image img = new Image(imageResource, "");
-        img.setWidth("400px");
+        img.setWidth("200px");
 
         VerticalLayout vl1 = new VerticalLayout();
         VerticalLayout vl2 = new VerticalLayout();
@@ -80,13 +102,18 @@ public class Gestion_Admin extends VerticalLayout {
         TextField texto6 = new TextField();
         Label etiqueta7 = new Label("Apellido");
         TextField texto7 = new TextField();
-        Label etiqueta8 = new Label("Estado");
-        TextField texto8 = new TextField();
+        ComboBox<String> comboEstado = new ComboBox<>("Estado");
+        comboEstado.setItems("0","1","2","3","4");
         Label etiqueta9 = new Label("Email");
         TextField texto9 = new TextField();
         Button boton = new Button("Actualizar");
         Button boton2 = new Button("Cancelar");
         Button boton3 = new Button("Borrar");
+
+        botonDescarga = new Anchor();
+        botonDescarga.getElement().setAttribute("download", true);
+        botonDescarga.getElement().getStyle().set("padding", "10px");
+
         boton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         boton2.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
         boton3.addThemeVariants(ButtonVariant.LUMO_ERROR);
@@ -98,10 +125,10 @@ public class Gestion_Admin extends VerticalLayout {
 
         hl1.add(vl1, vl2, vl3, vl4);
         hl1.setAlignItems(Alignment.CENTER);
-        hl2.add(etiqueta8, texto8);
+        hl2.add(comboEstado);
         hl2.setPadding(true);
         hl2.setAlignItems(Alignment.CENTER);
-        hl3.add(boton, boton2, boton3);
+        hl3.add(boton, boton2, boton3, botonDescarga);
         hl3.setAlignItems(Alignment.CENTER);
         vlDialog.add(hl1, hl2, hl3);
         dialog.add(vlDialog);
@@ -133,6 +160,15 @@ public class Gestion_Admin extends VerticalLayout {
         grid.addItemDoubleClickListener(new ComponentEventListener<ItemDoubleClickEvent<Jefe_Establecimiento>>() {
             @Override
             public void onComponentEvent(ItemDoubleClickEvent<Jefe_Establecimiento> event) {
+                ArrayList <Jefe_Establecimiento> listaaux = new ArrayList<>();
+                try {
+                    listaaux = DataService.obtenerListaEstablecimientos();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                }
+
                 antiguojefeEstablecimiento.setDireccion(event.getItem().getDireccion());
                 antiguojefeEstablecimiento.setCiudad(event.getItem().getCiudad());
                 antiguojefeEstablecimiento.setCodigo_Postal(event.getItem().getCodigo_Postal());
@@ -140,10 +176,18 @@ public class Gestion_Admin extends VerticalLayout {
                 antiguojefeEstablecimiento.setNombre_establecimiento(event.getItem().getNombre_establecimiento());
                 antiguojefeEstablecimiento.setName(event.getItem().getName());
                 antiguojefeEstablecimiento.setApellido(event.getItem().getApellido());
-                antiguojefeEstablecimiento.setPassword(event.getItem().getPassword());
                 antiguojefeEstablecimiento.setEmail(event.getItem().getEmail());
                 antiguojefeEstablecimiento.setEstado(event.getItem().getEstado());
-                //System.out.println(antiguojefeEstablecimiento);
+
+                for (Jefe_Establecimiento jefe: listaaux
+                     ) {
+                    System.out.println(jefe.toString());
+                    if (antiguojefeEstablecimiento.getCif().equals(jefe.getCif())){
+                        antiguojefeEstablecimiento.setPassword(jefe.getPassword());
+                        System.out.println("Contraseña cambiada");
+                    }
+                }
+
             }
         });
         grid.addItemDoubleClickListener(event -> dialog.open());
@@ -158,10 +202,43 @@ public class Gestion_Admin extends VerticalLayout {
                 texto5.setValue(antiguojefeEstablecimiento.getNombre_establecimiento());
                 texto6.setValue(antiguojefeEstablecimiento.getName());
                 texto7.setValue(antiguojefeEstablecimiento.getApellido());
-                texto8.setValue(antiguojefeEstablecimiento.getEstado());
+                comboEstado.setValue(antiguojefeEstablecimiento.getEstado());
                 texto9.setValue(antiguojefeEstablecimiento.getEmail());
             }
         });
+
+        grid.addItemDoubleClickListener(new ComponentEventListener<ItemDoubleClickEvent<Jefe_Establecimiento>>() {
+            @Override
+            public void onComponentEvent(ItemDoubleClickEvent<Jefe_Establecimiento> event) {
+                BufferedImage imagen = null;
+                try {
+                    imagen = DataService.obtenerImagen(event.getItem().getCif());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+// Crear un objeto StreamResource que contiene los datos de la imagen
+                BufferedImage finalImagen = imagen;
+                StreamResource resource = new StreamResource("mapa"+ antiguojefeEstablecimiento.getCif()+".jpg", () -> {
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(finalImagen, "jpg", bos);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return new ByteArrayInputStream(bos.toByteArray());
+                });
+
+                botonDescarga.setHref(resource);
+                botonDescarga.setText("Descargar imagen");
+
+
+            }
+        });
+
 
         boton.addClickListener(new ComponentEventListener<ClickEvent<Button>>() {
             @Override
@@ -175,7 +252,7 @@ public class Gestion_Admin extends VerticalLayout {
                 String nom_establecimiento = texto5.getValue();
                 String name = texto6.getValue();
                 String apellido = texto7.getValue();
-                String estado = texto8.getValue();
+                String estado = comboEstado.getValue();
                 String email = texto9.getValue();
                 Jefe_Establecimiento nuevo_establecimiento = new Jefe_Establecimiento();
                 nuevo_establecimiento.setDireccion(direccion);
@@ -186,8 +263,10 @@ public class Gestion_Admin extends VerticalLayout {
                 nuevo_establecimiento.setApellido(apellido);
                 nuevo_establecimiento.setEstado(estado);
                 nuevo_establecimiento.setEmail(email);
+                nuevo_establecimiento.setPassword(antiguojefeEstablecimiento.getPassword());
                 nuevo_establecimiento.setNombre_establecimiento(nom_establecimiento);
-
+                System.out.println(nuevo_establecimiento);
+                System.out.println(antiguojefeEstablecimiento);
                 if(antiguojefeEstablecimiento.toString().equals(nuevo_establecimiento.toString())){
                     System.out.printf("Es el mismo objeto");
                 }
@@ -243,11 +322,31 @@ public class Gestion_Admin extends VerticalLayout {
 
 
 
-
+        DataService data = new DataService();
         this.setAlignItems(Alignment.CENTER);
         this.setHeightFull();
-        this.add(img,tit,tituloGrid,grid);
+        this.add(horizontalbtnAtras,img,tit, listaEstados, vLEstados, tituloGrid,grid);
 
+        atrasButton.addClickListener(event -> {
+            LoginView LV = new LoginView();
+            removeAll();
+            LV.LoginBasic();
+            add(LV);
+        });
+        reloadButton.addClickListener(e -> {
+            Gestion_Admin gA = new Gestion_Admin();
+            Admin adminNew = new Admin();
+            try {
+                adminNew = data.comprobarAdminInicio(administrador.getEmail(), administrador.getPassword());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            removeAll();
 
+            gA.gestionAdminView(adminNew);
+
+            add(gA);
+
+        });
     }
 }
