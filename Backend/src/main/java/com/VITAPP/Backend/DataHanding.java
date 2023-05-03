@@ -88,16 +88,16 @@ public class DataHanding {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
         Statement statement = conexionBBDD.createStatement();
-        System.out.println(discapacitado_vIsual.getEmail());
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT * from discapacitado_visual JOIN usuario ON usuario.ID = discapacitado_visual.ID AND usuario.Email = '%s'", discapacitado_vIsual.getEmail()));
-        if(resultSet.next()){
+        System.out.println(discapacitado_vIsual.getID());
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT * from discapacitado_visual JOIN usuario ON usuario.ID = discapacitado_visual.ID = '%d'", discapacitado_vIsual.getID()));
+        if(!resultSet.next()){
             conexionBBDD.close();
             return discapacitado_vIsualaux;
         }
         else{
             Statement statement1 = conexionBBDD.createStatement();
             int insertado1 = statement1.executeUpdate(String.format("INSERT INTO usuario (name, apellido, Email, password) VALUES ('%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getEmail(), discapacitado_vIsual.getPassword()));
-            int insertado2 = statement1.executeUpdate(String.format("INSERT INTO discapacitado_visual (ID, Nombre, Apellido, Password, Email) VALUES (LAST_INSERT_ID(), '%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getPassword(), discapacitado_vIsual.getEmail()));
+            int insertado2 = statement1.executeUpdate(String.format("INSERT INTO discapacitado_visual (ID, edificio, calle, fechaentrada, fechasalida) VALUES (LAST_INSERT_ID(), 'null', 'null', 'null', 'null');"));
             conexionBBDD.close();
             return discapacitado_vIsual;
         }
