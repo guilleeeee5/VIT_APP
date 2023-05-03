@@ -265,24 +265,5 @@ public class DataService {
         return imagen;
     }
 
-    public static ArrayList<Discapacitado_VIsual> sitiosVisitados() throws URISyntaxException {
-        ArrayList<Discapacitado_VIsual> discapacitado_vIsuals = new ArrayList<>();
-        HttpRequest httpRequest = HttpRequest.newBuilder().uri(new URI(urlPrefix + "/gestionSitios")).GET().build();
-        Gson gson = new Gson();
-        String resultado = null;
-        HttpResponse<String> respuesta = null;
 
-        try {
-            respuesta = HttpClient.newBuilder().build().send(httpRequest, HttpResponse.BodyHandlers.ofString());
-            resultado = respuesta.body();
-            discapacitado_vIsuals = gson.fromJson(resultado, new com.googlecode.gentyref.TypeToken<ArrayList<Discapacitado_VIsual>>() {
-            }.getType());
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        return discapacitado_vIsuals;
-    }
 }

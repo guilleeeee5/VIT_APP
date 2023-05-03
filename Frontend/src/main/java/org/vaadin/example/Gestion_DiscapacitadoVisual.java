@@ -15,6 +15,7 @@ import com.vaadin.flow.theme.lumo.Lumo;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Route("gestion_DiscapacitadoVisual")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
@@ -42,22 +43,24 @@ public class Gestion_DiscapacitadoVisual extends VerticalLayout {
         H1 tit = new H1("Establecimientos visitados por: "+ discapacitado.getName());
         tit.addClassName("tit_admin");
 
+        HorizontalLayout horizontalgrid = new HorizontalLayout();
         // Generar la tabla con los campos arriba puestos.
         Grid<Discapacitado_VIsual> grid2 = new Grid<>(Discapacitado_VIsual.class, false);
-        grid2.addColumn(Discapacitado_VIsual::getName).setHeader("Nombre");
-        grid2.addColumn(Discapacitado_VIsual::getApellido).setHeader("Apellido");
-        grid2.addColumn(Discapacitado_VIsual::getEmail).setHeader("Email");
+        grid2.isVerticalScrollingEnabled();
         grid2.addColumn(Discapacitado_VIsual::getEdificios).setHeader("Edificios");
+        grid2.addColumn(Discapacitado_VIsual::getCalle).setHeader("Calle");
         grid2.addColumn(Discapacitado_VIsual::getFechaentrada).setHeader("Fecha entrada");
         grid2.addColumn(Discapacitado_VIsual::getFechasalida).setHeader("Fecha salida");
 
 
         //Rellenno el arrayilst, con los datos recibidos
-        try {
-            listaDiscapacitado = DataService.sitiosVisitados();
-        }  catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        // create some Discapacitado_Visual objects
+        Discapacitado_VIsual d1 = new Discapacitado_VIsual("Lidl", "Calle Nunki", "2023-04-30 09:30:24", "2023-04-30 11:00:10");
+        Discapacitado_VIsual d2 = new Discapacitado_VIsual("Mercadona", "Calle Jazmin", "2023-04-30 11:30:24", "2023-04-30 13:00:10");
+        Discapacitado_VIsual d3 = new Discapacitado_VIsual("Manolo", "Calle Zenobia", "2023-05-02 09:20:15", "2023-05-02 11:59:37");
+        Discapacitado_VIsual d4 = new Discapacitado_VIsual("Lidl", "Calle Nunki", "2023-05-03 12:17:00", "2023-05-03 12:45:13");
+        Discapacitado_VIsual d5 = new Discapacitado_VIsual("Mercadona", "Calle Jazmin", "2023-05-03 13:17:05", "2023-05-03 17:10:15");
+        listaDiscapacitado.addAll(List.of(d5, d4, d3, d2, d1));
         grid2.setItems(listaDiscapacitado);
 
 

@@ -234,38 +234,6 @@ public class DataHanding {
         return imagenBytes;
     }
 
-    public ArrayList<Discapacitado_VIsual> sitiosvisitados() throws ClassNotFoundException, SQLException, ParseException {
-        ArrayList<Discapacitado_VIsual> lista = new ArrayList<>();
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
-        /*String sql = "SELECT Nombre, Email, Apellido, edificio, mapa, fechaentrada, fechasalida FROM discapacitado_visual";*/
-        String sql = "SELECT Nombre, Apellido, Email, edificio, fechaentrada, fechasalida FROM discapacitado_visual";
-        Statement statement = conexionBBDD.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        while (result.next()) {
-            Discapacitado_VIsual discapacitadoVIsual = new Discapacitado_VIsual();
-            String nombre = result.getString("Nombre");
-            String email = result.getString("Email");
-            String apellido = result.getString("Apellido");
-            String edificio = result.getString("edificio");
-            String fechaentrada = result.getString("fechaentrada");
-            String fechasalida = result.getString("fechasalida");
-            /*String fechaentradaStr = result.getString("fechaentrada");
-            String fechasalidaStr = result.getString("fechasalida");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date fechaentrada = dateFormat.parse(fechaentradaStr);
-            Date fechasalida = dateFormat.parse(fechasalidaStr);*/
-            discapacitadoVIsual.setName(nombre);
-            discapacitadoVIsual.setEmail(email);
-            discapacitadoVIsual.setApellido(apellido);
-            discapacitadoVIsual.setEdificio(edificio);
-            discapacitadoVIsual.setFechaentrada(fechaentrada);
-            discapacitadoVIsual.setFechasalida(fechasalida);
-            System.out.println(discapacitadoVIsual);
-            lista.add(discapacitadoVIsual);
-        }
-        return lista;
-    }
 
 
 }

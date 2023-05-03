@@ -5,24 +5,22 @@ import java.sql.Date;
 public class Discapacitado_VIsual extends User{
     private String edificio;
 
+    private String calle;
+
     //private Date fechaentrada;
     private String fechaentrada;
 
     //private Date fechasalida;
     private String fechasalida;
 
-    public Discapacitado_VIsual(String name, String apellido, String password, String email, int ID, String edificios, String fechaentrada, String fechasalida) {
-        super(name, apellido, password, email, ID);
+    public Discapacitado_VIsual(String edificios, String calle, String fechaentrada, String fechasalida) {
         this.edificio = edificios;
+        this.calle = calle;
         this.fechaentrada = fechaentrada;
         this.fechasalida = fechasalida;
     }
 
     public Discapacitado_VIsual() {
-    }
-
-    public Discapacitado_VIsual(String nombre, String apellido, String contrasena, String correo) {
-        super(nombre, apellido, contrasena, correo);
     }
 
     public String getFechaentrada() {
@@ -39,6 +37,14 @@ public class Discapacitado_VIsual extends User{
 
     public void setFechasalida(String fechasalida) {
         this.fechasalida = fechasalida;
+    }
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
     }
 
     public String getEdificios() {
