@@ -21,6 +21,13 @@ public class Discapacitado_VIsual extends User{
         this.fechasalida = fechasalida;
     }
 
+    public Discapacitado_VIsual(String edificios, String calle, String fechaentrada, String fechasalida) {
+        this.edificio = edificios;
+        this.calle = calle;
+        this.fechaentrada = fechaentrada;
+        this.fechasalida = fechasalida;
+    }
+
     public Discapacitado_VIsual() {
     }
 
