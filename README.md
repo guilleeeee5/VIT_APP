@@ -9,4 +9,5 @@
 <br>:white_check_mark: **Version 0.1** :point_right: Registro e inicio de sesión funcionales.
 <br>:white_check_mark: **Version 0.2** :point_right: Pagina de control de los establecimientos para el administrador funcional.
 <br>:white_check_mark: **Version 0.3** :point_right: Pagina de gestion de los jefes de estblecimiento funcional.
+<br>:white_check_mark: **Version 0.4** :point_right: Pagina de historial de edificos para el discapacitado visual funcional.
 
