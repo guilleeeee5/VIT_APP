@@ -6,13 +6,15 @@ public class Discapacitado_VIsual extends User{
     private String edificio;
 
     //private Date fechaentrada;
+    private String calle;
+
     private String fechaentrada;
     //private Date fechasalida;
     private String fechasalida;
 
-    public Discapacitado_VIsual(int ID, String name, String apellido, String password, String Email,  String edificio, String fechaentrada, String fechasalida) {
-        super(ID, name, apellido, password, Email);
-        this.edificio = edificio;
+    public Discapacitado_VIsual(String edificios, String calle, String fechaentrada, String fechasalida) {
+        this.edificio = edificios;
+        this.calle = calle;
         this.fechaentrada = fechaentrada;
         this.fechasalida = fechasalida;
     }
@@ -42,6 +44,14 @@ public class Discapacitado_VIsual extends User{
 
     public void setEdificio(String edificio) {
         this.edificio = edificio;
+    }
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
     }
 
     @Override
