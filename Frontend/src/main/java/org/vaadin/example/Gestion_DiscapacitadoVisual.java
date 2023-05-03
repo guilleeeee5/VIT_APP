@@ -55,12 +55,12 @@ public class Gestion_DiscapacitadoVisual extends VerticalLayout {
 
         //Rellenno el arrayilst, con los datos recibidos
         // create some Discapacitado_Visual objects
-        /*Discapacitado_VIsual d1 = new Discapacitado_VIsual("Lidl", "Calle Nunki", "2023-04-30 09:30:24", "2023-04-30 11:00:10");
+        Discapacitado_VIsual d1 = new Discapacitado_VIsual("Lidl", "Calle Nunki", "2023-04-30 09:30:24", "2023-04-30 11:00:10");
         Discapacitado_VIsual d2 = new Discapacitado_VIsual("Mercadona", "Calle Jazmin", "2023-04-30 11:30:24", "2023-04-30 13:00:10");
         Discapacitado_VIsual d3 = new Discapacitado_VIsual("Manolo", "Calle Zenobia", "2023-05-02 09:20:15", "2023-05-02 11:59:37");
         Discapacitado_VIsual d4 = new Discapacitado_VIsual("Lidl", "Calle Nunki", "2023-05-03 12:17:00", "2023-05-03 12:45:13");
         Discapacitado_VIsual d5 = new Discapacitado_VIsual("Mercadona", "Calle Jazmin", "2023-05-03 13:17:05", "2023-05-03 17:10:15");
-        listaDiscapacitado.addAll(List.of(d5, d4, d3, d2, d1));*/
+        listaDiscapacitado.addAll(List.of(d5, d4, d3, d2, d1));
         grid2.setItems(listaDiscapacitado);
 
 
