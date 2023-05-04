@@ -23,6 +23,7 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.component.upload.Receiver;
 import com.vaadin.flow.component.upload.Upload;
+import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
@@ -61,6 +62,7 @@ public class GestionJefe extends VerticalLayout {
         HorizontalLayout horizontalTecnico = new HorizontalLayout();
         HorizontalLayout horizontalConfeti = new HorizontalLayout();
         HorizontalLayout layoutMapa = new HorizontalLayout();
+        HorizontalLayout horizontalTextoImagen = new HorizontalLayout();
 
         Button atrasButton = new Button("Atras");
         Button reloadButton = new Button("Refrescar");
@@ -98,7 +100,9 @@ public class GestionJefe extends VerticalLayout {
         horizontalEstado.add(estado);
         horizontalEstado.setVisible(true);
 
+        Label textoImagen = new Label("Formatos de archivo aceptados: JPG/JPEG (.jpg/.jpeg)");
         //Configuracion del botón Upload imagen
+        MemoryBuffer memoryBuffer = new MemoryBuffer();
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(buffer);
         upload.setAcceptedFileTypes("application/jpg", ".jpg");
