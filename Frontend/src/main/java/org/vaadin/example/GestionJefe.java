@@ -104,7 +104,7 @@ public class GestionJefe extends VerticalLayout {
         //Configuracion del botón Upload imagen
         MemoryBuffer memoryBuffer = new MemoryBuffer();
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
-        Upload upload = new Upload(buffer);
+        Upload upload = new Upload(memoryBuffer);
         upload.setAcceptedFileTypes("application/jpg", ".jpg");
         int maxFileSizeInBytes = 10 * 1024 * 1024; // 10MB
         upload.setMaxFileSize(maxFileSizeInBytes);
@@ -112,7 +112,7 @@ public class GestionJefe extends VerticalLayout {
         upload.addSucceededListener(event -> {
             try {
                 String fileName = event.getFileName();
-                InputStream inputStream = buffer.getInputStream(fileName);
+                InputStream inputStream = memoryBuffer.getInputStream();
 
                 // Convertir la imagen a bytes
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
