@@ -105,7 +105,7 @@ public class GestionJefe extends VerticalLayout {
         MemoryBuffer memoryBuffer = new MemoryBuffer();
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
         Upload upload = new Upload(memoryBuffer);
-        upload.setAcceptedFileTypes("application/jpg", ".jpg");
+        upload.setAcceptedFileTypes("image/jpeg", ".jpeg", ".jpg");
         int maxFileSizeInBytes = 10 * 1024 * 1024; // 10MB
         upload.setMaxFileSize(maxFileSizeInBytes);
         upload.setMaxFiles(1);
@@ -329,7 +329,7 @@ public class GestionJefe extends VerticalLayout {
             }
         });
 
-        this.add(horizontalbtnAtras,imagenVitApp,horizontalTitulo,horizontalBienvenida, tabs, horizontalEstado, horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti, layoutMapa);
+        this.add(horizontalbtnAtras,imagenVitApp,horizontalTitulo,horizontalBienvenida, tabs, horizontalEstado, horizontalTextoImagen,horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti, layoutMapa);
         // Configurar layout
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
