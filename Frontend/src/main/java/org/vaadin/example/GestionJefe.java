@@ -23,6 +23,7 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.component.upload.Receiver;
 import com.vaadin.flow.component.upload.Upload;
+import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
@@ -61,6 +62,7 @@ public class GestionJefe extends VerticalLayout {
         HorizontalLayout horizontalTecnico = new HorizontalLayout();
         HorizontalLayout horizontalConfeti = new HorizontalLayout();
         HorizontalLayout layoutMapa = new HorizontalLayout();
+        HorizontalLayout horizontalTextoImagen = new HorizontalLayout();
 
         Button atrasButton = new Button("Atras");
         Button reloadButton = new Button("Refrescar");
@@ -98,17 +100,19 @@ public class GestionJefe extends VerticalLayout {
         horizontalEstado.add(estado);
         horizontalEstado.setVisible(true);
 
+        Label textoImagen = new Label("Formatos de archivo aceptados: JPG/JPEG (.jpg/.jpeg)");
         //Configuracion del botón Upload imagen
+        MemoryBuffer memoryBuffer = new MemoryBuffer();
         MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
-        Upload upload = new Upload(buffer);
-        upload.setAcceptedFileTypes("application/jpg", ".jpg");
+        Upload upload = new Upload(memoryBuffer);
+        upload.setAcceptedFileTypes("image/jpeg", ".jpeg", ".jpg");
         int maxFileSizeInBytes = 10 * 1024 * 1024; // 10MB
         upload.setMaxFileSize(maxFileSizeInBytes);
         upload.setMaxFiles(1);
         upload.addSucceededListener(event -> {
             try {
                 String fileName = event.getFileName();
-                InputStream inputStream = buffer.getInputStream(fileName);
+                InputStream inputStream = memoryBuffer.getInputStream();
 
                 // Convertir la imagen a bytes
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -121,7 +125,7 @@ public class GestionJefe extends VerticalLayout {
 
                 // Hacer la petición PUT al back
                 HttpClient httpClient = HttpClient.newHttpClient();
-                String url = "http://localhost:8081/Imagen/" + cif;
+                String url = "http://Backend:8081/Imagen/" + cif;
                 HttpRequest httpRequest = HttpRequest.newBuilder()
                         .uri(URI.create(url))
                         .setHeader("Content-Type", "image/jpg")
@@ -139,7 +143,9 @@ public class GestionJefe extends VerticalLayout {
             }
         });
 
-        //Añadimos el objeto para subir la imagen
+        //Añadimos el objeto y el texto para subir la imagen
+        horizontalTextoImagen.add(textoImagen);
+        horizontalTextoImagen.setVisible(false);
         horizontalLayoutUpload.add(upload);
         horizontalLayoutUpload.setVisible(false);
 
@@ -206,6 +212,7 @@ public class GestionJefe extends VerticalLayout {
                 //upload map estadisticas no
                 horizontalConfeti.setVisible(false);
                 horizontalLayoutUpload.setVisible(true);
+                horizontalTextoImagen.setVisible(true);
                 horizontalTecnico.setVisible(false);
                 layoutMapa.setVisible(false);
                 break;
@@ -213,6 +220,7 @@ public class GestionJefe extends VerticalLayout {
                 horizontalConfeti.setVisible(false);
                 ///ve el mapa
                 horizontalLayoutUpload.setVisible(false);
+                horizontalTextoImagen.setVisible(false);
                 horizontalTecnico.setVisible(false);
                 layoutMapa.setVisible(true);
                 break;
@@ -220,12 +228,14 @@ public class GestionJefe extends VerticalLayout {
                 horizontalConfeti.setVisible(false);
                 ///ve la imagen de un técnico
                 horizontalLayoutUpload.setVisible(false);
+                horizontalTextoImagen.setVisible(false);
                 horizontalTecnico.setVisible(true);
                 layoutMapa.setVisible(false);
                 break;
             case "4": //Se confirma que eres miembro de VIT y ves las estadísticas
                 //Ve mapa y estadísticas
                 horizontalLayoutUpload.setVisible(false);
+                horizontalTextoImagen.setVisible(false);
                 horizontalTecnico.setVisible(false);
                 horizontalConfeti.setVisible(true);
                 layoutMapa.setVisible(false);
@@ -246,6 +256,7 @@ public class GestionJefe extends VerticalLayout {
                         case "0": //Se están revisando los datos del establecimiento
                             //todo a false
                             horizontalLayoutUpload.setVisible(false);
+                            horizontalTextoImagen.setVisible(false);
                             horizontalTecnico.setVisible(false);
                             horizontalConfeti.setVisible(false);
                             layoutMapa.setVisible(false);
@@ -254,12 +265,14 @@ public class GestionJefe extends VerticalLayout {
                             //upload map estadisticas no
                             horizontalConfeti.setVisible(false);
                             horizontalLayoutUpload.setVisible(true);
+                            horizontalTextoImagen.setVisible(true);
                             horizontalTecnico.setVisible(false);
                             break;
                         case "2": //Se está verificando el mapa
                             horizontalConfeti.setVisible(false);
                             ///ve el mapa
                             horizontalLayoutUpload.setVisible(false);
+                            horizontalTextoImagen.setVisible(false);
                             horizontalTecnico.setVisible(false);
                             layoutMapa.setVisible(true);
                             layoutMapa.setVisible(true);
@@ -268,12 +281,14 @@ public class GestionJefe extends VerticalLayout {
                             horizontalConfeti.setVisible(false);
                             ///ve la imagen de un técnico
                             horizontalLayoutUpload.setVisible(false);
+                            horizontalTextoImagen.setVisible(false);
                             horizontalTecnico.setVisible(true);
                             layoutMapa.setVisible(false);
                             break;
                         case "4": //Se confirma que eres miembro de VIT y ves las estadísticas
                             //Ve mapa y estadísticas
                             horizontalLayoutUpload.setVisible(false);
+                            horizontalTextoImagen.setVisible(false);
                             horizontalTecnico.setVisible(false);
                             horizontalConfeti.setVisible(true);
                             layoutMapa.setVisible(false);
@@ -284,6 +299,7 @@ public class GestionJefe extends VerticalLayout {
                 else{ //SI ESTÁS EN LA PESTAÑA DE ESTADÍSTICAS, SOLO VES LAS ESTADÍSTICAS CUANDO ERES MIEMBRO VIT
                     horizontalEstado.setVisible(false);//estado
                     horizontalLayoutUpload.setVisible(false);//upload
+                    horizontalTextoImagen.setVisible(false);
                     horizontalTecnico.setVisible(false);
                     horizontalConfeti.setVisible(false);
                     layoutMapa.setVisible(false);
@@ -313,7 +329,7 @@ public class GestionJefe extends VerticalLayout {
             }
         });
 
-        this.add(horizontalbtnAtras,imagenVitApp,horizontalTitulo,horizontalBienvenida, tabs, horizontalEstado, horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti, layoutMapa);
+        this.add(horizontalbtnAtras,imagenVitApp,horizontalTitulo,horizontalBienvenida, tabs, horizontalEstado, horizontalTextoImagen,horizontalLayoutUpload, horizontalTecnico, horizontalEstadisticas, horizontalConfeti, layoutMapa);
         // Configurar layout
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);

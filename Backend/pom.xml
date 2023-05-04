@@ -8,9 +8,9 @@
 		<version>2.7.8</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.VIT-APP</groupId>
+	<groupId>com.vit</groupId>
 	<artifactId>Backend</artifactId>
-	<version>0.4</version>
+	<version>1.0</version>
 	<name>Backend</name>
 	<description>Proyecto Backend para VIT_APP</description>
 	<properties>

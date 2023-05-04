@@ -24,7 +24,7 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
 public class DataService {
-    private static final String urlPrefix = "http://localhost:8081";
+    private static final String urlPrefix = "http://Backend:8081";
 
     public static Jefe_Establecimiento comprobarJefeInicio(@RequestParam String email, @RequestParam String pasword) throws IOException {
 

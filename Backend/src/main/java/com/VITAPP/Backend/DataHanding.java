@@ -39,12 +39,13 @@ public class DataHanding {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
         Statement statement = conexionBBDD.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, jefe_establecimiento.Direccion, jefe_establecimiento.Ciudad, jefe_establecimiento.Codigo_Postal, jefe_establecimiento.Nombre_Establecimiento, jefe_establecimiento.estado, jefe_establecimiento.CIF from usuario JOIN jefe_establecimiento ON usuario.ID = jefe_establecimiento.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, usuario.password, jefe_establecimiento.Direccion, jefe_establecimiento.Ciudad, jefe_establecimiento.Codigo_Postal, jefe_establecimiento.Nombre_Establecimiento, jefe_establecimiento.estado, jefe_establecimiento.CIF from usuario JOIN jefe_establecimiento ON usuario.ID = jefe_establecimiento.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
         while (resultSet.next())
         {
             String nombre = resultSet.getString("name");
             String apellido = resultSet.getString("apellido");
             String Email = resultSet.getString("Email");
+            String Password = resultSet.getString("password");
             String direccion = resultSet.getString("Direccion");
             String ciudad = resultSet.getString("Ciudad");
             String Codigo_Postal = resultSet.getString("Codigo_Postal");
@@ -54,6 +55,7 @@ public class DataHanding {
             jefeAux.setName(nombre);
             jefeAux.setApellido(apellido);
             jefeAux.setEmail(Email);
+            jefeAux.setPassword(Password);
             jefeAux.setDireccion(direccion);
             jefeAux.setCiudad(ciudad);
             jefeAux.setCodigo_Postal(Codigo_Postal);
@@ -70,13 +72,18 @@ public class DataHanding {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
         Statement statement = conexionBBDD.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido from usuario JOIN admin ON usuario.ID = admin.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT usuario.name, usuario.apellido, usuario.Email, usuario.password from usuario JOIN admin ON usuario.ID = admin.ID AND usuario.Email = '%s' AND '%s' = usuario.password", email, password));
         while (resultSet.next())
         {
             String nombre = resultSet.getString("name");
             String apellido = resultSet.getString("apellido");
+            String Email = resultSet.getString("Email");
+            String Password = resultSet.getString("password");
+
             adminAux.setName(nombre);
             adminAux.setApellido(apellido);
+            adminAux.setEmail(Email);
+            adminAux.setPassword(Password);
         }
         conexionBBDD.close();
         return adminAux;
@@ -88,16 +95,16 @@ public class DataHanding {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexionBBDD = DriverManager.getConnection("jdbc:mysql://nlcapacities.com:7002/nlcapacities", "dom-nlcapacities", "rg48Q59Rt7-97");
         Statement statement = conexionBBDD.createStatement();
-        System.out.println(discapacitado_vIsual.getEmail());
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT * from discapacitado_visual JOIN usuario ON usuario.ID = discapacitado_visual.ID AND usuario.Email = '%s'", discapacitado_vIsual.getEmail()));
-        if(resultSet.next()){
+        System.out.println(discapacitado_vIsual.getID());
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT * from discapacitado_visual JOIN usuario ON usuario.ID = discapacitado_visual.ID = '%d'", discapacitado_vIsual.getID()));
+        if(!resultSet.next()){
             conexionBBDD.close();
             return discapacitado_vIsualaux;
         }
         else{
             Statement statement1 = conexionBBDD.createStatement();
             int insertado1 = statement1.executeUpdate(String.format("INSERT INTO usuario (name, apellido, Email, password) VALUES ('%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getEmail(), discapacitado_vIsual.getPassword()));
-            int insertado2 = statement1.executeUpdate(String.format("INSERT INTO discapacitado_visual (ID, Nombre, Apellido, Password, Email) VALUES (LAST_INSERT_ID(), '%s', '%s', '%s', '%s');", discapacitado_vIsual.getName(), discapacitado_vIsual.getApellido(), discapacitado_vIsual.getPassword(), discapacitado_vIsual.getEmail()));
+            int insertado2 = statement1.executeUpdate(String.format("INSERT INTO discapacitado_visual (ID, edificio, calle, fechaentrada, fechasalida) VALUES (LAST_INSERT_ID(), 'null', 'null', 'null', 'null');"));
             conexionBBDD.close();
             return discapacitado_vIsual;
         }
