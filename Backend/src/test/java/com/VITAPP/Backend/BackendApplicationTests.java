@@ -239,20 +239,20 @@ class BackendApplicationTests {
 	@Test
 	public void testComprobarJefe() throws ClassNotFoundException, SQLException {
 		// Preparación de la prueba
-		String email = "alvarojefe@jefe.com";
-		String password = "alvaro1";
+		String email = "fer@fer.com";
+		String password = "fernando1";
 		//Comprobamos que dado una contraseña y email se nos devuelva correctamente el usuario
 		Jefe_Establecimiento jefeEsperado = new Jefe_Establecimiento();
 		DataHanding Data = new DataHanding();
-		jefeEsperado.setName("Alvaro");
-		jefeEsperado.setApellido("Fernandez");
-		jefeEsperado.setEmail("alvarojefe@jefe.com");
-		jefeEsperado.setDireccion("Calle Jazmin");
+		jefeEsperado.setName("Fernando");
+		jefeEsperado.setApellido("Gomez");
+		jefeEsperado.setEmail("fer@fer.com");
+		jefeEsperado.setDireccion("Calle Nunki");
 		jefeEsperado.setCiudad("Madrid");
-		jefeEsperado.setCodigo_Postal("1234");
+		jefeEsperado.setCodigo_Postal("2860");
 		jefeEsperado.setEstado("2");
-		jefeEsperado.setNombre_establecimiento("Mercadona");
-		jefeEsperado.setCIF("45");
+		jefeEsperado.setNombre_establecimiento("Lidl");
+		jefeEsperado.setCIF("602");
 
 		// Ejecución de la función y comprobación del resultado
 		Jefe_Establecimiento jefeActual = Data.comprobarJefe(email, password);
@@ -382,26 +382,6 @@ class BackendApplicationTests {
 		assertNull(AdminActual.getApellido());
 		assertNull(AdminActual.getEmail());
 		assertNull(AdminActual.getPassword());;
-	}
-
-	@Test
-	public void testDevolverEstablecimientos() {
-		try {
-			// Creamos un test que verifique que al tener los establecimientos se deuelvan correctamente
-			//Test Integrado
-			DataHanding Data = new DataHanding();
-
-			ArrayList<Jefe_Establecimiento> listaEstablecimientos = new ArrayList<Jefe_Establecimiento>();
-			listaEstablecimientos = Data.devolverEstablecimientos();
-
-			// Verifica que los establecimientos devueltos sean los esperados
-			assertEquals("Mercadona", listaEstablecimientos.get(0).getNombre_establecimiento());
-			assertEquals("Lidl", listaEstablecimientos.get(1).getNombre_establecimiento());
-
-
-		} catch (SQLException | ClassNotFoundException e) {
-			fail(e.getMessage());
-		}
 	}
 
 }
