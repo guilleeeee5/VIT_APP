@@ -143,7 +143,9 @@ public class GestionJefe extends VerticalLayout {
             }
         });
 
-        //Añadimos el objeto para subir la imagen
+        //Añadimos el objeto y el texto para subir la imagen
+        horizontalTextoImagen.add(textoImagen);
+        horizontalTextoImagen.setVisible(false);
         horizontalLayoutUpload.add(upload);
         horizontalLayoutUpload.setVisible(false);
 
@@ -210,6 +212,7 @@ public class GestionJefe extends VerticalLayout {
                 //upload map estadisticas no
                 horizontalConfeti.setVisible(false);
                 horizontalLayoutUpload.setVisible(true);
+                horizontalTextoImagen.setVisible(true);
                 horizontalTecnico.setVisible(false);
                 layoutMapa.setVisible(false);
                 break;
@@ -217,6 +220,7 @@ public class GestionJefe extends VerticalLayout {
                 horizontalConfeti.setVisible(false);
                 ///ve el mapa
                 horizontalLayoutUpload.setVisible(false);
+                horizontalTextoImagen.setVisible(false);
                 horizontalTecnico.setVisible(false);
                 layoutMapa.setVisible(true);
                 break;
@@ -224,12 +228,14 @@ public class GestionJefe extends VerticalLayout {
                 horizontalConfeti.setVisible(false);
                 ///ve la imagen de un técnico
                 horizontalLayoutUpload.setVisible(false);
+                horizontalTextoImagen.setVisible(false);
                 horizontalTecnico.setVisible(true);
                 layoutMapa.setVisible(false);
                 break;
             case "4": //Se confirma que eres miembro de VIT y ves las estadísticas
                 //Ve mapa y estadísticas
                 horizontalLayoutUpload.setVisible(false);
+                horizontalTextoImagen.setVisible(false);
                 horizontalTecnico.setVisible(false);
                 horizontalConfeti.setVisible(true);
                 layoutMapa.setVisible(false);
@@ -250,6 +256,7 @@ public class GestionJefe extends VerticalLayout {
                         case "0": //Se están revisando los datos del establecimiento
                             //todo a false
                             horizontalLayoutUpload.setVisible(false);
+                            horizontalTextoImagen.setVisible(false);
                             horizontalTecnico.setVisible(false);
                             horizontalConfeti.setVisible(false);
                             layoutMapa.setVisible(false);
@@ -258,12 +265,14 @@ public class GestionJefe extends VerticalLayout {
                             //upload map estadisticas no
                             horizontalConfeti.setVisible(false);
                             horizontalLayoutUpload.setVisible(true);
+                            horizontalTextoImagen.setVisible(true);
                             horizontalTecnico.setVisible(false);
                             break;
                         case "2": //Se está verificando el mapa
                             horizontalConfeti.setVisible(false);
                             ///ve el mapa
                             horizontalLayoutUpload.setVisible(false);
+                            horizontalTextoImagen.setVisible(false);
                             horizontalTecnico.setVisible(false);
                             layoutMapa.setVisible(true);
                             layoutMapa.setVisible(true);
@@ -272,12 +281,14 @@ public class GestionJefe extends VerticalLayout {
                             horizontalConfeti.setVisible(false);
                             ///ve la imagen de un técnico
                             horizontalLayoutUpload.setVisible(false);
+                            horizontalTextoImagen.setVisible(false);
                             horizontalTecnico.setVisible(true);
                             layoutMapa.setVisible(false);
                             break;
                         case "4": //Se confirma que eres miembro de VIT y ves las estadísticas
                             //Ve mapa y estadísticas
                             horizontalLayoutUpload.setVisible(false);
+                            horizontalTextoImagen.setVisible(false);
                             horizontalTecnico.setVisible(false);
                             horizontalConfeti.setVisible(true);
                             layoutMapa.setVisible(false);
@@ -288,6 +299,7 @@ public class GestionJefe extends VerticalLayout {
                 else{ //SI ESTÁS EN LA PESTAÑA DE ESTADÍSTICAS, SOLO VES LAS ESTADÍSTICAS CUANDO ERES MIEMBRO VIT
                     horizontalEstado.setVisible(false);//estado
                     horizontalLayoutUpload.setVisible(false);//upload
+                    horizontalTextoImagen.setVisible(false);
                     horizontalTecnico.setVisible(false);
                     horizontalConfeti.setVisible(false);
                     layoutMapa.setVisible(false);
