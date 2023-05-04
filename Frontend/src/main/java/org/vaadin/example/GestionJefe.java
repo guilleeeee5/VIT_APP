@@ -125,7 +125,7 @@ public class GestionJefe extends VerticalLayout {
 
                 // Hacer la petición PUT al back
                 HttpClient httpClient = HttpClient.newHttpClient();
-                String url = "http://localhost:8081/Imagen/" + cif;
+                String url = "http://Backend:8081/Imagen/" + cif;
                 HttpRequest httpRequest = HttpRequest.newBuilder()
                         .uri(URI.create(url))
                         .setHeader("Content-Type", "image/jpg")

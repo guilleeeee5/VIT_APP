@@ -246,6 +246,7 @@ class BackendApplicationTests {
 		DataHanding Data = new DataHanding();
 		jefeEsperado.setName("Fernando");
 		jefeEsperado.setApellido("Gomez");
+		jefeEsperado.setPassword("fernando1");
 		jefeEsperado.setEmail("fer@fer.com");
 		jefeEsperado.setDireccion("Calle Nunki");
 		jefeEsperado.setCiudad("Madrid");
