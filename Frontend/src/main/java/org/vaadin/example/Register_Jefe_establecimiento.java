@@ -49,7 +49,11 @@ public class Register_Jefe_establecimiento extends VerticalLayout
         TextField nombreEstablecimiento = new TextField("Nombre de Establecimiento");
 
         TextField CP = new TextField("Codigo Postal");
+        CP.setMaxLength(5);
+        CP.setErrorMessage("El CP solo puede tener una longitud de 5 caracteres");
         TextField cif = new TextField("CIF");
+        cif.setMaxLength(9);
+        cif.setErrorMessage("El CIF solo puede tener una longitud de 9 caracteres");
         Button registerButton = new Button("Registrarse"); // Usar com.vaadin.flow.component.button.Button
         registerButton.addClassName("btn_registro");
         Button atrasButton = new Button("Atras");
